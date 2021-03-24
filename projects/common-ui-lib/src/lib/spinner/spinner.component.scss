@@ -1,0 +1,7 @@
+:host {
+  --color: var(--primary);
+}
+
+.iras-spinner-container .mat-progress-spinner circle {
+  stroke: var(--color);
+}

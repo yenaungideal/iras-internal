@@ -1,0 +1,28 @@
+<div [formGroup]="customForm" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start end">
+  <div [fxFlex]="entityIdFlex" fxFlexAlign="stretch">
+    <iras-input
+      class="iras-input-search"
+      [label]="entityIdLabel"
+      formControlName="id"
+      [placeholder]="entityIdPlaceholder"
+      [showRequiredSymbol]="isRequired && entityIdLabel"
+      [disabled]="disabled"
+      [hasError]="hasError || (showValidationError && entityId.invalid && entityId.touched)"
+      [clearable]="true"
+    >
+    </iras-input>
+  </div>
+  <div [fxFlex]="entityTypeFlex">
+    <iras-dropdown
+      class="iras-dropdown-search"
+      [label]="entityTypeLabel"
+      formControlName="type"
+      [placeholder]="entityTypePlaceholder"
+      [showRequiredSymbol]="isRequired && entityTypeLabel"
+      [data]="entityTypeList"
+      [disabled]="disabled"
+      [hasError]="hasError || (showValidationError && entityType.invalid && entityType.touched)"
+    >
+    </iras-dropdown>
+  </div>
+</div>

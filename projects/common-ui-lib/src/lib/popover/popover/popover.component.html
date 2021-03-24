@@ -1,0 +1,9 @@
+<div
+  [@fade]="show ? 'fadeIn' : 'fadeOut'"
+  (@fade.done)="fadeDone($event)"
+  class="popover-container"
+  ngClass.xs="popover-container popover-mobile"
+>
+  <ng-template [cdkPortalOutlet]="portalType === 'component' ? componentPortal : templatePortal"></ng-template>
+  <div class="arrow"></div>
+</div>

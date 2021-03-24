@@ -1,0 +1,18 @@
+:host {
+  --input-height: 34px;
+  --date-picker-input-height: var(--input-height);
+  --date-picker-background: var(--light);
+}
+
+.start-picker,
+.end-picker {
+  --input-height: var(--date-picker-input-height);
+  --background: var(--date-picker-background);
+}
+.range-label {
+  font-weight: 600;
+}
+
+.range-picker {
+  background: var(--date-picker-background);
+}

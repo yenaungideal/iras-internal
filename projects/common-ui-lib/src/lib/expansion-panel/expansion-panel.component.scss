@@ -1,0 +1,82 @@
+@import "../../assets/styles/utilities/iras.globals";
+@import "../../assets/styles/base";
+:host {
+  --padding: 15px;
+  --border-radius: 5px;
+  --border: 1px solid var(--grey-tint);
+  --background: var(--light);
+  --box-shadow: none;
+  --hover-border-color: var(--grey);
+  --expansion-panel-height: 100%;
+  --expansion-panel-width: 100%;
+  --box-sizing: border-box;
+}
+
+.iras-expansion-panel {
+  border-radius: var(--border-radius);
+  border-left: var(--border);
+  border-right: var(--border);
+  border-bottom: var(--border);
+  background: var(--background);
+  height: var(--expansion-panel-height);
+  width: var(--expansion-panel-width);
+  box-sizing: var(--box-sizing);
+  &:hover {
+    box-shadow: var(--box-shadow);
+    border-color: var(--hover-border-color);
+  }
+
+  .mat-expansion-panel-spacing {
+    margin: unset;
+    .mat-expansion-panel-header {
+      .iras-icon {
+        transform: rotateX(150deg);
+      }
+
+      &:hover {
+        background: var(--grey-contrast);
+      }
+    }
+
+    .mat-expansion-panel-content {
+      display: block;
+      background: var(--dark-contrast);
+      padding: 20px;
+
+      .mat-expansion-panel-body {
+        padding: 0;
+      }
+    }
+  }
+
+  .mat-expansion-panel-header {
+    border-radius: unset;
+    border-top: var(--border);
+    border-bottom: var(--border);
+    background: var(--white);
+    padding: 15px 20px 15px 20px;
+    &:hover {
+      background: var(--grey-contrast);
+    }
+
+    .mat-expansion-panel-header-title {
+      color: var(--primary);
+      font-size: 18px;
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--primary-shade);
+        text-decoration: none;
+      }
+    }
+  }
+
+  .mat-expansion-panel-content {
+    background: var(--primary-contrast);
+    padding: 0px 20px;
+
+    .mat-expansion-panel-body {
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<div class="error-panel" fxFlex="100">
+  <div>
+    <span fxHide.gt-xs fxShow.xs class="icon-box__icon icon-mobile"></span>
+    <span fxHide.xs fxShow.gt-xs class="icon-box__icon icon-desktop"></span>
+  </div>
+  <div *ngIf="errorDescription.headerTitle" class="error-header-title">
+    {{ errorDescription.headerTitle }}
+  </div>
+  <div class="error-description" *ngIf="errorDescription.description">
+    <div *ngFor="let description of errorDescription.description">
+      {{ description }}
+    </div>
+  </div>
+  <div class="error-action" *ngIf="errorDescription.action">
+    <iras-custom-button
+      [buttonText]="errorDescription.action"
+      fill="solid"
+      shape="round"
+      color="secondary"
+    ></iras-custom-button>
+  </div>
+  <div class="error-description" *ngIf="errorDescription.others">
+    {{ errorDescription.others }}
+  </div>
+  <div class="error-timestamp" *ngIf="errorDescription.timestamp">
+    {{ errorDescription.timestamp }}
+  </div>
+</div>

@@ -1,0 +1,77 @@
+@import "./../../../assets/styles/utilities/iras.globals.scss";
+
+:host {
+  --position: relative;
+  --background-color: var(--primary);
+  --height: 36px;
+  --border-radius: 18px;
+  --expanded-width: 450px;
+  --font-color: var(--light);
+}
+
+.button-menu {
+  height: var(--height);
+  color: var(--font-color);
+}
+
+.button-menu__items-container {
+  position: relative;
+  color: var(--light);
+  height: 100%;
+  width: 100%;
+}
+
+ul.button-menu__items-list {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  top: 20%;
+}
+
+.button-menu__item {
+  position: relative;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-size: $size-18;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.button-menu__item:not(:first-child) {
+  padding: 0 10px;
+}
+
+.button-menu__item:first-child {
+  padding-right: 10px;
+}
+
+.button-menu__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  z-index: 100;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 12px;
+  background: white;
+}
+
+.button-menu__plus-icon .iras-button__shape--circle {
+  --width: 36px;
+
+  width: var(--width);
+  height: var(--height);
+
+  --button-padding: 0;
+
+  &:hover {
+    background-color: var(--background-color);
+    border-color: var(--background-color);
+  }
+}

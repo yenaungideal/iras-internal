@@ -1,0 +1,46 @@
+@function current-color($variation, $alpha: null) {
+  @if $alpha == null {
+    @return var(--#{$variation});
+  } @else {
+    @return rgba(var(--#{$variation}-rgb), #{$alpha});
+  }
+}
+
+@function get-iras-color($name, $variation, $alpha: null, $rgb: null) {
+  $values: map-get($colors, $name);
+
+  $variable: --#{$name}-#{$variation};
+  $value: var(#{$variable});
+  @if ($variation == base) {
+    $variable: --#{$name};
+  }
+
+  @if ($alpha) {
+    $value: color-to-rgb-list($value);
+    @return rgba(var(#{$variable}-rgb, $value), $alpha);
+  }
+  @if ($rgb) {
+    $value: color-to-rgb-list($value);
+    $variable: #{$variable}-rgb;
+  }
+
+  @return var(#{$variable}, $value);
+}
+
+// Mixes a color with black to create its shade.
+// --------------------------------------------------------------------------------------------
+@function get-color-shade($color) {
+  @return mix(#000, $color, 12%);
+}
+
+// Mixes a color with white to create its tint.
+// --------------------------------------------------------------------------------------------
+@function get-color-tint($color) {
+  @return mix(#fff, $color, 10%);
+}
+
+// Converts a color to a comma separated rgb.
+// --------------------------------------------------------------------------------------------
+@function color-to-rgb-list($color) {
+  @return #{red($color)}, #{green($color)}, #{blue($color)};
+}

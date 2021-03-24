@@ -1,0 +1,151 @@
+@import "./../../../assets/styles/mixins/app.mixin";
+@import "./../../../assets/styles/theming/iras-default.theme";
+@import "./../../../assets/styles/utilities/iras.globals";
+@import "./button.vars";
+:host {
+  --color: var(--primary);
+  --font-weight: 600;
+  --font-size: 16px;
+  --text-decoration: none;
+  --text-decoration-hover: none;
+  --button-padding: 10px 20px;
+  --button-height: 43px;
+  --border-radius: 0;
+  --text-transform: uppercase;
+  --min-width: 65px;
+  --border-width: 2px;
+  @include text-inherit();
+}
+
+.iras-button__container {
+  height: var(--button-height);
+}
+
+.iras-button {
+  width: 100%;
+  min-width: var(--min-width);
+  vertical-align: middle;
+  touch-action: manipulation;
+  background-image: none;
+  border-style: solid;
+  text-align: center;
+  white-space: nowrap;
+  text-transform: var(--text-transform);
+  line-height: normal;
+  font-weight: var(--font-weight);
+  font-size: var(--font-size);
+  font-family: "Source Sans Pro", Times, serif;
+  text-decoration: var(--text-decoration);
+  padding: var(--button-padding);
+  height: var(--button-height);
+  cursor: pointer;
+  &:hover {
+    outline: 0;
+    color: var(--contrast);
+    background-color: var(--shade);
+    border-color: var(--shade);
+    text-decoration: var(--text-decoration-hover);
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+.iras-button__container--disabled {
+  .iras-button {
+    cursor: $cursor-disabled;
+    background-color: var(--grey-tint);
+    color: var(--light);
+    pointer-events: none;
+    text-decoration: none;
+  }
+}
+// Button fill
+.iras-button__fill {
+  &--solid {
+    border-width: var(--border-width);
+    background-color: current-color(base);
+    color: current-color(contrast);
+    border-color: transparent;
+  }
+
+  &--negative {
+    border-width: 0;
+    background-color: transparent;
+    color: var(--primary);
+    text-decoration: underline;
+    border-color: transparent;
+  }
+
+  &--negative:hover {
+    outline: 0;
+    color: var(--primary);
+    background-color: var(--grey-contrast);
+    border-color: transparent;
+    text-decoration: var(--text-decoration-hover);
+  }
+
+  &--outline {
+    border-width: var(--border-width);
+    border-color: current-color(base);
+    background-color: transparent;
+    color: current-color(base);
+  }
+  &--clear {
+    border-width: 0;
+    background-color: transparent;
+    color: current-color(contrast);
+  }
+}
+
+.iras-button__shape {
+  &--round {
+    border-radius: 5px;
+  }
+
+  &--circle {
+    border-radius: 50%;
+    width: var(--button-height);
+    padding: 0;
+  }
+
+  &--default {
+    border-radius: calc(var(--button-height) / 4);
+  }
+
+  &--custom {
+    border-radius: var(--border-radius);
+  }
+}
+
+.iras-button__spinner {
+  @keyframes spinner-border {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spinner-border {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: text-bottom;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+    margin-top: -2px;
+  }
+}
+
+.iras-button__hide-content {
+  visibility: hidden;
+}
+
+.iras-button__content {
+  .iras-button__icon {
+    height: calc(var(--button-height) / 2.9);
+    padding-right: 7px;
+    float: left;
+    padding-top: 3px;
+  }
+}

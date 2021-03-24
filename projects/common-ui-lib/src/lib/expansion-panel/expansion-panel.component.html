@@ -1,0 +1,13 @@
+<div class="iras-expansion-panel" [ngClass]="getExpansionPanelClassList()">
+  <mat-accordion [multi]="multi" hideToggle>
+    <mat-expansion-panel *ngFor="let item of templatePortalList" [disabled]="disabled">
+      <mat-expansion-panel-header [collapsedHeight]="'12px'" [expandedHeight]="'12px'">
+        <mat-panel-title>
+          {{ item.title }}
+        </mat-panel-title>
+        <span class="iras-icon iras-icon--caret-svg"></span>
+      </mat-expansion-panel-header>
+      <ng-template [cdkPortalOutlet]="item.templatePortal"></ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

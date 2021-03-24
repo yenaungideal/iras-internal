@@ -1,0 +1,35 @@
+<h3>Spinner Progress</h3>
+<div fxLayout="row wrap">
+  <iras-spinner
+    aria-label="Spinner"
+    fxFlex="100"
+    class="iras-spinner"
+    mode="indeterminate"
+    diameter="30"
+    strokeWidth="4"
+  ></iras-spinner>
+  <iras-custom-button
+    aria-label="Open spinner in modal"
+    [style.margin-top]="'20px'"
+    class="home__button-with-custom-padding"
+    buttonText="Open spinner in modal"
+    fxFlex.lt-xl="30"
+    fxFlex.xl="20"
+    fill="solid"
+    shape="round"
+    color="primary"
+    (click)="openModal()"
+  ></iras-custom-button>
+</div>
+<ng-template #spinnerRef>
+  <div fxFlex="100" class="spinner-container" fxLayout="column" fxLayoutAlign="center center">
+    <iras-spinner
+      aria-label="Spinner"
+      class="spinner-container__spinner"
+      mode="indeterminate"
+      diameter="50"
+      strokeWidth="6"
+    ></iras-spinner>
+    <span class="spinner-container__text">Auto-Saving Draft...</span>
+  </div>
+</ng-template>

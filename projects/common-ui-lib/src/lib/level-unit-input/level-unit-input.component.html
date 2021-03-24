@@ -1,0 +1,79 @@
+<div fxFlex="100" fxLayout="row">
+  <form [formGroup]="levelUnitForm">
+    <div class="input" fxFlex="100" fxLayout="column">
+      <div
+        *ngIf="label || tooltipText"
+        class="input__label"
+        fxLayout="row"
+        fxLayoutGap="5px"
+        fxLayoutAlign="start center"
+      >
+        <div *ngIf="label">
+          <span>{{ label }}</span
+          ><span class="input__required-symbol" *ngIf="showRequiredSymbol">*</span>
+        </div>
+        <iras-tooltip *ngIf="tooltipText" [tooltipContentText]="tooltipText"></iras-tooltip>
+      </div>
+
+      <div fxLayout="row" class="input__container">
+        <div fxFlex="10px" fxLayoutAlign="center center">
+          <span>#</span>
+        </div>
+
+        <div class="input__field__container" fxFlex="20">
+          <input
+            fxFlex="100"
+            type="text"
+            formControlName="level"
+            class="input__field"
+            [class.input__field--has-error]="hasError"
+            [class.input__field--text-align-right]="clearablePosition === 'start'"
+            [fxFlexOrder]="clearablePosition === 'start' ? 1 : 2"
+            (focusin)="onFocusIn($event)"
+            (focusout)="onFocusOut()"
+            #levelInput
+          />
+
+          <span
+            class="input__close-icon"
+            (click)="onClear('level')"
+            *ngIf="clearable && (level.value + '')?.length > 0"
+            [ngClass]="
+              clearablePosition === 'start' ? 'input__close-icon--position-left' : 'input__close-icon--position-right'
+            "
+          ></span>
+        </div>
+
+        <div fxFlex="10px" fxLayoutAlign="center center">-</div>
+
+        <div class="input__field__container" fxFlex="25">
+          <input
+            fxFlex="100"
+            type="text"
+            formControlName="unit"
+            class="input__field"
+            [class.input__field--has-error]="hasError"
+            [class.input__field--text-align-right]="clearablePosition === 'start'"
+            [fxFlexOrder]="clearablePosition === 'start' ? 1 : 2"
+            (focusin)="onFocusIn($event)"
+            (focusout)="onFocusOut()"
+            #unitInput
+          />
+
+          <span
+            class="input__close-icon"
+            (click)="onClear('unit')"
+            *ngIf="clearable && (unit.value + '')?.length > 0"
+            [ngClass]="
+              clearablePosition === 'start' ? 'input__close-icon--position-left' : 'input__close-icon--position-right'
+            "
+          ></span>
+        </div>
+
+        <div fxFlex="10" fxLayoutAlign="center center" *ngIf="hasError">
+          <span class="input__error-icon"></span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,524 @@
+@import "~@progress/kendo-theme-default/dist/all.css";
+@import "../utilities/iras.globals.scss";
+
+.k-checkbox {
+  width: $size-18;
+  height: $size-18;
+}
+
+.k-in:hover {
+  border-color: transparent !important;
+  background-color: transparent !important;
+}
+
+.k-checkbox:checked:hover,
+.k-checkbox:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.k-state-focused,
+.k-state-selected,
+.k-check-all ::selection,
+.k-block ::selection,
+.k-panel ::selection,
+.k-widget ::selection,
+.k-checkbox ::selection {
+  background-color: transparent;
+  border-color: transparent !important;
+  color: var(--grey) !important;
+  box-shadow: none !important;
+}
+
+.k-checkbox:indeterminate,
+.k-checkbox.k-state-indeterminate {
+  color: transparent;
+  border-color: transparent;
+}
+
+.k-block ::selection,
+.k-panel ::selection,
+.k-widget ::selection {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+// Tool tip customization
+.tool-tip-icon {
+  font-size: $size-20;
+  color: var(--primary);
+}
+
+.k-tooltip {
+  background-color: var(--primary);
+}
+
+// Text form customization
+.k-form-field span {
+  font-weight: $font-weight-bold;
+  font-style: normal;
+  font-size: $size-16;
+  color: var(--dark);
+}
+
+.required_star {
+  color: var(--danger) !important;
+}
+
+// Dropdowns
+// .k-dropdown {
+//   width: 100%;
+// }
+
+// .k-dropdown .k-dropdown-wrap,
+// .k-dropdowntree .k-dropdown-wrap {
+//   border-color: rgba(0, 0, 0, 0.08) !important;
+//   color: var(--dark);
+//   background-color: var(--light) !important;
+//   background-image: none !important;
+// }
+
+// clear icon
+.k-filtercell .k-filtercell-operator > .k-button.k-clear-button-visible {
+  width: 33px;
+  height: 33px;
+  margin-left: 5px;
+}
+
+.k-form-field .k-icon {
+  color: var(--primary);
+}
+
+.k-i-arrow-s {
+  color: var(--primary);
+}
+
+.k-dropdown .k-dropdown-wrap .k-input {
+  font-size: 16px;
+  font-weight: 400;
+}
+.k-state-focused {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+  border-right-color: rgba(0, 0, 0, 0.08) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+  border-left-color: rgba(0, 0, 0, 0.08) !important;
+  color: #656565 !important;
+  box-shadow: none !important;
+}
+// Tabs
+.k-tabstrip > .k-tabstrip-items > .k-state-active {
+  color: var(--primary);
+  font-size: $size-16;
+  font-weight: 600;
+  width: auto;
+  border-top: 3px solid var(--warning);
+  border-left: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
+  border-bottom: 0;
+}
+
+.k-tabstrip-items .k-state-default {
+  width: auto;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid #c3c3c3;
+}
+
+.k-tabstrip-items .k-item.k-state-active:hover {
+  color: var(--primary);
+}
+
+.k-tabstrip-items .k-item {
+  color: var(--dark);
+  font-size: $size-16;
+}
+
+.k-tabstrip-items .k-item:hover {
+  color: var(--primary);
+}
+
+.k-tabstrip > .k-content {
+  border: none;
+  border-style: none;
+}
+
+// Dialog popups
+.k-dialog {
+  background: inherit;
+  background-color: rgba(255, 255, 255, 1);
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgba(48, 132, 198, 1);
+  border-radius: 5px;
+}
+
+.k-window-content,
+.k-prompt-container {
+  padding: 0;
+}
+
+// Cards
+.k-card {
+  color: var(--dark);
+  font-size: $size-16;
+}
+
+// Data Grid
+
+.k-grid-header,
+.k-grid-toolbar,
+.k-grouping-header,
+.k-grid-add-row,
+.k-grid-footer {
+  background-color: var(--grey-contrast);
+}
+.k-grid-header .k-header {
+  font-family: "Source Sans Pro", Times, serif;
+  color: var(--dark);
+  font-size: $size-16;
+}
+
+.k-grid th,
+.k-grid td {
+  font-family: "Source Sans Pro", Times, serif;
+  color: var(--dark);
+  font-size: $size-16;
+}
+
+// Column title word wrap
+.k-grid .k-grid-header .k-header .k-link {
+  height: auto;
+}
+
+.k-grid .k-grid-header .k-header {
+  white-space: normal;
+}
+
+// Filter columns
+// Text Input
+.k-filtercell .k-filtercell-wrapper > .k-textbox {
+  height: 100%;
+  color: var(--dark);
+  border: 1px solid var(--grey-tint);
+  border-radius: 4px;
+  &:focus {
+    border: 1px solid var(--primary);
+    box-shadow: none;
+  }
+}
+
+// Numeric Input
+.k-numerictextbox .k-numeric-wrap .k-input {
+  height: 100%;
+}
+
+.k-numerictextbox .k-numeric-wrap .k-link {
+  background-color: var(--light);
+  border-radius: 4px;
+}
+
+.k-numerictextbox .k-numeric-wrap .k-link-increase .k-icon {
+  bottom: 0px;
+  right: 10px;
+}
+
+.k-numerictextbox .k-numeric-wrap .k-link-decrease .k-icon {
+  bottom: 0px;
+  right: 10px;
+}
+
+.k-numerictextbox .k-numeric-wrap {
+  border-color: var(--grey-tint);
+  color: var(--dark);
+  border-radius: 4px;
+}
+
+.k-numerictextbox .k-numeric-wrap.k-state-focused {
+  border: 1px solid var(--primary) !important;
+  z-index: 999;
+  box-shadow: none;
+}
+
+.k-i-arrow-60-up::before,
+.k-i-arrow-n::before,
+.k-i-sarrow-n::before,
+.k-i-expand-n::before {
+  content: "\e013";
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.k-i-arrow-60-down::before,
+.k-i-arrow-s::before,
+.k-i-sarrow-s::before,
+.k-i-collapse::before,
+.k-i-expand-s::before {
+  content: "\e015";
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.k-grid-header .k-header > .k-link {
+  color: var(--dark);
+  font-size: $size-16;
+  font-family: "Source Sans Pro", Times, serif;
+  font-weight: 600;
+  padding: 10px 5px;
+}
+
+.k-grid .k-grid-header-locked {
+  background-color: var(--grey-contrast);
+}
+
+.k-pager-input,
+.k-pager-sizes,
+.k-pager-info {
+  color: var(--dark);
+  font-size: $size-16;
+}
+
+// column sort icon
+.k-grid-header .k-i-sort-asc-sm,
+.k-grid-header .k-i-sort-desc-sm,
+.k-grid-header .k-sort-order {
+  color: var(--dark);
+  font-weight: 700;
+  visibility: visible;
+}
+
+// pager numeric input
+.k-numerictextbox .k-numeric-wrap .k-numerictextbox .k-numeric-wrap .k-input {
+  border-radius: 2px;
+  height: auto;
+  padding: 5px;
+}
+
+// Rows background color
+.k-alt,
+.k-pivot-toolbar,
+.k-pivot-layout > tbody > tr:first-child > td:first-child {
+  background-color: var(--light) !important;
+}
+
+.k-pager-numbers .k-link.k-state-selected {
+  background-color: var(--primary);
+}
+
+.k-pager-sizes .k-dropdown,
+.k-pager-sizes .k-dropdowntree,
+.k-pager-sizes > select {
+  margin-right: 1ex;
+  width: 5em;
+  font-size: 16px;
+  font-family: "Source Sans Pro", Times, serif;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.k-checkbox:checked:focus {
+  border-color: rgba(48, 132, 198, 1);
+  box-shadow: 0 0 0 2px rgba(48, 132, 198, 0.3);
+}
+
+.k-pager-numbers .k-link {
+  color: var(--dark);
+}
+
+.k-pager-numbers .k-link:hover {
+  color: var(--primary) !important;
+}
+
+.k-pager-numbers .k-link:focus {
+  background-color: var(--primary) !important;
+  color: var(--light) !important;
+}
+
+.k-pager-nav:hover {
+  color: var(--primary);
+}
+
+.k-pager-nav:focus {
+  color: var(--primary);
+}
+
+.k-pager-numbers .k-link .k-state-selected {
+  background-color: var(--primary) !important;
+  color: var(--light) !important;
+}
+
+.k-pager-numbers .k-link .k-state-selected:focus {
+  background-color: var(--primary) !important;
+  color: var(--light) !important;
+}
+
+//textbox
+.k-input::selection,
+.k-textarea::selection {
+  color: var(--light);
+  background-color: var(--primary);
+}
+
+// Default dropdown
+.k-popup,
+.k-column-menu .k-menu:not(.k-context-menu) {
+  color: var(--dark);
+  background-color: var(--grey-contrast);
+  font-family: "Source Sans Pro", Times, serif;
+  font-size: 16px;
+}
+.k-list .k-state-selected {
+  color: var(--light);
+  background-color: var(--primary);
+}
+.k-list .k-item:hover {
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+.k-list .k-item.k-state-selected {
+  background-color: var(--primary);
+  color: var(--light) !important;
+}
+
+.k-list .k-item:hover.k-state-selected {
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+.k-maskedtextbox.k-state-invalid .k-textbox,
+.k-maskedtextbox.ng-invalid.ng-touched .k-textbox,
+.k-maskedtextbox.ng-invalid.ng-dirty .k-textbox {
+  border-color: inherit;
+}
+
+// Remove vertical scrolling
+.k-grid-content {
+  overflow-y: unset;
+}
+
+.k-grid-header {
+  padding-right: 0 !important;
+}
+
+// Columns
+.k-grid td {
+  border-width: 0 0 1px 0px;
+  border-color: var(--grey-tint) !important;
+}
+
+// Column Headers
+.k-grid th {
+  border-color: var(--grey-tint);
+}
+
+// Filter rows
+.k-grid .k-filter-row td {
+  border-color: var(--grey-tint);
+  border-width: 0 0 0 1px;
+}
+
+.k-grid th:first-child,
+.k-grid td:first-child {
+  border-left-width: 0 !important;
+}
+
+.k-grid td.k-state-selected,
+.k-grid tr.k-state-selected td {
+  color: var(--dark);
+  background-color: var(--light-shade) !important;
+}
+
+.k-grid-header .k-header > .k-link > .k-icon.k-i-sort-desc-sm,
+.k-grid-header .k-header > .k-link > .k-icon.k-i-sort-asc-sm {
+  display: none !important;
+}
+
+.data-grid__column-header--menu,
+.data-grid__column-header--data,
+.data-grid__column-header--buttons {
+  text-align: left !important;
+}
+
+.data-grid__column-header--row-selector,
+.data-grid__column-cell--row-selector,
+.data-grid__column-header--buttons,
+.data-grid__column-header--menu,
+.data-grid__column-header--data {
+  font-weight: 600 !important;
+  vertical-align: middle !important;
+}
+
+.data-grid__column-header--column-group-header,
+.data-grid__column-header--row-selector,
+.data-grid__column-cell--row-selector {
+  text-align: center !important;
+  font-weight: 600 !important;
+}
+
+.data-grid__column-header,
+.data-grid__column-cell {
+  padding: 10px 5px 10px 5px !important;
+  margin: 0 !important;
+}
+
+.data-grid__column-header > span.k-link {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.k-grid .k-grid-content-locked td,
+.k-grid .k-grid-content-locked .k-alt td {
+  background: none !important;
+}
+
+.data-grid__column-header:first-child,
+.data-grid__column-cell:first-child {
+  padding: 10px 5px 10px 10px !important;
+  margin: 0 !important;
+}
+.data-grid__column-header:last-child,
+.data-grid__column-cell:last-child {
+  padding: 10px 10px 10px 5px !important;
+  margin: 0 !important;
+}
+
+.k-grid tbody tr:hover {
+  background-color: var(--light-shade) !important;
+}
+
+.k-grid tr.data-row--highlighted,
+.k-grid .k-grid-content-locked tr.data-row--highlighted:not(.k-state-selected) {
+  background-color: rgba(255, 0, 0, 0.34) !important;
+}
+
+.k-grid .k-grid-content-locked tr:not(.k-state-selected) {
+  background-color: var(--light) !important;
+  border-width: 0 0 1px 0px !important;
+  border-color: var(--grey-tint) !important;
+}
+
+.k-grid tr.data-row--highlighted:hover,
+.k-grid .k-grid-content-locked tr.k-state-selected,
+.k-grid .k-grid-content-locked tr:not(.k-state-selected):hover,
+.k-grid .k-grid-content-locked tr.data-row--highlighted:hover {
+  td {
+    background-color: var(--light-shade) !important;
+  }
+}
+
+.k-grid .k-grid-content tr.grid-row-hover-active,
+.k-grid .k-grid-content-locked tr.grid-row-hover-active,
+.k-grid .k-grid-content-locked tr.grid-row-hover-active.data-row-highlighted:not(.k-state-selected) {
+  background-color: var(--light-shade) !important;
+}
+
+.k-grid-norecords > td {
+  color: var(--grey-light);
+}
+
+.data-grid__column-header--row-selector input {
+  margin-left: 5px;
+}

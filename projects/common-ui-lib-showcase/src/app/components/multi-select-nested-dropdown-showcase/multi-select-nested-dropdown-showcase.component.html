@@ -1,0 +1,159 @@
+<form [formGroup]="multiSelectNestedDropdownForm">
+  <div fxLayout="column">
+    <iras-card-container aria-label="Card Container" class="card-item-1" [templateContentRef]="templateContentRef">
+      <ng-template #templateContentRef>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" class="nestedDropdown-wrapper">
+            <h4>Multi Select Nested Dropdown</h4>
+          </div>
+          <div fxFlex="50">
+            <iras-multi-select-nested-dropdown
+              aria-label="Multi Select Nested Dropdown"
+              [hasError]="transaction.invalid && (transaction.dirty || transaction.touched)"
+              [data]="multiTreeListItems"
+              formControlName="transaction"
+              placeholder="Select..."
+            ></iras-multi-select-nested-dropdown>
+            <iras-form-input-error
+              aria-label="Form Input Error"
+              *ngIf="transaction.invalid && (transaction.dirty || transaction.touched)"
+              [templateContentRef]="inputError"
+            >
+              <ng-template #inputError>
+                <div class="form-input__error">
+                  This is a required field.
+                </div>
+              </ng-template>
+            </iras-form-input-error>
+            <div [style.margin-top]="'20px'">
+              invalid : {{ transaction.invalid }} dirty: {{ transaction.dirty }} touched:
+              {{ transaction.touched }} required: {{ transaction?.errors?.required }} value:
+              {{ transaction.value | json }}
+            </div>
+          </div>
+          <div fxFlex="50">Empty Div</div>
+          <div fxFlex="100" fxLayout="row" fxLayoutGap="20px" [style.margin-top]="'20px'">
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch value"
+              (buttonClicked)="patchValue()"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Toggle Error"
+              buttonText="Toggle error"
+              (buttonClicked)="toggle()"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Disable"
+              buttonText="Disable"
+              (buttonClicked)="disable()"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Reset Dropdown"
+              buttonText="Reset Dropdown"
+              (buttonClicked)="reset()"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Reset Form"
+              buttonText="Reset Form"
+              (buttonClicked)="resetForm()"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Change list"
+              buttonText="Change list"
+              (buttonClicked)="changeList()"
+            ></iras-custom-button>
+          </div>
+        </div>
+      </ng-template>
+    </iras-card-container>
+  </div>
+  <div fxLayout="column">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <h4>Multi Select Nested Dropdown in Modal Dialog</h4>
+      </div>
+      <iras-custom-button
+        aria-label="Open Modal Dialog"
+        buttonText="Open Modal Dialog"
+        fill="solid"
+        shape="round"
+        color="primary"
+        (buttonClicked)="showModalWith('lotsOfHtml')"
+      ></iras-custom-button>
+    </div>
+    <ng-template #modalContentRef>
+      <iras-card-container
+        aria-label="Iras Card Container"
+        class="card-item-1"
+        [templateContentRef]="templateContentRef"
+      >
+        <ng-template #templateContentRef>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="nestedDropdown-wrapper">
+              <h4>Nested Dropdown</h4>
+            </div>
+            <div fxFlex="50">
+              <iras-multi-select-nested-dropdown
+                aria-label="Nested Dropdown"
+                [hasError]="transaction.invalid && (transaction.dirty || transaction.touched)"
+                [data]="multiTreeListItems"
+                formControlName="transaction"
+                placeholder="Select..."
+              ></iras-multi-select-nested-dropdown>
+              <iras-form-input-error
+                aria-label="Form Input Error"
+                *ngIf="transaction.invalid && (transaction.dirty || transaction.touched)"
+                [templateContentRef]="inputError"
+              >
+                <ng-template #inputError>
+                  <div class="form-input__error">
+                    This is a required field.
+                  </div>
+                </ng-template>
+              </iras-form-input-error>
+              <div [style.margin-top]="'20px'">
+                invalid : {{ transaction.invalid }} dirty: {{ transaction.dirty }} touched:
+                {{ transaction.touched }} required: {{ transaction?.errors?.required }} value:
+                {{ transaction.value | json }}
+              </div>
+            </div>
+            <div fxFlex="50">Empty Div</div>
+            <div fxFlex="100" fxLayout="row" fxLayoutGap="20px" [style.margin-top]="'20px'">
+              <iras-custom-button
+                aria-label="Patch value"
+                buttonText="Patch value"
+                (buttonClicked)="patchValue()"
+              ></iras-custom-button>
+              <iras-custom-button
+                aria-label="Toggle error"
+                buttonText="Toggle error"
+                (buttonClicked)="toggle()"
+              ></iras-custom-button>
+              <iras-custom-button
+                aria-label="Disable"
+                buttonText="Disable"
+                (buttonClicked)="disable()"
+              ></iras-custom-button>
+              <iras-custom-button
+                aria-label="Reset Dropdown"
+                buttonText="Reset Dropdown"
+                (buttonClicked)="reset()"
+              ></iras-custom-button>
+              <iras-custom-button
+                aria-label="Reset Form"
+                buttonText="Reset Form"
+                (buttonClicked)="resetForm()"
+              ></iras-custom-button>
+              <iras-custom-button
+                aria-label="Change list"
+                buttonText="Change list"
+                (buttonClicked)="changeList()"
+              ></iras-custom-button>
+            </div>
+          </div>
+        </ng-template>
+      </iras-card-container>
+    </ng-template>
+  </div>
+</form>

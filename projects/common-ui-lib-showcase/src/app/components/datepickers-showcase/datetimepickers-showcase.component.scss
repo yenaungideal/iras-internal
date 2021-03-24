@@ -1,0 +1,21 @@
+@import "../../../../../common-ui-lib/src/assets/styles/utilities/iras.globals.scss";
+
+.form-input-item__label {
+  font-size: $size-16;
+  font-weight: $font-weight-bold;
+  margin-bottom: $size-5;
+}
+
+.input__required-symbol {
+  color: var(--danger);
+}
+
+// iras-date-range-picker {
+//   --input-height: 50px;
+//   --date-picker-background: var(--danger);
+// }
+
+// iras-date-picker {
+//   --input-height: 50px;
+//   --background: var(--grey-tint);
+// }

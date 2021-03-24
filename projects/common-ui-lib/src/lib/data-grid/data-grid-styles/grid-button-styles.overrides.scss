@@ -1,0 +1,22 @@
+@import "../../../assets/styles/utilities/iras.globals.scss";
+$BUTTON_TEXT_COLOR: "#737373";
+$BUTTON_HOVER_TEXT_COLOR: "#2770A0";
+$BUTTON_BACKGROUND: "var(--light)";
+$BUTTON_HOVER_BACKGROUND: "#FAFAFA";
+$BUTTON_PADDING: "10px";
+
+.data-grid__button {
+  --font-size: 16px;
+  --background: $BUTTON_BACKGROUND;
+  --font-color: $BUTTON_TEXT_COLOR;
+  --border-width: 1px;
+  --button-padding: 8px 10px;
+  --min-width: 50px;
+  --border-radius: 2px;
+  --button-height: 36px;
+
+  &:hover {
+    --background: $BUTTON_HOVER_BACKGROUND;
+    --font-color: $BUTTON_HOVER_TEXT_COLOR;
+  }
+}

@@ -1,0 +1,45 @@
+<div class="input" fxFlex="100" fxLayout="column" fxLayoutGap="5px">
+  <div *ngIf="label || tooltipText" class="input__label" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+    <div *ngIf="label">
+      <span>{{ label }}</span
+      ><span class="input__required-symbol" *ngIf="showRequiredSymbol">*</span>
+    </div>
+    <iras-tooltip
+      *ngIf="tooltipText"
+      [tooltipContentText]="tooltipText"
+      [minTooltipPanelWidth]="minTooltipPanelWidth"
+      [maxTooltipPanelWidth]="maxTooltipPanelWidth"
+    ></iras-tooltip>
+  </div>
+  <div class="input__container" fxLayout="row" fxLayoutAlign="space-between center">
+    <input
+      fxFlex="100"
+      [type]="type"
+      [disabled]="disabled"
+      #inputElement
+      #inputControl="ngModel"
+      [maxlength]="maxLength"
+      [minlength]="minLength"
+      [(ngModel)]="value"
+      [placeholder]="placeholder"
+      (paste)="onPaste($event)"
+      (focusin)="onFocusIn($event)"
+      (focusout)="onFocusOut()"
+      [ngModelOptions]="{ updateOn: updateOn }"
+      class="input__field"
+      [class.input__field--has-error]="hasError"
+      [class.input__field--clearable-left]="clearable && clearablePosition === 'start'"
+      [class.input__field--clearable-right]="clearable && clearablePosition === 'end'"
+      [fxFlexOrder]="clearablePosition === 'start' ? 1 : 2"
+    />
+    <span
+      class="input__close-icon"
+      (click)="onClear()"
+      *ngIf="clearable && (value + '')?.length > 0"
+      [ngClass]="
+        clearablePosition === 'start' ? 'input__close-icon--position-left' : 'input__close-icon--position-right'
+      "
+      [class.input__close-icon--disabled]="disabled"
+    ></span>
+  </div>
+</div>

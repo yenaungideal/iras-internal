@@ -1,0 +1,104 @@
+@import "../../../assets/styles/utilities/iras.globals.scss";
+.fab {
+  &__container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  &__toggler {
+    float: right;
+    z-index: 100;
+    align-self: flex-end;
+  }
+
+  &__dismiss {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+  }
+
+  &__button-circle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    color: var(--light);
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  }
+
+  &__button-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  &__button-close {
+    font-size: 25px;
+  }
+  &__button-close-icon {
+    content: url("/assets/icons/whitex.svg");
+    width: 20px;
+    height: 20px;
+  }
+  &__button-arrow-icon {
+    content: url("/assets/icons/whitearrow.svg");
+    width: 14px;
+    height: 14px;
+    margin-left: 20px;
+  }
+}
+
+.card {
+  box-shadow: 1px 1px 8px rgba(201, 201, 201, 0.75);
+  transition: 0.3s;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  min-width: 300px;
+  background: var(--light);
+  border: var(--grey-tint);
+  padding-bottom: 10px;
+
+  &__content {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &__title {
+    font-size: 16px;
+    color: var(--light);
+    background: var(--secondary);
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-weight: 600;
+    max-height: 20px;
+  }
+
+  &__link-title {
+    font-weight: 600;
+  }
+
+  &__link-content-wrapper {
+    margin: 10px 0 10px 20px;
+  }
+
+  &__link-content {
+    cursor: pointer;
+    color: var(--primary);
+  }
+}

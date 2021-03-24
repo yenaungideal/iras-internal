@@ -1,0 +1,38 @@
+<div class="input" fxFlex="100" fxLayout="column">
+  <div *ngIf="label || tooltipText" class="input__label" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+    <div *ngIf="label">
+      <span>{{ label }}</span
+      ><span class="input__required-symbol" *ngIf="showRequiredSymbol">*</span>
+    </div>
+    <iras-tooltip
+      *ngIf="tooltipText"
+      [tooltipContentText]="tooltipText"
+      [minTooltipPanelWidth]="minTooltipPanelWidth"
+      [maxTooltipPanelWidth]="maxTooltipPanelWidth"
+    ></iras-tooltip>
+  </div>
+
+  <div fxLayout="row" class="input__container stepper__input-container">
+    <input
+      fxFlex="100"
+      [type]="type"
+      [disabled]="disabled"
+      #inputElement
+      #inputControl="ngModel"
+      [(ngModel)]="value"
+      [placeholder]="placeholder"
+      (focusout)="onFocusOut()"
+      (focus)="onFocusIn($event)"
+      [ngModelOptions]="{ updateOn: updateOn }"
+      class="input__field"
+      [class.input__field--has-error]="hasError"
+    />
+    <div class="input__stepper-wrapper" fxFlex="10px" fxLayout="column" fxLayoutAlign="end center">
+      <img [ngClass]="{ 'stepper-plus': !disabled, 'stepper-plus-disabled': disabled }" (click)="stepCountReload(+1)" />
+      <img
+        [ngClass]="{ 'stepper-minus': !disabled, 'stepper-minus-disabled': disabled }"
+        (click)="stepCountReload(-1)"
+      />
+    </div>
+  </div>
+</div>

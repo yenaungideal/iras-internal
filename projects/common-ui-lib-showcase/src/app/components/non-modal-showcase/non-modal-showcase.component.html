@@ -1,0 +1,129 @@
+<div fxLayout="column">
+  <h3>Non Modal Popup</h3>
+
+  <div fxLayout="row" class="non__modal-dialog-showcase">
+    <iras-custom-button
+      buttonText="Non Modal"
+      fill="solid"
+      shape="round"
+      color="primary"
+      (buttonClicked)="showModal()"
+    ></iras-custom-button>
+  </div>
+
+  <ng-template #modalContentRef>
+    <form [formGroup]="multiSelectDropdownForm" fxLayout="column">
+      <div fxFlex="100%">
+        <h4>Multi Select Dropdown</h4>
+      </div>
+      <div fxLayout="row" fxLayoutGap="4px" fxFlex="100%">
+        <div fxFlex>
+          <iras-multi-select-dropdown
+            [hasError]="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [data]="multiTreeListItems"
+            formControlName="transaction"
+            placeholder="Select..."
+          ></iras-multi-select-dropdown>
+          <iras-form-input-error
+            *ngIf="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [templateContentRef]="inputError"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                This is a required field.
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+          <div [style.margin-top]="'20px'">
+            invalid : {{ transaction.invalid }} dirty: {{ transaction.dirty }} touched:
+            {{ transaction.touched }} required: {{ transaction?.errors?.required }} value:
+            {{ transaction.value | json }}
+          </div>
+        </div>
+        <div fxFlex>
+          <iras-multi-select-dropdown
+            [hasError]="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [data]="multiTreeListItems"
+            formControlName="transaction"
+            placeholder="Select..."
+          ></iras-multi-select-dropdown>
+          <iras-form-input-error
+            *ngIf="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [templateContentRef]="inputError"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                This is a required field.
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+          <div [style.margin-top]="'20px'">
+            invalid : {{ transaction.invalid }} dirty: {{ transaction.dirty }} touched:
+            {{ transaction.touched }} required: {{ transaction?.errors?.required }} value:
+            {{ transaction.value | json }}
+          </div>
+        </div>
+        <div fxFlex>
+          <iras-multi-select-dropdown
+            [hasError]="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [data]="multiTreeListItems"
+            formControlName="transaction"
+            placeholder="Select..."
+          ></iras-multi-select-dropdown>
+          <iras-form-input-error
+            *ngIf="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [templateContentRef]="inputError"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                This is a required field.
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+          <div [style.margin-top]="'20px'">
+            invalid : {{ transaction.invalid }} dirty: {{ transaction.dirty }} touched:
+            {{ transaction.touched }} required: {{ transaction?.errors?.required }} value:
+            {{ transaction.value | json }}
+          </div>
+        </div>
+        <div fxFlex>
+          <iras-multi-select-dropdown
+            [hasError]="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [data]="multiTreeListItems"
+            formControlName="transaction"
+            placeholder="Select..."
+          ></iras-multi-select-dropdown>
+          <iras-form-input-error
+            *ngIf="transaction.invalid && (transaction.dirty || transaction.touched)"
+            [templateContentRef]="inputError"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                This is a required field.
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+          <div [style.margin-top]="'20px'">
+            invalid : {{ transaction.invalid }} dirty: {{ transaction.dirty }} touched:
+            {{ transaction.touched }} required: {{ transaction?.errors?.required }} value:
+            {{ transaction.value | json }}
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="4px" fxFlex="100%">
+        <div fxFlex>
+          <iras-custom-button fxFlex buttonText="Patch value" (buttonClicked)="patchValue()"></iras-custom-button>
+        </div>
+        <div fxFlex>
+          <iras-custom-button fxFlex buttonText="Toggle error" (buttonClicked)="toggle()"></iras-custom-button>
+        </div>
+        <div fxFlex>
+          <iras-custom-button fxFlex buttonText="Disable" (buttonClicked)="disable()"></iras-custom-button>
+        </div>
+        <div fxFlex>
+          <iras-custom-button fxFlex buttonText="Reset Dropdown" (buttonClicked)="reset()"></iras-custom-button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</div>

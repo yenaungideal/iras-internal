@@ -1,0 +1,59 @@
+@import "../../assets/styles/utilities/iras.globals";
+:host {
+  --padding: 5px;
+  --border-color: var(--grey-tint);
+  --font-color: var(--dark);
+  --border-radius: 0;
+  --border-width: 2px;
+  --border-style: solid;
+  --font-weight: 400;
+  --font-size: 16px;
+  --letter-spacing: 0;
+  --width: 100%;
+  --text-transform: none;
+  --text-transform-placeholder: none;
+}
+
+.input__field {
+  border-radius: var(--border-radius);
+  border: 0;
+  border-width: var(--border-width);
+  border-style: var(--border-style);
+  outline: 0;
+  font: inherit;
+  font-size: var(--font-size);
+  letter-spacing: var(--letter-spacing);
+  font-weight: var(--font-weight);
+  padding: var(--padding);
+  border-color: var(--border-color);
+  color: var(--font-color);
+  background-color: var(--light);
+  width: var(--width);
+  min-width: 500px;
+  text-transform: var(--text-transform);
+  &:focus {
+    border-color: var(--primary);
+  }
+  &:disabled {
+    background-color: var(--light-shade);
+  }
+}
+
+.input__field::placeholder {
+  color: var(--grey);
+  font-size: 16px;
+  text-transform: var(--text-transform-placeholder);
+}
+
+.input__label {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.input__required-symbol {
+  color: var(--danger);
+}
+
+.input__field.input__field--has-error {
+  border-color: var(--danger);
+}

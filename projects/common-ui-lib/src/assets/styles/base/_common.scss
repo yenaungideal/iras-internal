@@ -1,0 +1,118 @@
+@import "./../mixins/app.mixin";
+@import "./../utilities/variables";
+:root {
+  font-family: "Source Sans Pro", Times, serif;
+  @include font-size(16);
+
+  color: var(--dark);
+}
+body {
+  @include text-inherit();
+}
+
+h1 {
+  @include font-size(24);
+
+  font-weight: $font-weight-light;
+}
+
+h2 {
+  @include font-size(24);
+
+  font-weight: $font-weight-light;
+}
+
+h3 {
+  @include font-size(21);
+
+  font-weight: $font-weight-regular;
+}
+
+h4 {
+  @include font-size(18);
+
+  font-weight: $font-weight-bold;
+}
+
+h5 {
+  @include font-size(16);
+
+  font-weight: $font-weight-bold;
+}
+
+h6 {
+  @include font-size(18);
+
+  font-weight: $font-weight-regular;
+}
+
+.default-link {
+  @include font-size(16);
+
+  font-weight: $font-weight-regular;
+  color: var(--primary);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-shade);
+  }
+}
+
+.default-error-link {
+  @include font-size(16);
+
+  font-weight: $font-weight-regular;
+  color: var(--danger);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.default-link-bold {
+  @include font-size(16);
+
+  font-weight: $font-weight-bold;
+  color: var(--primary);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+    color: var(--primary-shade);
+  }
+}
+
+.h5-primary {
+  @include font-size(16);
+
+  font-weight: $font-weight-bold;
+  color: var(--primary);
+  &:hover {
+    color: var(--primary-shade);
+  }
+}
+
+.paragraph-header {
+  @include font-size(16);
+
+  font-weight: $font-weight-bold;
+  color: var(--dark);
+}
+
+.cdk-overlay-pane.iras-non-modal {
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  box-shadow: 0 4px 8px 0 rgb(134 134 134), 0 6px 20px 0 rgb(0 0 0 / 15%);
+}
+.cdk-global-scrollblock.non-modal-scrollblock {
+  position: unset;
+}
+// iras-tooltip-hyperlink css declaration
+.iras-tooltip-hyperlink {
+  color: var(--light);
+}

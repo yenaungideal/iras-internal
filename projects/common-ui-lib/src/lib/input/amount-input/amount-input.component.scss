@@ -1,0 +1,106 @@
+@import "../../../assets/styles/utilities/iras.globals";
+:host {
+  --padding: 0;
+  --border-color: var(--grey-tint);
+  --font-color: var(--dark);
+  --border-radius: 0;
+  --border-width: 2px;
+  --border-style: solid;
+  --font-weight: 400;
+  --font-size: 16px;
+  --letter-spacing: 0;
+  --width: 100%;
+  --height: 36px;
+  --background: var(--light);
+  --placeholder-text-align: left;
+  --placeholder-font-color: var(--grey);
+  --text-align: left;
+  --border: 0;
+  --label-margin-bottom: 5px;
+  --text-transform: none;
+  --text-transform-placeholder: none;
+}
+
+.input__field {
+  border-radius: var(--border-radius);
+  border: var(--border);
+  border-bottom-width: var(--border-width);
+  border-style: var(--border-style);
+  outline: 0;
+  font: inherit;
+  font-size: var(--font-size);
+  letter-spacing: var(--letter-spacing);
+  font-weight: var(--font-weight);
+  padding: var(--padding);
+  border-color: var(--border-color);
+  color: var(--font-color);
+  background-color: var(--background);
+  width: var(--width);
+  min-height: var(--height);
+  text-align: var(--text-align);
+  text-transform: var(--text-transform);
+  &:focus {
+    border-color: var(--primary);
+  }
+  &:disabled {
+    background-color: var(--light-shade);
+  }
+}
+
+.input__field::placeholder {
+  color: var(--placeholder-font-color);
+  text-align: var(--placeholder-text-align);
+  text-transform: var(--text-transform-placeholder);
+}
+
+.input__label {
+  margin-bottom: var(--label-margin-bottom);
+  font-weight: 600;
+}
+
+.input__required-symbol {
+  color: var(--danger);
+}
+
+.input__field.input__field--has-error {
+  border-color: var(--danger);
+}
+
+.input__container {
+  position: relative;
+}
+
+.input__close-icon {
+  content: url("/assets/icons/x-blue.svg");
+  width: 10px;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+  &:hover {
+    content: url("/assets/icons/x-hover.svg");
+    width: 10px;
+    height: 100%;
+    cursor: pointer;
+  }
+  &--disabled {
+    cursor: unset;
+  }
+}
+
+.input__close-icon--position-left {
+  left: 10px;
+}
+
+.input__close-icon--position-right {
+  right: 10px;
+}
+
+.input__field.input__field--clearable-left {
+  text-align: right;
+  padding-left: 30px;
+
+  --placeholder-text-align: right;
+}
+.input__field.input__field--clearable-right {
+  padding-right: 30px;
+}

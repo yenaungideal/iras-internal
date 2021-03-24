@@ -1,0 +1,81 @@
+// @import "./masked-input-kendo-styles.override.scss";
+@import "../../assets/styles/utilities/iras.globals.scss";
+
+:host {
+  --width: 100%;
+  --min-width: 100%;
+  --border-color: var(--grey-tint);
+  --height: auto;
+  --letter-spacing: 10px;
+  --font-size: 16px;
+  --font-weight: 400;
+  --padding: 5px;
+  --color: var(--dark);
+  --background-color: var(--light);
+  --border-radius: 0;
+  --border: none;
+  --border-bottom: 2px solid var(--grey-tint);
+  --border-focus: none;
+  --border-bottom-focus: 2px solid var(--primary);
+  --text-transform: none;
+  --text-transform-placeholder: none;
+}
+.masked-input {
+  width: var(--width);
+  min-width: var(--min-width);
+  max-width: var(--width);
+  border: 0;
+  border-radius: var(--border-radius);
+  // height: var(--height);
+
+  .k-textbox {
+    letter-spacing: var(--letter-spacing);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    padding: var(--padding);
+    color: var(--color);
+    background-color: var(--background-color);
+    // width: calc(var(--width) - 10px);
+    // height: calc(var(--height) - 14px);
+    width: calc(var(--width));
+    height: var(--height);
+    padding-right: 0;
+    // padding-left: 10px;
+    border: var(--border);
+    border-bottom: var(--border-bottom);
+    border-radius: var(--border-radius);
+    font-family: "Source Sans Pro", Times, serif;
+    text-transform: var(--text-transform);
+  }
+  .k-textbox:focus {
+    outline: none;
+    border: var(--border-focus);
+    border-bottom: var(--border-bottom-focus);
+  }
+  .k-textbox:disabled {
+    background-color: var(--light-shade);
+    color: var(--grey);
+  }
+  .k-state-disabled {
+    background-color: var(--light-shade);
+    color: var(--grey);
+  }
+}
+
+.k-textbox::placeholder {
+  color: var(--grey);
+  text-transform: var(--text-transform-placeholder);
+}
+
+.masked-input.masked-input--has-error .k-textbox {
+  border-bottom: 2px solid var(--danger);
+}
+
+.masked-input--has-error .k-textbox:focus {
+  border-bottom: 2px solid var(--danger);
+}
+
+.iras-masked-input--disabled {
+  background-color: var(--light-shade);
+  color: var(--grey);
+}

@@ -1,0 +1,28 @@
+@import "../../assets/styles/utilities/iras.globals";
+:host {
+  --id-input-border: 0;
+  --id-type-border: 0;
+  --control-radius: 0;
+  --border-bottom-input: 2px;
+}
+
+.iras-input-search {
+  --border: var(--id-input-border);
+  --text-transform: uppercase;
+  --border-radius: var(--control-radius);
+  --border-width: var(--border-bottom-input);
+  --padding: 5px;
+}
+
+.iras-dropdown-search {
+  --border: var(--id-input-border);
+  --margin-top: 0;
+  --padding: 5px;
+  --border-radius: var(--control-radius);
+  --border-bottom: var(--border-bottom-input) solid var(--grey-tint);
+}
+
+.entity-label {
+  font-weight: 600;
+  font-size: 16px;
+}

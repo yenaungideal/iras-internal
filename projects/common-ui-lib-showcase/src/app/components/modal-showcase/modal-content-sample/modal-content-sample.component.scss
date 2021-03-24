@@ -1,0 +1,29 @@
+.modal {
+  &__container {
+    margin-top: -24px;
+  }
+  &__header {
+    font-size: 24px;
+    font-weight: 100;
+  }
+  &__content {
+    font-size: 16px;
+    display: block;
+    margin-top: 20px;
+  }
+  &__buttons {
+    margin-top: 20px;
+  }
+  &__close-icon {
+    width: 13px;
+    height: 13px;
+    left: 448px;
+    top: -24px;
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      border-radius: 10px;
+      border: 1px solid var(--primary);
+    }
+  }
+}

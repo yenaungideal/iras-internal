@@ -1,0 +1,21 @@
+<div fxLayout="column">
+  <textarea
+    #textAreaElement
+    fxFlex="100"
+    [rows]="rows"
+    [cols]="cols"
+    [disabled]="disabled"
+    [maxlength]="maxLength"
+    [(ngModel)]="value"
+    (focus)="onFocusIn($event)"
+    (focusout)="onTouch()"
+    (paste)="onPaste($event)"
+    [placeholder]="placeholder"
+    class="input__field"
+    [class.input__field--has-error]="hasError"
+    >{{ text }}</textarea
+  >
+  <span *ngIf="showWordCount && maxLength > 0" fxFlex="100" fxLayoutAlign="end start"
+    >{{ maxLength - value?.length }} / {{ maxLength }}</span
+  >
+</div>

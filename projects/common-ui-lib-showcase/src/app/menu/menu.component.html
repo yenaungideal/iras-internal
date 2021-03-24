@@ -1,0 +1,27 @@
+<div class="single-view" fxLayout="column" fxFlex="100" fxLayoutAlign="start start" fxLayoutGap="10px">
+  <div>
+    <iras-custom-button
+      aria-label="Show Menu"
+      class="home__iras-button"
+      cssClass="iras-btn"
+      [buttonText]="showMenu ? 'X Close Menu' : 'Show Menu'"
+      [fill]="showMenu ? 'outline' : 'solid'"
+      shape="round"
+      [color]="showMenu ? 'secondary' : 'primary'"
+      (buttonClicked)="onMenuButtonClick()"
+    ></iras-custom-button>
+  </div>
+  <div class="single-view__menu-items-list" *ngIf="showMenu" fxLayout="column">
+    <div
+      *ngFor="let route of menuRoutes; let idx = index"
+      class="single-view__menu-item iras-color-primary"
+      [class.single-view__menu-item--selected]="route.selected"
+      (click)="onMenuItemClick(idx)"
+    >
+      {{ route.path }}
+    </div>
+  </div>
+  <div class="router-outlet-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

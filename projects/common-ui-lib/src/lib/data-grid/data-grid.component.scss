@@ -1,0 +1,151 @@
+@import "../../assets/styles/utilities/variables.scss";
+@import "./data-grid-styles/grid-editable-columns-styles.overrides.scss";
+@import "./data-grid-styles/grid-button-styles.overrides.scss";
+@import "./../../assets//icons/icons.scss";
+.iras-grid-row-action-btn {
+  cursor: pointer;
+  margin-left: -3px;
+}
+
+.iras-grid-context-menu {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--primary);
+  text-decoration: underline;
+  &:hover {
+    background-color: var(--primary);
+    color: white;
+    text-decoration: underline;
+  }
+}
+
+.context-column {
+  border-left: 0;
+}
+
+.select-checkbox-column {
+  border-right: 0;
+}
+
+.grid-summary {
+  padding: 20px;
+  &__item {
+    display: block;
+    &--type {
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    &--balance {
+      font-size: 18px;
+      font-weight: 650;
+    }
+
+    &--price {
+      font-size: 24px;
+      font-weight: 650;
+    }
+  }
+}
+
+.kendo-grid-exporter {
+  &__btn {
+    color: grey;
+    margin-left: 10px;
+  }
+  &__cmd-col-btn {
+    color: grey;
+  }
+}
+
+.text-align-right {
+  text-align: right;
+}
+.text-align-left {
+  text-align: left;
+}
+.text-align-center {
+  text-align: center;
+}
+
+.data-grid__item-type-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--primary);
+}
+
+.data-grid__add-record-container {
+  margin-left: 20px;
+  padding: 5px 0;
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.data-grid__row-count-info {
+  margin-bottom: 10px;
+}
+
+.data-grid__export-to-excel-button {
+  padding: 8px 8px;
+  border: 1px solid var(--grey-tint);
+  background: #f6f6f6;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.iras-icon--hamburger-icon {
+  content: url("/assets/icons/hamburger-menu.svg");
+  &:hover {
+    content: url("/assets/icons/hamburger-menu_hover.svg");
+  }
+}
+.iras-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.iras-icon--excel-icon {
+  content: url("/assets/icons/excel-blue.svg");
+  width: 18px;
+  height: 18px;
+}
+
+.iras-icon--sortable-indicator-icon {
+  content: url("/assets/icons/svg-sortupdown.svg");
+  height: 22px;
+  width: 22px;
+}
+
+.data-grid-filter__date-picker {
+  --date-picker-width: 99%;
+}
+
+.data-grid__boolean-column-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.data-grid__boolean-column-icon--cross {
+  content: url("/assets/icons/close.svg");
+}
+
+.data-grid__boolean-column-icon--check {
+  content: url("/assets/icons/tick.svg");
+}
+
+.data-grid__footer-toolbar-button:hover {
+  cursor: pointer;
+}
+
+.data-grid__entity-search {
+  --id-type-border: 1px solid var(--grey);
+  --id-input-border: 1px solid var(--grey);
+  --control-radius: 4px;
+  --border-bottom-input: 1px;
+
+  width: 100%;
+}

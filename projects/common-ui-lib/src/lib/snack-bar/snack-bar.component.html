@@ -1,0 +1,14 @@
+<div fxLayout="column" class="snack-bar-container" [ngClass]="data?.type" fxLayoutGap="20px">
+  <span class="snack-bar-close" (click)="closeSnackBar()"></span>
+  <div fxFLex="100">
+    <span class="snack-bar-header">{{ data?.title }}</span>
+  </div>
+  <div fxFLex="100" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+    <span class="snack-bar-icon" [ngClass]="data?.type + '-icon'"></span>
+    <div class="snack-bar-description" [innerHTML]="trustedDescriptionHTML"></div>
+  </div>
+  <div *ngIf="data.actionText" fxFLex="100" fxLayoutGap="10px">
+    <span fxFlex="35px"></span>
+    <span class="snack-bar-action-text" (click)="actionClick($event)">{{ data?.actionText }}</span>
+  </div>
+</div>

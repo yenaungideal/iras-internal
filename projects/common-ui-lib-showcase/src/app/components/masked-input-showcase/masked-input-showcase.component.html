@@ -1,0 +1,30 @@
+<h3>Masked Input</h3>
+<div fxLayout="column">
+  <form [formGroup]="maskForm" fxFlex="40" fxLayout="column">
+    <iras-masked-input
+      aria-label="Shares"
+      formControlName="shares"
+      fxFlex="100"
+      [mask]="sharesMask"
+      maskPlaceholder="0"
+      defaultMaskCharValue="0"
+      placeholder="1/2"
+      class="masked-input-showcase__input"
+    >
+    </iras-masked-input>
+    <iras-masked-input
+      aria-label="Fin"
+      [style.margin-top]="'20px'"
+      formControlName="fin"
+      fxFlex="100"
+      [mask]="finMask"
+      maskPlaceholder="X"
+      placeholder="F1111111T"
+      defaultMaskCharValue="0"
+      [hasError]="fin.invalid && (fin.dirty || fin.touched)"
+    >
+    </iras-masked-input>
+  </form>
+
+  <div>form value: {{ maskForm.value | json }}</div>
+</div>

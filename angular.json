@@ -1,0 +1,168 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "common-ui-lib": {
+      "projectType": "library",
+      "root": "projects/common-ui-lib",
+      "sourceRoot": "projects/common-ui-lib/src",
+      "prefix": "iras",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "viewEncapsulation": "ShadowDom"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/common-ui-lib/tsconfig.lib.json",
+            "project": "projects/common-ui-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/common-ui-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/common-ui-lib/src/test.ts",
+            "tsConfig": "projects/common-ui-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/common-ui-lib/karma.conf.js",
+            "polyfills": "projects/common-ui-lib/polyfills.ts",
+            "codeCoverage": true,
+            "sourceMap": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["projects/common-ui-lib/tsconfig.lib.json", "projects/common-ui-lib/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "common-ui-lib-showcase": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "viewEncapsulation": "ShadowDom"
+        }
+      },
+      "root": "projects/common-ui-lib-showcase",
+      "sourceRoot": "projects/common-ui-lib-showcase/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/common-ui-lib-showcase",
+            "index": "projects/common-ui-lib-showcase/src/index.html",
+            "main": "projects/common-ui-lib-showcase/src/main.ts",
+            "polyfills": "projects/common-ui-lib-showcase/src/polyfills.ts",
+            "tsConfig": "projects/common-ui-lib-showcase/tsconfig.app.json",
+            "aot": true,
+            "sourceMap": true,
+            "assets": [
+              { "glob": "**/*", "input": "projects/common-ui-lib/src/assets/", "output": "/assets/" },
+              "projects/common-ui-lib-showcase/src/assets"
+            ],
+            "styles": ["projects/common-ui-lib-showcase/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/common-ui-lib-showcase/src/environments/environment.ts",
+                  "with": "projects/common-ui-lib-showcase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "common-ui-lib-showcase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "common-ui-lib-showcase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "common-ui-lib-showcase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/common-ui-lib-showcase/src/test.ts",
+            "polyfills": "projects/common-ui-lib-showcase/src/polyfills.ts",
+            "tsConfig": "projects/common-ui-lib-showcase/tsconfig.spec.json",
+            "karmaConfig": "projects/common-ui-lib-showcase/karma.conf.js",
+            "assets": ["projects/common-ui-lib-showcase/src/favicon.ico", "projects/common-ui-lib-showcase/src/assets"],
+            "styles": ["projects/common-ui-lib-showcase/src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/common-ui-lib-showcase/tsconfig.app.json",
+              "projects/common-ui-lib-showcase/tsconfig.spec.json",
+              "projects/common-ui-lib-showcase/e2e/tsconfig.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/common-ui-lib-showcase/e2e/protractor.conf.js",
+            "devServerTarget": "common-ui-lib-showcase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "common-ui-lib-showcase:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "common-ui-lib",
+  "cli": {
+    "analytics": false
+  }
+}

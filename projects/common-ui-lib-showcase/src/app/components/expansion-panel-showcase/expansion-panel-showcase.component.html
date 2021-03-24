@@ -1,0 +1,180 @@
+<div fxLayout="column" fxLayoutGap="10px" fxFlex="95" class="expansion-panel-wrapper">
+  <h1>Expansion Panel</h1>
+  <div fxFlex="100">
+    <iras-expansion-panel
+      aria-label="Expansion Panel"
+      cssClass="custom-expansion-panel"
+      [templatePortalList]="templatePortalList"
+      [multi]="false"
+      [disabled]="false"
+    >
+      <ng-template #templateContentRefOne>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxLayout="column" fxLayoutGap="20px" class="card-item-1">
+            <h3>Default Box</h3>
+            <iras-card-container
+              aria-label="Card Container"
+              class="card-item-1"
+              [templateContentRef]="templateContentRef"
+            >
+              <ng-template #templateContentRef>
+                <div>
+                  <div>
+                    Ella Wong
+                  </div>
+                  <div>
+                    Singapore Citizen
+                  </div>
+                  <div>
+                    NRIC
+                  </div>
+                  <div>
+                    S1234567A
+                  </div>
+                </div>
+              </ng-template>
+            </iras-card-container>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #templateContentRefTwo>
+        <div fxLayout="row wrap" style="background: #ffffff;">
+          <div>
+            TEST
+          </div>
+          <div>
+            Singapore Citizen
+          </div>
+          <div>
+            NRIC
+          </div>
+          <div>
+            S1234567A
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #templateContentRefThree>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxLayout="column" fxLayoutGap="20px" class="card-item-2">
+            <h3>Form</h3>
+            <iras-card-container
+              aria-label="Card Container"
+              class="card-item-2"
+              [templateContentRef]="templateContentRefForm"
+            >
+              <ng-template #templateContentRefForm>
+                <form [formGroup]="singleInputForm" fxLayout="row" fxLayoutGap="20px">
+                  <div class="form__input" fxLayout="column" fxFlex>
+                    <div fxFlex="100" class="file-ref-no-label">
+                      Description <iras-required-symbol aria-label="Required Symbol"></iras-required-symbol>
+                    </div>
+                    <iras-input
+                      aria-label="Description Ref"
+                      class="des-input"
+                      formControlName="descriptionRef"
+                      placeholder="e.g. TEST"
+                      type="text"
+                      clearable="true"
+                      [hasError]="descriptionRef.invalid && descriptionRef.touched"
+                    ></iras-input>
+
+                    <iras-form-input-error
+                      aria-label="Form Input Error"
+                      *ngIf="descriptionRef.invalid && descriptionRef.touched"
+                      [templateContentRef]="inputError"
+                    >
+                      <ng-template #inputError>
+                        <div class="form-input__error">
+                          <div *ngIf="descriptionRef.errors.required">
+                            This is a required field
+                          </div>
+                          <div *ngIf="descriptionRef.errors.minlength">
+                            Name must be at least {{ NAME_LENGTH }} characters long.
+                          </div>
+                          <div *ngIf="descriptionRef.errors.forbiddenName">
+                            Name cannot be contain Bob
+                          </div>
+                        </div>
+                      </ng-template>
+                    </iras-form-input-error>
+
+                    <div *ngIf="descriptionRef">
+                      valid: {{ descriptionRef.valid }} <br />
+                      dirty: {{ descriptionRef.dirty }} <br />
+                      touched: {{ descriptionRef.touched }} <br />
+                      required: {{ descriptionRef.errors?.required }} <br />
+                      value: {{ descriptionRef.value | json }}
+                    </div>
+
+                    <div fxLayout="row">
+                      <iras-custom-button
+                        aria-label="Reset"
+                        fxFlex="10"
+                        buttonText="Reset"
+                        (buttonClicked)="resetDescriptionRefControl()"
+                      >
+                      </iras-custom-button>
+                    </div>
+                  </div>
+                  <div class="form__input" fxLayout="column" fxFlex>
+                    <div fxFlex="100" class="file-ref-no-label">
+                      File Ref No. (if applicable)<iras-required-symbol aria-label="Required"></iras-required-symbol>
+                    </div>
+                    <iras-input
+                      aria-label="File Ref"
+                      class="file-ref-no-input"
+                      formControlName="fileRef"
+                      placeholder="e.g. A123/C456-78"
+                      type="text"
+                      clearable="true"
+                      [hasError]="fileRef.invalid && fileRef.touched"
+                    ></iras-input>
+
+                    <iras-form-input-error
+                      aria-label="Form Input Error"
+                      *ngIf="fileRef.invalid && fileRef.touched"
+                      [templateContentRef]="inputError"
+                    >
+                      <ng-template #inputError>
+                        <div class="form-input__error">
+                          <div *ngIf="fileRef.errors.required">
+                            This is a required field
+                          </div>
+                          <div *ngIf="fileRef.errors.minlength">
+                            Name must be at least {{ NAME_LENGTH }} characters long.
+                          </div>
+                          <div *ngIf="fileRef.errors.forbiddenName">
+                            Name cannot be contain Bob
+                          </div>
+                        </div>
+                      </ng-template>
+                    </iras-form-input-error>
+
+                    <div *ngIf="fileRef">
+                      valid: {{ fileRef.valid }} <br />
+                      dirty: {{ fileRef.dirty }} <br />
+                      touched: {{ fileRef.touched }} <br />
+                      required: {{ fileRef.errors?.required }} <br />
+                      value: {{ fileRef.value | json }}
+                    </div>
+
+                    <div fxLayout="row">
+                      <iras-custom-button
+                        aria-label="Reset"
+                        fxFlex="10"
+                        buttonText="Reset"
+                        (buttonClicked)="resetFileRefControl()"
+                      >
+                      </iras-custom-button>
+                    </div>
+                  </div>
+                </form>
+              </ng-template>
+            </iras-card-container>
+          </div>
+        </div>
+      </ng-template>
+    </iras-expansion-panel>
+  </div>
+</div>

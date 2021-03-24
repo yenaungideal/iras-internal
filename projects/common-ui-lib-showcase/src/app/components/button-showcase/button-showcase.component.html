@@ -1,0 +1,84 @@
+<div fxLayout="row">
+  <h3>Buttons</h3>
+</div>
+<div fxLayout="row wrap" fxLayoutGap="10px">
+  <iras-custom-button
+    aria-label="Next"
+    (buttonClicked)="click()"
+    buttonText="Next"
+    fill="solid"
+    shape="round--border"
+    color="primary"
+  >
+  </iras-custom-button>
+
+  <iras-custom-button
+    aria-label="Submit"
+    buttonText="Submit"
+    fill="solid"
+    shape="round"
+    color="primary"
+  ></iras-custom-button>
+
+  <iras-custom-button
+    aria-label="Cancel"
+    buttonText="Cancel"
+    fill="negative"
+    shape="round"
+    color="grey"
+  ></iras-custom-button>
+
+  <iras-custom-button
+    aria-label="Back"
+    buttonText="Back"
+    fill="negative"
+    shape="round"
+    color="grey"
+  ></iras-custom-button>
+
+  <iras-custom-button
+    aria-label="Next"
+    (buttonClicked)="click()"
+    disabled="true"
+    buttonText="Next"
+    fill="solid"
+    shape="round"
+    color="primary"
+  ></iras-custom-button>
+
+  <iras-custom-button
+    aria-label="Submit"
+    disabled="true"
+    buttonText="Submit"
+    fill="solid"
+    shape="round"
+    color="primary"
+  >
+  </iras-custom-button>
+
+  <div fxFlex="10" fxLayout="row">
+    <iras-custom-button
+      aria-label="Load Now"
+      buttonText="Load Now"
+      fill="solid"
+      shape="round"
+      color="primary"
+      [showSpinner]="isLoading"
+      (buttonClicked)="toggleSpinner()"
+    ></iras-custom-button>
+  </div>
+
+  <iras-custom-button aria-label="" (buttonClicked)="click()" buttonText="" fill="solid" shape="round" color="primary">
+  </iras-custom-button>
+
+  <iras-custom-button
+    aria-label="COMPOSE NEW"
+    (buttonClicked)="click()"
+    buttonText="COMPOSE NEW"
+    fill="solid"
+    shape="round"
+    color="primary"
+    [icon]="composeNewButtonIconName"
+  >
+  </iras-custom-button>
+</div>

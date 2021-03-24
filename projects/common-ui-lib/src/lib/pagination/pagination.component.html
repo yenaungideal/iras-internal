@@ -1,0 +1,18 @@
+<div class="f-container">
+  <div class="iu3-pagination">
+    <a fxHide.xs fxShow.gt-xs (click)="jumpToFirstPage()">&laquo; First</a>
+    <a fxHide.gt-xs fxShow.xs (click)="jumpToFirstPage()">&laquo;</a>
+    <a (click)="changePageByMinusOne(activePage)">‹</a>
+    <ng-container
+      *ngFor="let item of paginationList | slice: paginationMinDisplay:paginationNumMaxDisplay; let i = index"
+    >
+      <a (click)="changePage(item)" [ngClass]="{ active: activePage == item }">{{ item }}</a>
+    </ng-container>
+
+    <a (click)="changePageByAddOne(activePage)">›</a>
+    <a fxHide.gt-xs fxShow.xs (click)="jumpToLastPage()"> &raquo; </a>
+    <a fxHide.xs fxShow.gt-xs (click)="jumpToLastPage()"> Last &raquo; </a>
+    <br />
+    <p>Page {{ activePage }} of {{ numPages }}</p>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div
+  class="button-menu"
+  [ngClass]="'button-menu--' + currentState"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="10px"
+  [@changeDivSize]="currentState"
+>
+  <iras-custom-button
+    class="button-menu__plus-icon"
+    shape="circle"
+    fill="solid"
+    color="primary"
+    buttonText="+"
+    (buttonClicked)="changeState()"
+  ></iras-custom-button>
+  <iras-link class="button-menu__iras-link" *ngIf="currentState === 'initial'" [templateContentRef]="addLinkRef">
+    <ng-template #addLinkRef>
+      <span (click)="changeState()">
+        Add
+      </span>
+    </ng-template>
+  </iras-link>
+
+  <div class="button-menu__items-container" *ngIf="currentState === 'final'">
+    <ul class="button-menu__items-list">
+      <li class="button-menu__item" *ngFor="let item of data; last as isLast" (click)="onMenuClick(item)">
+        <a class="button-menu__anchor">{{ item }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

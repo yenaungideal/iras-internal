@@ -1,0 +1,141 @@
+<div fxFlex="100" fxLayout="column">
+  <div fxLayout="row">
+    <table aria-describedby="types of grid">
+      <thead>
+        <th id="allRowEditable">
+          <iras-custom-button
+            aria-label="Type 1 Button"
+            buttonText="Type 1"
+            [fill]="activeGridType === 'type1' ? 'solid' : 'outline'"
+            shape="round"
+            color="primary"
+            (buttonClicked)="toggleGridView({ gridType: 'type1' })"
+          ></iras-custom-button>
+        </th>
+        <th id="largeDataSet">
+          <iras-custom-button
+            aria-label="Type 2 Button"
+            buttonText="Type 2"
+            [fill]="activeGridType === 'type2' ? 'solid' : 'outline'"
+            shape="round"
+            color="primary"
+            (buttonClicked)="toggleGridView({ gridType: 'type2' })"
+          ></iras-custom-button>
+        </th>
+        <th id="withoutBooleanColumn">
+          <iras-custom-button
+            aria-label="Type 3 Button"
+            buttonText="Type 3"
+            [fill]="activeGridType === 'type3' ? 'solid' : 'outline'"
+            shape="round"
+            color="primary"
+            (buttonClicked)="toggleGridView({ gridType: 'type3' })"
+          ></iras-custom-button>
+        </th>
+        <th id="noColumnGrouping">
+          <iras-custom-button
+            aria-label="Type 4 Button"
+            buttonText="Type 4"
+            [fill]="activeGridType === 'type4' ? 'solid' : 'outline'"
+            shape="round"
+            color="primary"
+            (buttonClicked)="toggleGridView({ gridType: 'type4' })"
+          ></iras-custom-button>
+        </th>
+        <th id="toggleEditModeForRows">
+          <iras-custom-button
+            aria-label="Type 5 Button"
+            buttonText="Type 5"
+            [fill]="activeGridType === 'type5' ? 'solid' : 'outline'"
+            shape="round"
+            color="primary"
+            (buttonClicked)="toggleGridView({ gridType: 'type5' })"
+          ></iras-custom-button>
+        </th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            All row editable
+          </td>
+          <td>
+            Large Data Set
+          </td>
+          <td>
+            Without boolean column
+          </td>
+          <td>
+            No Column Grouping
+          </td>
+          <td>
+            Toggle Edit Mode for rows
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-container [ngSwitch]="activeGridType">
+    <ng-container *ngSwitchCase="'type1'">
+      <ng-container *ngIf="type1GridStateStream | async">
+        <iras-data-grid
+          aria-label="Type 1 Data Grid"
+          [gridStateStream]="type1GridStateStream"
+          (rowEdited)="onRowEdited($event)"
+          (rowDeleted)="onRowDeleted($event)"
+          (rowsSelectorSelectionChanged)="onSelectionChange($event)"
+          (booleanColumnSelectAllStateChanged)="onBooleanColumnSelectAllStateChanged($event)"
+        ></iras-data-grid>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'type2'">
+      <ng-container *ngIf="type2GridStateStream | async">
+        <iras-data-grid
+          aria-label="Type 2 Data Grid"
+          [gridStateStream]="type2GridStateStream"
+          (rowEdited)="onRowEdited($event)"
+          (rowDeleted)="onRowDeleted($event)"
+          (rowsSelectorSelectionChanged)="onSelectionChange($event)"
+          (booleanColumnSelectAllStateChanged)="onBooleanColumnSelectAllStateChanged($event)"
+        ></iras-data-grid>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'type3'">
+      <ng-container *ngIf="type3GridStateStream | async">
+        <iras-data-grid
+          aria-label="Type 3 Data Grid"
+          [gridStateStream]="type3GridStateStream"
+          (rowEdited)="onRowEdited($event)"
+          (rowDeleted)="onRowDeleted($event)"
+          (rowsSelectorSelectionChanged)="onSelectionChange($event)"
+          (booleanColumnSelectAllStateChanged)="onBooleanColumnSelectAllStateChanged($event)"
+        ></iras-data-grid>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'type4'">
+      <ng-container *ngIf="type4GridStateStream | async">
+        <iras-data-grid
+          aria-label="Type 4 Data Grid"
+          [gridStateStream]="type4GridStateStream"
+          (rowEdited)="onRowEdited($event)"
+          (rowDeleted)="onRowDeleted($event)"
+          (rowsSelectorSelectionChanged)="onSelectionChange($event)"
+          (booleanColumnSelectAllStateChanged)="onBooleanColumnSelectAllStateChanged($event)"
+        ></iras-data-grid>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'type5'">
+      <ng-container *ngIf="type5GridStateStream | async">
+        <iras-data-grid
+          aria-label="Type 5 Data Grid"
+          [gridStateStream]="type5GridStateStream"
+          (rowEdited)="onRowEdited($event)"
+          (rowDeleted)="onRowDeleted($event)"
+          (rowsSelectorSelectionChanged)="onSelectionChange($event)"
+          (booleanColumnSelectAllStateChanged)="onBooleanColumnSelectAllStateChanged($event)"
+        ></iras-data-grid>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

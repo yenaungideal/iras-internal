@@ -1,0 +1,9 @@
+<div>
+  <ul class="progress">
+    <ng-container *ngFor="let head of headings; let i = index">
+      <li id="b{{ i }}" [ngClass]="{ completed: activeIndex > i, active: i == activeIndex }">
+        {{ head }}
+      </li>
+    </ng-container>
+  </ul>
+</div>

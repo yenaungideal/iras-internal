@@ -1,0 +1,10 @@
+<h2>Iconography</h2>
+
+<div fxLayout="row wrap" fxLayoutGap="10px">
+  <div *ngFor="let icon of icons" fxFlex="20">
+    <div class="icon-box">
+      <span class="icon-box__icon" [ngStyle]="{ content: 'url(assets/icons/' + icon + ')' }"> </span>
+    </div>
+    <p>{{ icon }}</p>
+  </div>
+</div>

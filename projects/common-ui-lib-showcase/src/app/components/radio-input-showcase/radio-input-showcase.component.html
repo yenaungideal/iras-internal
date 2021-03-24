@@ -1,0 +1,55 @@
+<h3>Radio Buttons</h3>
+
+<div fxLayout="column" fxLayoutGap="20px">
+  <div fxFlex="100" [style.margin-top]="'20px'">
+    <form [formGroup]="documentSignForm">
+      <div class="card__form-label">Document signed in</div>
+      <iras-radio-button
+        aria-label="Radio"
+        formControlName="radio"
+        radioGroupName="docSigned"
+        layout="horizontal"
+        [options]="documentSignedInList"
+        [hasError]="documentHasError"
+      ></iras-radio-button>
+    </form>
+    {{ documentSignForm.value | json }}
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="20px">
+    <iras-custom-button
+      aria-label="Toggle Error"
+      fxFlex="20"
+      buttonText="Toggle Error"
+      (buttonClicked)="toggleError()"
+    ></iras-custom-button>
+    <iras-custom-button
+      aria-label="Patch Value"
+      fxFlex="20"
+      buttonText="Patch Value"
+      (buttonClicked)="patchValue()"
+    ></iras-custom-button>
+  </div>
+  <div fxFlex="100" [style.margin-top]="'20px'">
+    <form [formGroup]="intentForm">
+      <div class="card__form-label">Intent of Purchase/ Transfer</div>
+      <iras-radio-button
+        aria-label="Intent Of Purchase"
+        formControlName="radio"
+        radioGroupName="intentOfPurchase"
+        [options]="intentList"
+      ></iras-radio-button>
+    </form>
+
+    {{ intentForm.value | json }}
+  </div>
+
+  <div fxLayout="row">
+    <iras-custom-button
+      aria-label="Disable"
+      fxFlex="20"
+      buttonText="Disable"
+      (buttonClicked)="disable()"
+    ></iras-custom-button>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <iras-file-upload
+    aria-label="Upload Files"
+    [supportedFileTypes]="['msg', 'pdf', 'tiff', 'tif', 'jpeg', 'jpg', 'png', 'doc', 'docx', 'xls', 'xlsx']"
+    [maxFilesAllowed]="5"
+    (upload)="setUploadedFiles($event)"
+  ></iras-file-upload>
+  <div fxLayout="column" fxLayoutGap="5px">
+    <span *ngFor="let file of filesUploaded">{{ file.name }}</span>
+  </div>
+</div>

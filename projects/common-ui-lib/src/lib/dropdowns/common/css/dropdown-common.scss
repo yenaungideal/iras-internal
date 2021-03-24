@@ -1,0 +1,38 @@
+@import "../../../../assets/styles/utilities/iras.globals.scss";
+
+:host {
+  display: block;
+  padding: 0 0.875rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  color: var(--dark);
+  background-color: var(--light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  cursor: pointer;
+
+  &.selected {
+    outline: none;
+    background-color: var(--primary);
+    color: var(--light);
+  }
+
+  &:hover {
+    outline: none;
+    background-color: var(--primary);
+    color: var(--light);
+  }
+
+  &.disabled {
+    color: var(--grey-tint);
+    cursor: auto;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      background-color: var(--light);
+    }
+  }
+}

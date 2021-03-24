@@ -1,0 +1,92 @@
+@import "./../mixins/iras-color.mixin";
+
+:root {
+  --primary: #2770a0;
+  --primary-rgb: 39, 112, 160;
+  --primary-contrast: #eef8fe;
+  --primary-contrast-rgb: 238, 248, 254;
+  --primary-shade: #003f7a;
+  --primary-tint: #3084c6;
+  --secondary: #008392;
+  --secondary-rgb: 14, 133, 124;
+  --secondary-contrast: #eef8fe;
+  --secondary-contrast-rgb: 238, 248, 254;
+  --secondary-shade: #12604a;
+  --secondary-tint: #269189;
+  --success: #2bb189;
+  --success-rgb: 43, 177, 137;
+  --success-contrast: #eef8fe;
+  --success-contrast-rgb: 238, 248, 254;
+  --success-shade: #269c79;
+  --success-tint: #40b995;
+  --warning: #f66b2e;
+  --warning-rgb: 246, 107, 46;
+  --warning-contrast: #eef8fe;
+  --warning-contrast-rgb: 238, 248, 254;
+  --warning-shade: #d85e28;
+  --warning-tint: #ff922c;
+  --danger: #da1a1a;
+  --danger-rgb: 218, 26, 26;
+  --danger-contrast: #eef8fe;
+  --danger-contrast-rgb: 238, 248, 254;
+  --danger-shade: #903;
+  --danger-tint: #fdeef3;
+  --grey: #c9c9c9;
+  --grey-rgb: 118, 118, 118;
+  --grey-contrast: #f5f5f5;
+  --grey-contrast-rgb: 118, 118, 118;
+  --grey-shade: #717171;
+  --grey-tint: #c9c9c9;
+  --grey-light: #bcbcbc;
+  --dark: #000;
+  --dark-rgb: 0, 0, 0;
+  --dark-contrast: #eef8fe;
+  --dark-contrast-rgb: 238, 248, 254;
+  --dark-shade: black;
+  --dark-tint: #1a1a1a;
+  --light: #fff;
+  --light-rgb: 255, 255, 255;
+  --light-contrast: #000;
+  --light-contrast-rgb: 255, 255, 255;
+  --light-shade: #f6f8fa;
+  --light-tint: #f2f2f2;
+  --color-golden-fizz: #fffac7;
+  --color-golden-fizz-rgb: 255, 250, 199;
+  --color-golden-fizz-contrast: #000;
+  --color-golden-fizz-contrast-rgb: 0, 0, 0;
+  --color-golden-fizz-shade: #e0dcaf;
+  --color-golden-fizz-tint: #fffbcd;
+  --color-multi-tulip: #cbf3f1;
+  --color-multi-tulip-rgb: 203, 243, 241;
+  --color-multi-tulip-contrast: #000;
+  --color-multi-tulip-contrast-rgb: 0, 0, 0;
+  --color-multi-tulip-shade: #eef8fe;
+  --color-multi-tulip-tint: #d0f4f2;
+  --white: #ffffff;
+}
+
+$colors: (
+  "primary": var(--primary),
+  "secondary": var(--secondary),
+  "success": var(--success),
+  "warning": var(--warning),
+  "danger": var(--danger),
+  "dark": var(--dark),
+  "light": var(--light),
+  "grey": var(--grey),
+);
+
+@mixin generate-color($color-name) {
+  --base: var(--#{$color-name});
+  --base-rgb: var(--#{$color-name}-rgb);
+  --contrast: var(--#{$color-name}-contrast);
+  --contrast-rgb: var(--#{$color-name}-contrast-rgb);
+  --shade: var(--#{$color-name}-shade);
+  --tint: var(--#{$color-name}-tint);
+}
+
+@each $color, $value in $colors {
+  .iras-color-#{$color} {
+    @include generate-color($color);
+  }
+}

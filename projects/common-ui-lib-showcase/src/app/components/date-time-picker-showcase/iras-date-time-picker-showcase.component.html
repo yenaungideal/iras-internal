@@ -1,0 +1,79 @@
+<div [formGroup]="dateTimeForm" class="date-time-picker" fxLayout="row">
+  <div fxLayout="column">
+    <div>
+      <div fxLayout="row" fxLayoutGap="5px">
+        <span>Enter date time </span
+        ><iras-tooltip
+          aria-label="Enter Date Time"
+          [tooltipContentText]="dateTimePickerConfig.tooltipContent"
+        ></iras-tooltip>
+      </div>
+
+      <div formGroupName="dateTime" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="10px">
+          <iras-date-picker
+            aria-label="date"
+            required="true"
+            formControlName="date"
+            placeholder="dd/mm/yyyy"
+            [hasError]="dateTime.invalid && dateTime.touched"
+          ></iras-date-picker>
+          <iras-time-picker
+            aria-label="time"
+            formControlName="time"
+            interval="5minute"
+            [hasError]="dateTime.invalid && dateTime.touched"
+          ></iras-time-picker>
+        </div>
+        <iras-form-input-error
+          aria-label="form input error"
+          *ngIf="dateTime.invalid && dateTime.touched"
+          [templateContentRef]="inputError"
+        >
+          <ng-template #inputError>
+            <div class="form-input__error">
+              <div *ngIf="dateTime.errors?.required">
+                This is a required field
+              </div>
+              <div *ngIf="dateTime.errors?.dateTimeFormatMustBeValid">
+                date time format is not valid
+              </div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+      </div>
+    </div>
+
+    <div fxLayout="column">
+      <h5>
+        Time only form (1 min interval)
+      </h5>
+      <div>
+        <iras-time-picker
+          aria-label="time"
+          [formControl]="timeOnlyControl"
+          interval="1minute"
+          [hasError]="timeOnlyControl.invalid && timeOnlyControl.touched"
+        >
+        </iras-time-picker>
+      </div>
+
+      <iras-form-input-error
+        aria-label="form input error"
+        *ngIf="timeOnlyControl.invalid && timeOnlyControl.touched"
+        [templateContentRef]="timeErrorRef"
+      >
+        <ng-template #timeErrorRef>
+          <div class="form-input__error">
+            <div *ngIf="timeOnlyControl.errors?.required">
+              This is a required field
+            </div>
+            <div *ngIf="timeOnlyControl.errors?.timeMustBeValid">
+              date time format is not valid
+            </div>
+          </div>
+        </ng-template>
+      </iras-form-input-error>
+    </div>
+  </div>
+</div>

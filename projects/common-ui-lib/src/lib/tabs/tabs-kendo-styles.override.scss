@@ -1,0 +1,37 @@
+// Tabs
+.k-tabstrip > .k-tabstrip-items > .k-state-active {
+  color: var(--primary);
+  font-size: $size-16;
+  font-weight: 600;
+  width: auto;
+  border-top: 3px solid var(--warning);
+  border-left: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
+  border-bottom: 0;
+}
+
+.k-tabstrip-items .k-state-default {
+  width: auto;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid #c3c3c3;
+}
+
+.k-tabstrip-items .k-item.k-state-active:hover {
+  color: var(--primary);
+}
+
+.k-tabstrip-items .k-item {
+  color: var(--dark);
+  font-size: $size-16;
+}
+
+.k-tabstrip-items .k-item:hover {
+  color: var(--primary);
+}
+
+.k-tabstrip > .k-content {
+  border: none;
+  border-style: none;
+}

@@ -1,0 +1,24 @@
+<div
+  [formGroup]="form"
+  class="date-time-picker"
+  fxLayout="row"
+  fxLayoutAlign="start end"
+  [class.date-time-picker--has-error]="hasError"
+  fxLayoutGap="7.5px"
+>
+  <iras-dropdown
+    fxFlex="75px"
+    (blur)="onTouch(true)"
+    [data]="hourList"
+    [hasError]="hasError"
+    formControlName="hour"
+  ></iras-dropdown>
+  <div fxFlexAlign="center">:</div>
+  <iras-dropdown
+    (blur)="onTouch(true)"
+    fxFlex="75px"
+    [data]="minuteList"
+    [hasError]="hasError"
+    formControlName="minutes"
+  ></iras-dropdown>
+</div>

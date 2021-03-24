@@ -1,0 +1,32 @@
+<ng-template #dialogContentRef>
+  <div class="iras-dialog" [ngStyle]="{ width: width, height: height }" fxFlexLayout="column">
+    <span class="iras-dialog__close-icon" (click)="onBack()"></span>
+    <div class="iras-dialog-header">
+      <span *ngIf="showTitleIcon" class="iras-dialog-image"></span>
+      <span>{{ title }}</span>
+    </div>
+    <span class="iras-dialog__description1">{{ description1 }}</span>
+    <span class="iras-dialog__description2">{{ description2 }}</span>
+
+    <div fxFlexLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" [style.margin-top]="'40px'">
+      <iras-custom-button
+        *ngIf="isCancelAction"
+        class="iras-dialog__cancel-button"
+        [buttonText]="cancelActionText"
+        fill="outline"
+        shape="round"
+        color="primary"
+        (buttonClicked)="onBack()"
+      ></iras-custom-button>
+      <iras-custom-button
+        *ngIf="isOkAction"
+        class="iras-dialog__ok-button"
+        [buttonText]="okActionText"
+        fill="solid"
+        shape="round"
+        color="primary"
+        (buttonClicked)="onContinue()"
+      ></iras-custom-button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,92 @@
+@mixin button-checkbox-variant($color, $background, $border) {
+  color: transparent;
+  background-color: var(--light);
+  border-color: var(--grey-tint);
+
+  &:hover {
+    border: 2px solid var(--primary);
+    color: $background;
+    background-color: var(--light);
+  }
+
+  &:focus {
+    border: 1px solid var(--grey-tint);
+    box-shadow: none;
+  }
+
+  &:disabled {
+    border-color: var(--grey-shade);
+    background: var(--grey-tint);
+  }
+
+  &:indeterminate,
+  &.k-state-indeterminate {
+    border-color: $border;
+    color: var(--light);
+    background-color: $background;
+  }
+
+  &:checked {
+    border-color: $border;
+    color: $color;
+    background-color: $background;
+  }
+
+  &:checked:disabled {
+    border-color: var(--grey-tint);
+    color: $color;
+    background-color: var(--grey-shade);
+  }
+
+  &:checked:focus {
+    border-color: $border;
+    box-shadow: none;
+  }
+
+  &.k-invalid,
+  &.k-state-invalid {
+    border-color: $border;
+  }
+}
+
+.dropdown-checkbox {
+  &__input {
+    border-radius: 0.25rem;
+    margin: 0;
+    padding: 0;
+    min-width: 20px;
+    min-height: 20px;
+    line-height: initial;
+    border-width: 1px;
+    border-style: solid;
+    outline: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    appearance: none;
+
+    &::before {
+      content: "\e118";
+      font-size: 16px;
+      font-family: WebComponentsIcons, monospace;
+      transform: scale(0) translate(-50%, -50%);
+      overflow: hidden;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:checked::before {
+      border-radius: 0.25rem;
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
+  &--primary &__input {
+    @include button-checkbox-variant(var(--light), var(--primary), var(--primary));
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/common-ui-lib",
+  "lib": {
+    "cssUrl": "inline",
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "@progress/kendo-angular-layout": "kendo-angular-layout",
+      "@progress/kendo-angular-dropdowns": "kendo-angular-dropdowns",
+      "@progress/kendo-angular-dialog": "kendo-angular-dropdowns"
+    }
+  },
+  "whitelistedNonPeerDependencies": ["."]
+}

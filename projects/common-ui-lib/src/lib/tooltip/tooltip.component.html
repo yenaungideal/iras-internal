@@ -1,0 +1,30 @@
+<div *ngIf="tooltipContentText" class="iras-tooltip">
+  <div fxLayout="row">
+    <div
+      fxLayout="row"
+      fxLayoutGap="5px"
+      class="iras-tooltip-label"
+      *ngIf="tooltipLabelType === 'info'"
+      (click)="showTooltip(tooltip, $event.currentTarget)"
+    >
+      <span *ngIf="tooltipLabelType === 'info'" class="iras-tooltip__icon-info"></span>
+      <span *ngIf="tooltipLabelText">{{ tooltipLabelText }}</span>
+    </div>
+    <div *ngIf="tooltipLabelType === 'custom'">
+      <div fxLayout="row">
+        <div class="iras-tooltip-label" (click)="showTooltip(tooltip, $event.currentTarget)">
+          <ng-template *ngIf="templatePortal" [cdkPortalOutlet]="templatePortal"></ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #tooltip let-popover="popover">
+    <div fxFLex="100" class="iras-tooltip__content-container" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="column" fxLayoutGap="10px">
+        <span *ngIf="tooltipContentTitle" class="iras-tooltip__title">{{ tooltipContentTitle }}</span>
+        <div [innerHTML]="tooltipContentText"></div>
+      </div>
+      <div *ngIf="showCloseButton" class="iras-tooltip__icon-close" (click)="popover.close()"></div>
+    </div>
+  </ng-template>
+</div>

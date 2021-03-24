@@ -1,0 +1,9 @@
+<mat-button-toggle-group
+  [name]="name"
+  *ngIf="data && data.length > 1"
+  [disabled]="disabled"
+  (change)="buttonToggleSelect($event)"
+  [value]="value"
+>
+  <mat-button-toggle *ngFor="let item of data" value="{{ item }}">{{ item }}</mat-button-toggle>
+</mat-button-toggle-group>

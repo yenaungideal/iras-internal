@@ -1,0 +1,13 @@
+.link {
+  --font-weight: normal;
+}
+.iras-link {
+  touch-action: manipulation;
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: var(--font-weight);
+  &:hover {
+    color: var(--primary-shade);
+    text-decoration: underline;
+  }
+}

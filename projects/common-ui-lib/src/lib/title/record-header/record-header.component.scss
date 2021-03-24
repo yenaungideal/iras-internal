@@ -1,0 +1,14 @@
+@import "./../../../assets/styles/utilities/iras.globals";
+.record-header-wrapper {
+  width: 100%;
+  max-height: 60px;
+  background-color: var(--secondary);
+  padding: 10px;
+  border-radius: 5px;
+  &__label {
+    font-family: "Source Sans Pro", Times, serif;
+    font-size: 18px;
+    color: var(--light);
+    font-weight: $font-weight-bold;
+  }
+}

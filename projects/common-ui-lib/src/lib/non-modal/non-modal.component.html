@@ -1,0 +1,25 @@
+<div
+  class="non-modal-container"
+  fxFlex="100%"
+  fxLayout="column"
+  [ngClass]="iconMinimize === false ? 'container-minimize' : 'container-maximize'"
+>
+  <div fxFlex class="non-modal-title">
+    <div fxLayout="row">
+      <div fxFlex="calc(100% - 36px)">
+        <span class="non-modal__title-label">Title here...</span>
+      </div>
+      <div fxFlex="36px" fxLayout="row" fxLayoutGap="10px">
+        <span
+          class="non-modal-icon"
+          (click)="minimizeMaximizeDialog()"
+          [ngClass]="iconMinimize === false ? 'icon-minimize' : 'icon-maximize'"
+        ></span>
+        <span class="non-modal-icon icon-close" (click)="closeDialog()"></span>
+      </div>
+    </div>
+  </div>
+  <div fxFlex class="non-modal-content" fxLayout="row" *ngIf="!iconMinimize">
+    <ng-template [cdkPortalOutlet]="templatePortal"></ng-template>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="iras-select" fxFlex="100" fxLayout="column">
+  <div fxLayout="column" fxLayoutGap="5px">
+    <div *ngIf="label" class="iras-select__label">
+      {{ label }} <span class="input__required-symbol" *ngIf="showRequiredSymbol">*</span>
+    </div>
+    <div
+      class="iras-select__selector"
+      [class.iras-select__selector--has-error]="hasError"
+      [class.iras-select--opened]="selectOpened"
+      [class.iras-select--focused]="selectFocused"
+      [class.iras-select__selector--disabled]="disabled"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      (click)="setMatSelectAppearance($event)"
+      #dropdownContainer
+    >
+      <div
+        fxFlex="98"
+        class="iras-select__item-placeholder"
+        [class.iras-select__selected-option-text]="selectedItemText"
+      >
+        {{ selectedItemText || placeholder }}
+      </div>
+      <span
+        class="iras-icon"
+        [class.iras-icon--caret-svg]="!selectOpened"
+        [class.iras-icon--caret-inverted-svg]="selectOpened"
+      ></span>
+    </div>
+  </div>
+  <mat-select
+    [placeholder]="placeholder"
+    [(ngModel)]="selectedOption"
+    (ngModelChange)="onSelectionChange($event)"
+    disableRipple
+    disableOptionCentering
+    panelClass="iras-select-overlay-panel"
+    [disabled]="disabled"
+    (openedChange)="onOpenedChange($event)"
+    class="iras-select__wrapper"
+    typeaheadDebounceInterval="800"
+    #matSelect
+    (focus)="onSelectFocus()"
+    (blur)="onSelectBlur()"
+  >
+    <mat-option [value]="option.key" *ngFor="let option of data">{{ option.text }}</mat-option>
+  </mat-select>
+</div>

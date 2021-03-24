@@ -1,0 +1,553 @@
+<h3>Date Pickers</h3>
+
+<iras-card-container aria-label="card container" class="card-item-1" [templateContentRef]="templateContentRef">
+  <ng-template #templateContentRef>
+    <div [ngStyle]="{ 'padding-bottom': '100px' }">
+      <form [formGroup]="dateForm" fxFlex="100" fxLayout="column" fxLayoutGap="20px">
+        <h4>Version 2</h4>
+        <div fxLayout="column" fxFlex="100" class="form-input-item">
+          <div class="form-input-item__label" fxLayout="row">
+            <div *ngIf="fromInputConfig?.travelStartDate?.inputLabel">
+              <span>{{ fromInputConfig.travelStartDate.inputLabel }} </span
+              ><span class="input__required-symbol" *ngIf="fromInputConfig.travelStartDate.isRequired">*</span>
+            </div>
+            <iras-tooltip
+              aria-label="tooltip"
+              *ngIf="fromInputConfig?.travelStartDate?.toolTipText"
+              [tooltipContentText]="fromInputConfig.travelStartDate.toolTipText"
+            ></iras-tooltip>
+          </div>
+
+          <div fxLayout="row">
+            <div>
+              <iras-date-picker
+                aria-label="Travel Start Date"
+                required="true"
+                (dateChanged)="onDateChange($event)"
+                formControlName="travelStartDate"
+                placeholder="dd/mm/yyyy"
+                [hasError]="travelStartDate.invalid && travelStartDate.touched"
+              ></iras-date-picker>
+            </div>
+          </div>
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="travelStartDate.invalid && travelStartDate.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="travelStartDate.errors.required">
+                  This is a required field
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+          <div *ngIf="travelStartDate">
+            valid: {{ travelStartDate.valid }} <br />
+            dirty: {{ travelStartDate.dirty }} <br />
+            touched: {{ travelStartDate.touched }} <br />
+            required: {{ travelStartDate.errors?.required }} <br />
+            value: {{ travelStartDate.value | json }}
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="10px">
+            <iras-custom-button
+              aria-label="Disable/Enable Datepicker Button"
+              buttonText="Disable/Enable Datepicker"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="toggleDisableAttr({ controlName: 'travelStartDate' })"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch Value"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="patchValue({ control: travelStartDate, type: 'fullDate' })"
+            ></iras-custom-button>
+
+            <iras-custom-button
+              aria-label="Reset"
+              buttonText="Reset"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="resetDate({ control: travelStartDate })"
+            ></iras-custom-button>
+          </div>
+        </div>
+
+        <div class="form-input-item" fxFlex="100" fxLayout="column">
+          <div class="form-input-item__label" fxLayout="row">
+            <div *ngIf="fromInputConfig?.cardExpiryDate?.inputLabel">
+              <span>{{ fromInputConfig.cardExpiryDate.inputLabel }} </span
+              ><span class="input__required-symbol" *ngIf="fromInputConfig.cardExpiryDate.isRequired">*</span>
+            </div>
+            <iras-tooltip
+              aria-label="Card Expiry Tooltip"
+              *ngIf="fromInputConfig?.cardExpiryDate?.toolTipText"
+              [tooltipContentText]="fromInputConfig.cardExpiryDate.toolTipText"
+              position="above"
+            ></iras-tooltip>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <iras-month-year-picker
+                aria-label="Month Year Picker"
+                required="true"
+                (dateChanged)="onDateChange($event)"
+                formControlName="cardExpiry"
+                placeholder="mm/yyyy"
+                [hasError]="cardExpiry.invalid && cardExpiry.touched"
+              ></iras-month-year-picker>
+            </div>
+          </div>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="cardExpiry.invalid && cardExpiry.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="cardExpiry.errors.required">
+                  This is a required field
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+
+          <div *ngIf="cardExpiry">
+            valid: {{ cardExpiry.valid }} <br />
+            dirty: {{ cardExpiry.dirty }} <br />
+            touched: {{ cardExpiry.touched }} <br />
+            required: {{ cardExpiry.errors?.required }} <br />
+            value: {{ cardExpiry.value | json }}
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <iras-custom-button
+              aria-label="Disable/Enable Datepicker Button"
+              buttonText="Disable/Enable Datepicker"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="toggleDisableAttr({ controlName: 'cardExpiry' })"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch Value"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="patchValue({ control: cardExpiry, type: 'monthYear' })"
+            ></iras-custom-button>
+
+            <iras-custom-button
+              aria-label="Reset"
+              buttonText="Reset"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="resetDate({ control: cardExpiry })"
+            ></iras-custom-button>
+          </div>
+        </div>
+
+        <div class="form-input-item" fxFlex="100" fxLayout="column">
+          <div class="form-input-item__label" fxLayout="row">
+            <div *ngIf="fromInputConfig?.yearOfGraduation?.inputLabel">
+              <span>{{ fromInputConfig.yearOfGraduation.inputLabel }} </span
+              ><span class="input__required-symbol" *ngIf="fromInputConfig.yearOfGraduation.isRequired">*</span>
+            </div>
+            <iras-tooltip
+              aria-label="Tooltip"
+              *ngIf="fromInputConfig?.yearOfGraduation?.toolTipText"
+              [tooltipContentText]="fromInputConfig.yearOfGraduation.toolTipText"
+            ></iras-tooltip>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <iras-year-picker
+                aria-label="Year picker"
+                required="true"
+                (dateChanged)="onDateChange($event)"
+                formControlName="yearOfGraduation"
+                placeholder="yyyy"
+                [hasError]="yearOfGraduation.invalid && yearOfGraduation.touched"
+              ></iras-year-picker>
+            </div>
+          </div>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="yearOfGraduation.invalid && yearOfGraduation.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="yearOfGraduation.errors.required">
+                  This is a required field
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+
+          <div *ngIf="yearOfGraduation">
+            valid: {{ yearOfGraduation.valid }} <br />
+            dirty: {{ yearOfGraduation.dirty }} <br />
+            touched: {{ yearOfGraduation.touched }} <br />
+            required: {{ yearOfGraduation.errors?.required }} <br />
+            value: {{ yearOfGraduation.value | json }}
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <iras-custom-button
+              aria-label="Disable/Enable Datepicker Button"
+              buttonText="Disable/Enable Datepicker"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="toggleDisableAttr({ controlName: 'yearOfGraduation' })"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch Value"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="patchValue({ control: yearOfGraduation, type: 'year' })"
+            ></iras-custom-button>
+
+            <iras-custom-button
+              aria-label="Reset"
+              fxFlex.lt-xl="15"
+              fxFlex.xl="20"
+              buttonText="Reset"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="resetDate({ control: yearOfGraduation })"
+            ></iras-custom-button>
+          </div>
+        </div>
+
+        <div class="form-input-item" fxFlex="100" fxLayout="column">
+          <div class="form-input-item__label" fxLayout="row">
+            <div *ngIf="fromInputConfig?.yearOfBirth?.inputLabel">
+              <span>{{ fromInputConfig.yearOfBirth.inputLabel }} </span
+              ><span class="input__required-symbol" *ngIf="fromInputConfig.yearOfBirth.isRequired">*</span>
+            </div>
+            <iras-tooltip
+              aria-label="Tooltip"
+              *ngIf="fromInputConfig?.yearOfBirth?.toolTipText"
+              [tooltipContentText]="fromInputConfig.yearOfBirth.toolTipText"
+            ></iras-tooltip>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <iras-year-picker
+                aria-label="Year Picker"
+                required="true"
+                (dateChanged)="onDateChange($event)"
+                formControlName="yearOfBirth"
+                placeholder="yyyy"
+                maxYear="2000"
+                minYear="1960"
+                [hasError]="yearOfBirth.invalid && yearOfBirth.touched"
+              ></iras-year-picker>
+            </div>
+          </div>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="yearOfBirth.invalid && yearOfBirth.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="yearOfBirth.errors.required">
+                  This is a required field
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+
+          <div *ngIf="yearOfBirth">
+            valid: {{ yearOfBirth.valid }} <br />
+            dirty: {{ yearOfBirth.dirty }} <br />
+            touched: {{ yearOfBirth.touched }} <br />
+            required: {{ yearOfBirth.errors?.required }} <br />
+            value: {{ yearOfBirth.value | json }}
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <iras-custom-button
+              aria-label="Disable/Enable Datepicker Button"
+              buttonText="Disable/Enable Datepicker"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="toggleDisableAttr({ controlName: 'yearOfBirth' })"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch Value"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="patchValue({ control: yearOfBirth, type: 'year' })"
+            ></iras-custom-button>
+
+            <iras-custom-button
+              aria-label="Reset"
+              buttonText="Reset"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="resetDate({ control: yearOfBirth })"
+            ></iras-custom-button>
+          </div>
+        </div>
+
+        <div class="form-input-item" fxFlex="100" fxLayout="column">
+          <div class="form-input-item__label" fxLayout="row">
+            <div *ngIf="fromInputConfig?.intendedTaxFillDate?.inputLabel">
+              <span>{{ fromInputConfig.intendedTaxFillDate.inputLabel }} </span
+              ><span class="input__required-symbol" *ngIf="fromInputConfig.intendedTaxFillDate.isRequired">*</span>
+            </div>
+            <iras-tooltip
+              aria-label="Tooltip"
+              *ngIf="fromInputConfig?.intendedTaxFillDate?.toolTipText"
+              [tooltipContentText]="fromInputConfig.intendedTaxFillDate.toolTipText"
+            ></iras-tooltip>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <iras-date-picker
+                aria-label="Intended Tax Fill Date"
+                required="true"
+                (dateChanged)="onDateChange($event)"
+                formControlName="intendedTaxFillDate"
+                placeholder="dd/mm/yyyy"
+                [maxDate]="maxTaxFillDate"
+                [minDate]="minTaxFillDate"
+                [hasError]="intendedTaxFillDate.invalid && intendedTaxFillDate.touched"
+              ></iras-date-picker>
+            </div>
+          </div>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="intendedTaxFillDate.invalid && intendedTaxFillDate.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="intendedTaxFillDate.errors.required">
+                  This is a required field
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+
+          <div *ngIf="intendedTaxFillDate">
+            valid: {{ intendedTaxFillDate.valid }} <br />
+            dirty: {{ intendedTaxFillDate.dirty }} <br />
+            touched: {{ intendedTaxFillDate.touched }} <br />
+            required: {{ intendedTaxFillDate.errors?.required }} <br />
+            value: {{ intendedTaxFillDate.value | json }}
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <iras-custom-button
+              aria-label="Disable/Enable Datepicker Button"
+              buttonText="Disable/Enable Datepicker"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="toggleDisableAttr({ controlName: 'intendedTaxFillDate' })"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch Value"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="patchValue({ control: intendedTaxFillDate, type: 'fullDate' })"
+            ></iras-custom-button>
+
+            <iras-custom-button
+              aria-label="Reset"
+              buttonText="Reset"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="resetDate({ control: intendedTaxFillDate })"
+            ></iras-custom-button>
+          </div>
+        </div>
+
+        <div class="form-input-item" fxFlex="100" fxLayout="column">
+          <div class="form-input-item__label" fxLayout="row">
+            <div *ngIf="fromInputConfig?.monthPick?.inputLabel">
+              <span>{{ fromInputConfig.monthPick.inputLabel }} </span
+              ><span class="input__required-symbol" *ngIf="fromInputConfig.monthPick.isRequired">*</span>
+            </div>
+            <iras-tooltip
+              aria-label="Tooltip"
+              *ngIf="fromInputConfig?.monthPick?.toolTipText"
+              [tooltipContentText]="fromInputConfig.monthPick.toolTipText"
+            ></iras-tooltip>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <iras-month-picker
+                aria-label="Month Picker"
+                required="true"
+                (dateChanged)="onDateChange($event)"
+                formControlName="monthPick"
+                placeholder="mm/yyyy"
+                [maxDate]="maxTaxFillDate"
+                [minDate]="minTaxFillDate"
+                [hasError]="monthPick.invalid && monthPick.touched"
+              ></iras-month-picker>
+            </div>
+          </div>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="monthPick.invalid && monthPick.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="monthPick.errors.required">
+                  This is a required field
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+
+          <div *ngIf="monthPick">
+            valid: {{ monthPick.valid }} <br />
+            dirty: {{ monthPick.dirty }} <br />
+            touched: {{ monthPick.touched }} <br />
+            required: {{ monthPick.errors?.required }} <br />
+            value: {{ monthPick.value | json }}
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <iras-custom-button
+              aria-label="Disable/Enable Datepicker Button"
+              buttonText="Disable/Enable Datepicker"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="toggleDisableAttr({ controlName: 'monthPick' })"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch Value"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="patchValue({ control: monthPick, type: 'month' })"
+            ></iras-custom-button>
+
+            <iras-custom-button
+              aria-label="Reset"
+              buttonText="Reset"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="resetDate({ control: monthPick })"
+            ></iras-custom-button>
+          </div>
+        </div>
+
+        <div class="form-input-item" fxFlex="100" fxLayout="column">
+          <div class="form-input-item__label" fxLayout="row">
+            <div *ngIf="fromInputConfig?.dateRangePicker?.inputLabel">
+              <span>{{ fromInputConfig.dateRangePicker.inputLabel }} </span
+              ><span class="input__required-symbol" *ngIf="fromInputConfig.dateRangePicker.isRequired">*</span>
+            </div>
+            <iras-tooltip
+              aria-label="Tooltip"
+              *ngIf="fromInputConfig?.dateRangePicker?.toolTipText"
+              [tooltipContentText]="fromInputConfig.dateRangePicker.toolTipText"
+            ></iras-tooltip>
+          </div>
+          <div fxLayout="row">
+            <div>
+              <iras-date-range-picker
+                aria-label="Date Range Picker"
+                class="range-picker"
+                (onRangeChange)="onDateChange($event)"
+                formControlName="dateRangePicker"
+                [minDate]="minTaxFillDate"
+                [maxDate]="maxTaxFillDate"
+                [required]="true"
+              ></iras-date-range-picker>
+            </div>
+          </div>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="dateRangePicker.invalid && dateRangePicker.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="dateRangePicker.errors.required">
+                  This is a required field
+                </div>
+                <div
+                  *ngIf="
+                    (dateRangePicker.value?.startDate || dateRangePicker.value?.endDate) &&
+                    dateRangePicker.errors.startAndEndDateMustBeValid
+                  "
+                >
+                  Start Date and End Date must be valid
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+
+          <div *ngIf="dateRangePicker">
+            valid: {{ dateRangePicker.valid }} <br />
+            dirty: {{ dateRangePicker.dirty }} <br />
+            touched: {{ dateRangePicker.touched }} <br />
+            required: {{ dateRangePicker.errors?.required }} <br />
+            value: {{ dateRangePicker.value | json }}
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <iras-custom-button
+              aria-label="Disable/Enable Datepicker Button"
+              buttonText="Disable/Enable Datepicker"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="toggleDisableAttr({ controlName: 'dateRangePicker' })"
+            ></iras-custom-button>
+            <iras-custom-button
+              aria-label="Patch Value"
+              buttonText="Patch Value"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="patchValue({ control: dateRangePicker, type: 'dateRange' })"
+            ></iras-custom-button>
+
+            <iras-custom-button
+              aria-label="Reset"
+              buttonText="Reset"
+              fill="solid"
+              shape="round"
+              color="primary"
+              (buttonClicked)="resetDate({ control: dateRangePicker })"
+            ></iras-custom-button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</iras-card-container>

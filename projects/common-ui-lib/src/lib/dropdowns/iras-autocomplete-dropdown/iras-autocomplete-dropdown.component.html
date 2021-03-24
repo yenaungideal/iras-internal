@@ -1,0 +1,45 @@
+<div id="iras-autocomplete" class="iras-autocomplete" fxFlex="100" fxLayout="column">
+  <div
+    class="iras-autocomplete__input-container"
+    [class.iras-autocomplete__input-container--has-error]="hasError"
+    [class.iras-select--opened]="selectOpened"
+    [class.iras-autocomplete__input-container--focus]="focused"
+    [class.iras-autocomplete__input-container--disabled]="disabled"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    #inputContainer
+  >
+    <input
+      fxFlex="98"
+      class="iras-autocomplete__item-placeholder"
+      [class.iras-autocomplete__selected-option-text]="selectedItemText"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      (input)="onTextChange($event.target.value)"
+      [matAutocomplete]="auto"
+      [disabled]="disabled"
+      (focus)="onInputFocus()"
+      (keydown)="onKeyPress($event)"
+      #inputAutoComplete
+      [(ngModel)]="selectedItemText"
+      matInput
+      (click)="onInputClick($event)"
+      (change)="onInputChange()"
+      (blur)="onInputBlur()"
+    />
+    <div *ngIf="showIcon" [ngClass]="icon" class="iras-icon iras-search-icon" (click)="onSearchIconClick($event)"></div>
+  </div>
+
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    disableRipple
+    disableOptionCentering
+    [panelWidth]="inputContainerWidth || 0"
+    overlayPanelClass="'iras-autocomplete-overlay-panel'"
+    (optionSelected)="onOptionSelected($event.option.value)"
+    (closed)="onAutoCompleteClosed()"
+    (opened)="onAutoCompleteOpened()"
+  >
+    <mat-option [value]="option.text" *ngFor="let option of dataList | async">{{ option.text }}</mat-option>
+  </mat-autocomplete>
+</div>

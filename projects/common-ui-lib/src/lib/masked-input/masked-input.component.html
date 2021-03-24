@@ -1,0 +1,23 @@
+<div
+  class="masked-input"
+  [class.masked-input--has-error]="hasError"
+  fxFlex="100"
+  fxLayout="row"
+  [ngClass]="getContainerClassList()"
+>
+  <kendo-maskedtextbox
+    #kendoMaskedTextBox
+    class="masked-input__field"
+    fxFlex="100"
+    [mask]="mask"
+    [disabled]="disabled"
+    [(ngModel)]="value"
+    [prompt]="maskPlaceholder"
+    (focusout)="onTouch()"
+    (focus)="onFocusIn()"
+    [includeLiterals]="true"
+    [maskValidation]="true"
+    [maskOnFocus]="true"
+    [class.masked-input--has-error]="hasError"
+  ></kendo-maskedtextbox>
+</div>

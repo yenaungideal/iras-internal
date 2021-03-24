@@ -1,0 +1,41 @@
+<div #datePickerContainerElementRef class="iras-datepicker" fxFlex="100" fxLayout="row wrap">
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+    <iras-masked-input
+      [disabled]="disabled"
+      class="iras-datepicker__masked-input"
+      fxFlex="100"
+      [mask]="dateMask"
+      maskPlaceholder=" "
+      [(ngModel)]="maskedInputValue"
+      [placeholder]="placeholder"
+      [hasError]="hasError"
+      (focusout)="onTouch()"
+      (keydown)="onYearPickerKeyDown($event)"
+      (ngModelChange)="onMaskedInputValueChange()"
+      (keyup.backspace)="onBackspacePressed($event)"
+    >
+    </iras-masked-input>
+
+    <span class="iras-datepicker__icon" (click)="open()"></span>
+  </div>
+  <div class="iras-datepicker__fake-input-container">
+    <input
+      class="iras-datepicker__input"
+      [matDatepicker]="datePicker"
+      [required]="required"
+      [(ngModel)]="value"
+      [value]="selectedDate"
+      [min]="minDate"
+      [max]="maxDate"
+      (dateChange)="onDateChange($event.value)"
+    />
+    <mat-datepicker
+      #datePicker
+      [startView]="startView"
+      [startAt]="initialHighlightAt"
+      (yearSelected)="onYearSelected($event)"
+      (closed)="onDatePickerClose()"
+      (opened)="onDatePickerOpen()"
+    ></mat-datepicker>
+  </div>
+</div>

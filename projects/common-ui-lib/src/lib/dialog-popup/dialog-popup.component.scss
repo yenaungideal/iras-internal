@@ -1,0 +1,70 @@
+:host {
+  --width: 100%;
+  --padding: 40px;
+  --height: auto;
+}
+
+.iras-dialog-header {
+  font-size: 28px;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.iras-dialog-header span {
+  padding-left: 10px;
+  vertical-align: middle;
+}
+
+.iras-dialog-image {
+  content: url("/assets/icons/warning.png");
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.iras-dialog-action-buttons {
+  text-align: center;
+}
+
+.iras-dialog {
+  padding: 40px;
+  height: var(--height);
+  background: inherit;
+  background-color: white;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--primary-tint);
+  border-radius: 5px;
+  position: relative;
+
+  &__ok-button {
+    margin-left: 5px;
+  }
+  &__description1 {
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 15px;
+    color: var(--dark);
+    display: block;
+  }
+  &__description2 {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--dark);
+    display: block;
+  }
+  &__close-icon {
+    content: url("/assets/icons/close.svg");
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+  }
+  &__close-icon:hover {
+    border-radius: 10px;
+    border: 1px solid var(--primary);
+  }
+}

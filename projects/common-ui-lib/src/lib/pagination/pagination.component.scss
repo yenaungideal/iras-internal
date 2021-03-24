@@ -1,0 +1,56 @@
+@import "../../assets/styles/utilities/iras.globals.scss";
+
+.f-container {
+  text-align: center;
+}
+.iu3-pagination {
+  display: inline-block;
+  -webkit-touch-callout: none; /* iOS Safari */
+  user-select: none;
+}
+
+.iu3-pagination a {
+  color: var(--grey);
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  box-shadow: 0 0 0 1px var(--grey);
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 5px 0 5px;
+}
+.iu3-pagination p {
+  margin-top: 1.8em;
+  text-align: center;
+}
+
+.iu3-pagination a.active {
+  background-color: var(--primary);
+  color: var(--light);
+}
+
+.pagination a:hover:not(.active) {
+  background-color: var(--grey-tint);
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .iu3-pagination a {
+    padding: 8px 12px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+
+@media (min-width: 992px) {
+  .iu3-pagination a {
+    padding: 8px 16px;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .iu3-pagination a {
+    padding: 8px 16px;
+  }
+}

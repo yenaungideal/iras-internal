@@ -1,0 +1,71 @@
+<div fxLayout="column" [formGroup]="form" class="audit-trail-panel" fxFlex="100">
+  <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center" fxFlexOffset="-20px" fxFlex="100">
+    <h3>Audit Trail</h3>
+    <span *ngIf="officerId && timestamp">- {{ officerId }}, {{ timestamp }}</span>
+    <span *ngIf="officerId && timestamp">- {{ officerId }}</span>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="20px" fxFlex="100">
+    <div fxLayout="column" fxFlex="25">
+      <div fxLayout="row">
+        <h4>Source</h4>
+        <iras-required-symbol *ngIf="required"></iras-required-symbol>
+      </div>
+      <div fxLayout="row">
+        <iras-autocomplete-dropdown
+          *ngIf="!displayOnly"
+          [data]="sourceDropdownData"
+          [formControlName]="auditTrailSourceFormControlName"
+          placeholder="Select"
+          [hasError]="sourceHasError"
+          fxFlex
+        >
+        </iras-autocomplete-dropdown>
+        <span fxFlex *ngIf="displayOnly">{{ source }}</span>
+      </div>
+      <div fxLayout="row">
+        <iras-form-input-error [templateContentRef]="auditSourceError">
+          <ng-template #auditSourceError>
+            <div>
+              <div *ngIf="sourceHasError">
+                {{ sourceErrorMsg }}
+              </div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="25">
+      <div fxLayout="row">
+        <h4>Reason</h4>
+        <iras-required-symbol *ngIf="required"></iras-required-symbol>
+      </div>
+      <div fxLayout="row">
+        <iras-autocomplete-dropdown
+          fxFlex
+          *ngIf="!displayOnly"
+          [data]="reasonDropdownData"
+          [formControlName]="auditTrailReasonFormControlName"
+          placeholder="Select"
+          [hasError]="reasonHasError"
+        >
+        </iras-autocomplete-dropdown>
+        <span fxFlex *ngIf="displayOnly">{{ reason }}</span>
+      </div>
+      <div fxLayout="row">
+        <iras-form-input-error [templateContentRef]="auditReasonError">
+          <ng-template #auditReasonError>
+            <div>
+              <div *ngIf="reasonHasError">
+                {{ reasonErrorMsg }}
+              </div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="50"></div>
+  </div>
+</div>

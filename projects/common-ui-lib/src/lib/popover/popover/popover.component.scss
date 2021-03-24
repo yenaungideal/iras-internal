@@ -1,0 +1,61 @@
+.popover-container {
+  --position: relative;
+  --background: var(--primary-shade);
+  --color: var(--light);
+  --border-radius: 5px;
+  --padding: 20px;
+  --max-width: 384px;
+  --min-width: 290px;
+
+  position: var(--position);
+  background: var(--background);
+  color: var(--color);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  max-width: var(--max-width);
+  min-width: var(--min-width);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+}
+
+.popover-mobile {
+  max-width: 290px;
+  height: 30px;
+}
+
+.arrow {
+  position: absolute;
+  background: inherit;
+  z-index: 99;
+  transform-origin: center center;
+  transform: rotate(45deg);
+}
+
+:host-context(.after) .arrow {
+  left: -5px;
+  top: calc(50% - 10px);
+  width: 20px;
+  height: 20px;
+}
+
+:host-context(.above) .arrow {
+  left: calc(50% - 10px);
+  bottom: -5px;
+  width: 20px;
+  height: 20px;
+}
+
+:host-context(.before) .arrow {
+  right: -5px;
+  top: calc(50% - 10px);
+  width: 20px;
+  height: 20px;
+}
+
+:host-context(.below) .arrow {
+  left: calc(50% - 10px);
+  top: -5px;
+  width: 20px;
+  height: 20px;
+}

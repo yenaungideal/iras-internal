@@ -1,0 +1,33 @@
+<form [formGroup]="entitySearchForm" fxLayout="column" fxLayoutGap="10px">
+  <iras-entity-search
+    aria-label="Entity Search"
+    [form]="entitySearchForm"
+    entityIdFormControlName="entityIdTest"
+    entityTypeFormControlName="entityTypeTest"
+    [entityTypeList]="entityTypeList"
+    entityIdFlex="50"
+    entityIdLabel="Entity ID"
+    entityTypeFlex="50"
+    entityTypeLabel="Entity Type"
+    [showValidationError]="true"
+    [isRequired]="false"
+  ></iras-entity-search>
+  <div fxLayout="row">
+    <iras-custom-button
+      aria-label="Clear"
+      buttonText="Clear"
+      fill="solid"
+      shape="round"
+      color="primary"
+      (buttonClicked)="clearForm()"
+    ></iras-custom-button>
+    <iras-custom-button
+      aria-label="Patch Value"
+      buttonText="Patch Value"
+      fill="solid"
+      shape="round"
+      color="primary"
+      (buttonClicked)="patchForm()"
+    ></iras-custom-button>
+  </div>
+</form>

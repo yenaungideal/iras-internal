@@ -1,0 +1,70 @@
+<div fxLayout="column" fxLayoutGap="5px">
+  <span class="iras-file-upload__label">Attachment</span>
+  <div fxLayout="column">
+    <span>
+      <span class="iras-file-upload__label">Supported File Types</span> {{ supportedFileTypes?.join(', ')
+      }}<span class="iras-file-upload__label">. Maximum File Size</span> 10.00MB per file.
+    </span>
+    <span>
+      You can attach up to {{ this.maxFilesAllowed }} files with a total file size not exceeding
+      {{ this.maxFilesAllowed * 10 | number: '1.2-2' }}MB. The file name must be in English and must not exceed 50
+      characters.
+    </span>
+  </div>
+  <iras-card-container [templateContentRef]="fileUploadTemplateContentRef" class="iras-file-upload__card">
+    <ng-template #fileUploadTemplateContentRef>
+      <div fxLayout="column">
+        <div
+          class="iras-file-upload__card-upload"
+          irasFileDrop
+          (fileDropped)="fileHandler($event)"
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+        >
+          <iras-custom-button
+            class="iras-file-upload__file-upload-browse"
+            buttonText="SELECT FILE"
+            shape="custom"
+            color="primary"
+            fill="outline"
+            (buttonClicked)="openFileBrowser()"
+          >
+          </iras-custom-button>
+          <input
+            #fileUpload
+            class="iras-file-upload__file-upload-input"
+            type="file"
+            multiple
+            (change)="fileHandler($event.target.files)"
+          />
+          <span class="iras-file-upload__drop-file-text">Drop files here to upload</span>
+        </div>
+        <div
+          *ngFor="let upload of filesUploadedByUser"
+          class="iras-file-upload__card-attached"
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+        >
+          <div *ngIf="!upload.error; else errorBlock" fxLayout="row" fxLayoutGap="5px">
+            <img alt="Attachment" class="iras-file-upload__attachment-clip" />
+            <iras-link [templateContentRef]="attachmentLinkRef">
+              <ng-template #attachmentLinkRef>
+                <span class="iras-file-upload__attachment-link" (click)="previewFile(upload.file)">{{
+                  upload.file.name
+                }}</span>
+              </ng-template>
+            </iras-link>
+            <span>({{ upload.file.size / 1000 | number: '1.0-2' }}kb)</span>
+          </div>
+          <ng-template #errorBlock>
+            <div fxLayout="column">
+              <span>{{ upload.file.name }}</span>
+              <span class="iras-file-upload__file-error">{{ upload.error }}</span>
+            </div>
+          </ng-template>
+          <img alt="Remove file" (click)="removeFile(upload.file.name)" class="iras-file-upload__remove-file" />
+        </div>
+      </div>
+    </ng-template>
+  </iras-card-container>
+</div>

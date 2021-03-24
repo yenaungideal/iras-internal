@@ -1,0 +1,425 @@
+<h3>Inputs</h3>
+
+<div fxLayout="column">
+  <div fxLayout="column">
+    <div class="one-line-input-test">
+      <form [formGroup]="singleInputForm" fxLayout="column">
+        <div class="form__input" fxLayout="column">
+          <div fxFlex="100" class="file-ref-no-label">
+            File Ref No. (if applicable)<iras-required-symbol></iras-required-symbol>
+          </div>
+          <iras-input
+            aria-label="File Ref"
+            class="file-ref-no-input"
+            formControlName="fileRef"
+            placeholder="e.g. A123/C456-78"
+            type="text"
+            clearable="true"
+            [hasError]="fileRef.invalid && fileRef.touched"
+            [tooltipText]="tooltipText"
+          ></iras-input>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            *ngIf="fileRef.invalid && fileRef.touched"
+            [templateContentRef]="inputError"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="fileRef.errors.required">
+                  This is a required field
+                </div>
+                <div *ngIf="fileRef.errors.minlength">Name must be at least {{ NAME_LENGTH }} characters long.</div>
+                <div *ngIf="fileRef.errors.forbiddenName">
+                  Name cannot be contain Bob
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+
+          <div *ngIf="fileRef">
+            valid: {{ fileRef.valid }} <br />
+            dirty: {{ fileRef.dirty }} <br />
+            touched: {{ fileRef.touched }} <br />
+            required: {{ fileRef.errors?.required }} <br />
+            value: {{ fileRef.value | json }}
+          </div>
+
+          <div fxLayout="row">
+            <iras-custom-button
+              aria-label="Reset"
+              fxFlex="10"
+              buttonText="Reset"
+              (buttonClicked)="resetFileRefControl()"
+            >
+            </iras-custom-button>
+          </div>
+        </div>
+
+        <div class="form__input" [style.margin-top]="'20px'">
+          <iras-input
+            aria-label="Payment Amount"
+            class="custom-btn"
+            formControlName="paymentRef"
+            label="Payment Amount"
+            placeholder="e.g. A123/C456-78"
+            type="number"
+            [disabled]="disabled"
+            [hasError]="paymentRef.invalid && paymentRef.touched"
+            showRequiredSymbol="true"
+            tooltipText="It is <b>optional</b> to include a File Reference Number during the stamping process, which you used to trace
+                the document in your company."
+            [minTooltipPanelWidth]="'500'"
+            [maxTooltipPanelWidth]="'500'"
+          ></iras-input>
+
+          invalid: {{ paymentRef.invalid }} dirty: {{ paymentRef.dirty }} && touched: {{ paymentRef.touched }} &&
+          required
+          {{ paymentRef?.errors?.required }}
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            [templateContentRef]="inputError"
+            *ngIf="paymentRef.invalid && paymentRef.touched"
+          >
+            <ng-template #inputError>
+              <div class="form-input__error">
+                <div *ngIf="paymentRef.errors.required">
+                  This is a required field
+                </div>
+                <div *ngIf="paymentRef.errors.minlength">Name must be at least 4 characters long.</div>
+                <div *ngIf="paymentRef.errors.pattern">
+                  The number needs to contains only 2 decimal places.
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+        </div>
+      </form>
+    </div>
+
+    <div fxFlex="100">
+      <div fxLayout="row">
+        <iras-custom-button
+          aria-label="Disable"
+          shape="round"
+          buttonText="Disable"
+          (buttonClicked)="disable()"
+        ></iras-custom-button>
+      </div>
+    </div>
+
+    <div class="inline-input-test" fxFlex="100" fxLayout="column">
+      <h2 class="inline-input-test__container-title">
+        Test form with multiple inputs in-line
+      </h2>
+      <div class="inline-input-test__form-container" fxFlex="100">
+        <form [formGroup]="inlineInputForm" fxFlex="40">
+          <div fxFlex="100">
+            <div fxFlex="100">
+              <span class="card__body-title card__body-text--bold">Level-Unit</span>
+              <div fxLayout="row wrap" fxLayoutGap="10px">
+                <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start center">
+                  <div fxFlex="5">
+                    <span class="card__body-text">#</span>
+                  </div>
+                  <div fxFlex="45" fxFill>
+                    <iras-input
+                      aria-label="Level No"
+                      fxFlex="100"
+                      formControlName="levelNo"
+                      placeholder="123"
+                    ></iras-input>
+                  </div>
+                  <div fxFlex="5">
+                    <span fxFlex="100" class="card__body-text">-</span>
+                  </div>
+                  <div fxFlex="45">
+                    <iras-input
+                      aria-label="Unit No"
+                      fxFlex="100"
+                      formControlName="unitNo"
+                      placeholder="123456"
+                    ></iras-input>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <iras-link aria-label="Card Link" fxFlex="100" [templateContentRef]="moreUnitsRef">
+                    <ng-template #moreUnitsRef>
+                      <span class="card__link">
+                        + More Units
+                      </span>
+                    </ng-template>
+                  </iras-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <h2>Links</h2>
+  <div fxLayout="column">
+    <iras-link aria-label="Add" [templateContentRef]="addLinkRef">
+      <ng-template #addLinkRef>
+        <span (click)="changeState()">
+          + Add
+        </span>
+      </ng-template>
+    </iras-link>
+    <iras-link aria-label="Back To Home" [templateContentRef]="backHomeLinkRef">
+      <ng-template #backHomeLinkRef>
+        <span (click)="changeState()">
+          &lt; Back to home
+        </span>
+      </ng-template>
+    </iras-link>
+  </div>
+
+  <h2>Text Area</h2>
+  <div fxLayout="column">
+    <form fxLayout="row wrap" [formGroup]="textAreaForm" fxFlex="100">
+      <iras-text-area
+        aria-label="Text Area"
+        class="custom-text-area"
+        formControlName="paragraph"
+        rows="4"
+        cols="50"
+        placeholder="Please specify"
+        maxLength="1000"
+        [hasError]="paragraph.invalid && paragraph.touched"
+      >
+      </iras-text-area>
+      <div fxFlex="100" [style.margin-top]="'10px'">
+        <iras-form-input-error
+          aria-label="Form Input Error"
+          fxFlex="31"
+          [templateContentRef]="inputError"
+          *ngIf="paragraph.invalid && paragraph.touched"
+        >
+          <ng-template #inputError>
+            <div class="form-input__error">
+              <div *ngIf="paragraph.errors.required">
+                Paragraph is a required field. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad quasi
+                expedita debitis nostrum dolorum a aperiam optio, id dignissimos cumque, pariatur perspiciatis non
+                doloremque dolores iure facere voluptate provident nesciunt.
+              </div>
+              <div *ngIf="paragraph.errors.minlength">Paragraph number must be at least 5 characters long.</div>
+              <div *ngIf="paragraph.errors.maxlength">Paragraph number must be at most 1000 characters long.</div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+      </div>
+    </form>
+  </div>
+
+  <h2>Text area with regex pattern</h2>
+  <iras-text-area
+    aria-label="Text Area"
+    class="custom-text-area"
+    rows="4"
+    cols="50"
+    placeholder="Enter 16 digit number"
+    [regexPattern]="numericPattern"
+    maxLength="1000"
+    [formControl]="sixteenDigitVoucherControl"
+    [hasError]="sixteenDigitVoucherControl.invalid && sixteenDigitVoucherControl.touched"
+  >
+  </iras-text-area>
+
+  <h2>Numeric Inputs/ Custom Inputs</h2>
+  <div>
+    <form [formGroup]="customInputForm" fxFlex="100" fxLayout="row wrap">
+      <div class="form__input" fxLayout="column">
+        <p fxFlex="100">Example Numeric Input with ony 2 decimal places are allowed</p>
+        <span class="numeric-label" fxFlex="100">Payment Amount</span>
+        <iras-amount-input
+          aria-label="Payment Amount"
+          fxFlex="15"
+          formControlName="paymentAmount"
+          placeholder="100.99"
+          type="amount"
+          clearable="true"
+          [hasError]="paymentAmount.invalid && paymentAmount.touched"
+          (blur)="onNumericBlur($event)"
+          [allowNegative]="true"
+        >
+        </iras-amount-input>
+        <p fxFlex="100">
+          invalid: {{ paymentAmount.invalid }} dirty: {{ paymentAmount.dirty }} && touched:
+          {{ paymentAmount.touched }} && required
+          {{ paymentAmount?.errors?.required }}
+        </p>
+        <iras-form-input-error
+          aria-label="Form Input Error"
+          [templateContentRef]="inputError"
+          *ngIf="paymentAmount.invalid && paymentAmount.touched"
+        >
+          <ng-template #inputError>
+            <div class="form-input__error">
+              <div *ngIf="paymentAmount.errors.required">
+                This is a required field
+              </div>
+              <div *ngIf="paymentAmount.errors.max">Amount exceed their limit.</div>
+              <div *ngIf="paymentAmount.errors.min">Amount is very low.</div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+
+        <p fxFlex="100" [style.margin-top]="'20px'">Example Numeric Input for phone number.</p>
+        <span class="numeric-label" fxFlex="100">Phone Number</span>
+        <iras-input
+          aria-label="Phone Number"
+          fxFlex="15"
+          formControlName="phoneNumber"
+          placeholder="e.g. 1234567"
+          type="custom"
+          pattern="^[0-9]*$"
+          maxLength="8"
+          [regex]="mobileRegex"
+          (blur)="onNumericBlur($event)"
+          [hasError]="phoneNumber.invalid && phoneNumber.touched"
+        >
+        </iras-input>
+        <p fxFlex="100">
+          invalid: {{ phoneNumber.invalid }} dirty: {{ phoneNumber.dirty }} && touched: {{ phoneNumber.touched }} &&
+          required
+          {{ phoneNumber?.errors?.required }}
+        </p>
+        <iras-form-input-error
+          aria-label="Form Input Error"
+          fxFlex="100"
+          [templateContentRef]="inputError"
+          *ngIf="phoneNumber.invalid && phoneNumber.touched"
+        >
+          <ng-template #inputError>
+            <div class="form-input__error">
+              <div *ngIf="phoneNumber.errors.required">
+                Phone number is a required field.
+              </div>
+              <div *ngIf="phoneNumber.errors.minlength">Phone number must be at least 6 characters long.</div>
+              <div *ngIf="phoneNumber.errors.maxlength">Phone number must be at most 8 characters long.</div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+        <div fxFlex="100" class="numeric-label">
+          Custom numeric input example (with iras-input)<iras-required-symbol
+            aria-label="Required"
+          ></iras-required-symbol>
+        </div>
+        <iras-input
+          aria-label="Custom Numeric Input"
+          fxFlex="15"
+          formControlName="customNumericInput"
+          placeholder="10.20"
+          type="custom"
+          pattern="^\s*((\d+(\.\d{0,2})?)|((\d*(\.\d{1,2}))))\s*$"
+          [hasError]="customNumericInput.invalid && customNumericInput.touched"
+        ></iras-input>
+
+        <iras-form-input-error
+          aria-label="Form Input Error"
+          *ngIf="customNumericInput.invalid && customNumericInput.touched"
+          [templateContentRef]="inputError"
+        >
+          <ng-template #inputError>
+            <div class="form-input__error">
+              <div *ngIf="customNumericInput.errors.required">
+                This is a required field
+              </div>
+              <div *ngIf="customNumericInput.errors.pattern">
+                You can only input a number with two decimal places
+              </div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+
+        <div *ngIf="customNumericInput">
+          valid: {{ customNumericInput.valid }} <br />
+          dirty: {{ customNumericInput.dirty }} <br />
+          touched: {{ customNumericInput.touched }} <br />
+          required: {{ customNumericInput.errors?.required }} <br />
+          value: {{ customNumericInput.value | json }}
+        </div>
+      </div>
+      <div fxFlex="100" class="numeric-label">
+        Email input example (with iras-input)<iras-required-symbol aria-label="Required"></iras-required-symbol>
+      </div>
+      <iras-input
+        aria-label="Email"
+        fxFlex="15"
+        formControlName="emailInput"
+        placeholder="abcd@iras.gov"
+        type="email"
+        clearable="true"
+        [hasError]="emailInput.invalid && emailInput.touched"
+      ></iras-input>
+
+      <iras-form-input-error
+        aria-label="Form Input Error"
+        *ngIf="emailInput.invalid && emailInput.touched"
+        [templateContentRef]="inputError"
+      >
+        <ng-template #inputError>
+          <div class="form-input__error">
+            <div *ngIf="emailInput.errors.required">
+              This is a required field
+            </div>
+            <div *ngIf="emailInput.errors.minlength">Name must be at least {{ NAME_LENGTH }} characters long.</div>
+            <div *ngIf="emailInput.errors.forbiddenName">
+              Name cannot be contain Bob
+            </div>
+          </div>
+        </ng-template>
+      </iras-form-input-error>
+
+      <div fxFlex="100" *ngIf="emailInput">
+        valid: {{ emailInput.valid }} <br />
+        dirty: {{ emailInput.dirty }} <br />
+        touched: {{ emailInput.touched }} <br />
+        required: {{ emailInput.errors?.required }} <br />
+        value: {{ emailInput.value | json }}
+      </div>
+
+      <div fxFlex="100" fxLayout="column">
+        <div fxFlex="100" class="numeric-label">
+          Email input example (with iras-input)<iras-required-symbol aria-label="Required"></iras-required-symbol>
+        </div>
+        <iras-input
+          aria-label="Custom Input 1"
+          fxFlex="15"
+          formControlName="customInput1"
+          placeholder="abcd@iras.gov"
+          type="custom"
+          [pattern]="customInput1Pattern"
+          clearable="true"
+          [hasError]="customInput1.invalid && customInput1.touched"
+        ></iras-input>
+
+        <iras-form-input-error
+          aria-label="Form Input Error"
+          *ngIf="customInput1.invalid && customInput1.touched"
+          [templateContentRef]="inputError"
+        >
+          <ng-template #inputError>
+            <div class="form-input__error">
+              <div *ngIf="customInput1.errors.required">
+                This is a required field
+              </div>
+              <div *ngIf="customInput1.errors.pattern">Input does not match pattern</div>
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+
+        <div fxFlex="100" *ngIf="customInput1">
+          valid: {{ customInput1.valid }} <br />
+          dirty: {{ customInput1.dirty }} <br />
+          touched: {{ customInput1.touched }} <br />
+          required: {{ customInput1.errors?.required }} <br />
+          value: {{ customInput1.value | json }}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

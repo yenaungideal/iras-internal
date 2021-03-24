@@ -1,0 +1,47 @@
+@import "./../../../assets/icons/icons";
+:host {
+  --color: var(--primary);
+  --width: 100%;
+  --input-height: 34px;
+  --background: var(--light);
+  --date-picker-border-radius: 0;
+}
+
+.mat-calendar-body-cell {
+  border: 0;
+}
+
+.iras-datepicker__icon {
+  content: url("/assets/icons/calendar.svg");
+  position: relative;
+  left: -26px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  cursor: pointer;
+  height: 21px;
+}
+
+.iras-datepicker__masked-input {
+  --letter-spacing: 0;
+  --border-color: var(--grey-tint);
+  --height: var(--input-height);
+  --padding: 0 5px 0 0;
+  --background-color: var(--background);
+  --border-radius: var(--date-picker-border-radius);
+
+  min-width: var(--min-width);
+  width: var(--width);
+}
+
+.iras-datepicker__fake-input-container {
+  height: 0;
+  width: 100%;
+  margin-top: -5px;
+}
+
+.iras-datepicker__input {
+  border-width: 0;
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}

@@ -1,0 +1,175 @@
+@import "./iras-default.theme";
+@import "~@angular/cdk/overlay-prebuilt.css";
+@import "~@angular/material/theming";
+// @import "./../base/typography";
+$mat-primary: (
+  50: #e5eef4,
+  100: #bed4e3,
+  200: #93b8d0,
+  300: #689bbd,
+  400: #4785ae,
+  500: #2770a0,
+  600: #236898,
+  700: #1d5d8e,
+  800: #175384,
+  900: #0e4173,
+  A100: #a6cfff,
+  A200: #73b4ff,
+  A400: #4098ff,
+  A700: #268bff,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+    A100: #000,
+    A200: #000,
+    A400: #000,
+    A700: #fff,
+  ),
+);
+
+$iras-default-primary: mat-palette($mat-primary);
+$iras-default-accent: mat-palette($mat-primary, "A200", "A100", "A400");
+
+$iras-default-warn: mat-palette($mat-red);
+
+$iras-default-theme: mat-light-theme($iras-default-primary, $iras-default-accent, $iras-default-warn);
+
+@include angular-material-theme($iras-default-theme);
+
+$custom-typography: mat-typography-config(
+  $font-family: "Source Sans Pro, Times, serif",
+);
+
+@include mat-core($custom-typography);
+
+// Resetting material elements
+.cdk-overlay-pane .mat-dialog-container {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  place-content: center center;
+  box-shadow: none;
+}
+
+.cdk-overlay-backdrop {
+  --background: unset;
+
+  background: var(--background);
+}
+
+mat-tooltip-component .iras-tooltip-container {
+  --color: var(--light);
+  --background: var(--primary);
+
+  color: var(--color);
+  background: var(--background);
+}
+
+.iras-popover--backdrop {
+  --background: transparent;
+
+  background: var(--background);
+}
+
+.iras-select-overlay-panel {
+  margin-top: 5px;
+
+  mat-option {
+    height: 40px !important;
+  }
+
+  .mat-option.mat-selected {
+    background-color: var(--primary);
+    color: var(--primary-contrast);
+  }
+
+  .mat-option:hover:not(.mat-option-disabled),
+  .mat-option:focus:not(.mat-option-disabled),
+  .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple),
+  .mat-option.mat-selected:not(.mat-option-multiple):not(.mat-option-disabled) {
+    background-color: var(--primary-tint);
+    color: var(--light);
+  }
+}
+
+.mat-select-panel mat-option.mat-option {
+  height: unset !important;
+}
+.mat-option.mat-active {
+  background: var(--primary-tint);
+  color: var(--light);
+}
+.mat-option-text.mat-option-text {
+  white-space: normal;
+  line-height: 28px;
+  padding: 5px 0px;
+}
+
+mat-calendar.mat-calendar {
+  .mat-calendar-arrow {
+    border-top-color: var(--primary);
+  }
+
+  .mat-calendar-previous-button,
+  .mat-calendar-next-button {
+    color: var(--primary) !important;
+  }
+}
+mat-calendar.mat-calendar.mat-calendar--showing {
+  display: block !important;
+}
+
+// reset highlight color
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: var(--primary-tint) !important;
+  color: var(--primary-contrast);
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content.mat-calendar-body-selected {
+  background-color: var(--primary-tint) !important;
+  color: var(--primary-contrast);
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled) > .mat-calendar-body-cell-content.mat-calendar-body-selected {
+  background-color: transparent;
+  color: inherit;
+  &.mat-calendar-body-today {
+    border-color: rgba(0, 0, 0, 0.38);
+  }
+}
+
+// Mat snack bar
+.mat-snack-bar-container {
+  padding: 0 !important;
+  border-radius: 5px !important;
+  width: 350px !important;
+  background: none;
+  box-shadow: 0 0 0 0 var(--grey-tint) !important;
+}
+
+// Auto-complete dropdown logic
+.mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled),
+.mat-option.mat-selected:not(.mat-option-multiple):not(.mat-option-disabled),
+.mat-option:hover:not(.mat-option-disabled),
+.mat-option:focus:not(.mat-option-disabled),
+.mat-option.mat-active,
+.mat-option.mat-selected:not(.mat-option-multiple):not(.mat-option-disabled) {
+  background: var(--primary-tint);
+  color: var(--primary-contrast);
+}
+
+// IRAS-DIALOG
+div.cdk-overlay-backdrop.iras-dialog-backdrop {
+  --background: rgb(0 0 0 / 36%);
+}

@@ -1,0 +1,88 @@
+@import "../../../assets/icons/icons.scss";
+:host {
+  --color: var(--primary);
+  --border-radius: 0;
+  --height: 36px;
+  --padding: 5px;
+  --border-bottom: 2px solid var(--grey-tint);
+  --border: 0;
+  --background: var(--light);
+}
+
+.iras-select__selector {
+  border-radius: var(--border-radius);
+  position: relative;
+  border: var(--border);
+  border-bottom: var(--border-bottom);
+  color: var(--grey);
+  padding: var(--padding);
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  height: var(--height);
+  background: var(--background);
+
+  .iras-icon {
+    padding: 0 0 0 10px;
+  }
+}
+
+.iras-select__item-placeholder {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-height: 20px;
+}
+
+.iras-select__selected-option-text {
+  color: var(--dark);
+}
+
+mat-select.mat-select {
+  height: 0;
+}
+
+.iras-select__wrapper .mat-select-arrow {
+  display: none;
+}
+
+.iras-select__selector--disabled {
+  background-color: var(--light-shade);
+
+  .iras-select__item-placeholder,
+  .iras-select__selected-option-text,
+  .iras-select__arrow {
+    color: var(--grey);
+  }
+}
+.iras-select__selector--has-error {
+  border-bottom: 2px solid var(--danger);
+}
+
+.iras-select__selector .iras-select__arrow {
+  border-top: 7px solid;
+  color: var(--primary);
+}
+
+.iras-select__selector--has-error .iras-select__arrow {
+  color: var(--danger);
+}
+
+.iras-select__selector.iras-select--opened .iras-select__arrow {
+  border-top: none;
+  border-bottom: 7px solid;
+}
+.iras-select__selector.iras-select--focused {
+  border-bottom: 2px solid var(--primary);
+}
+
+.mat-select-value-text {
+  color: var(--dark);
+}
+
+.iras-select__label {
+  font-weight: 600;
+}
+
+.input__required-symbol {
+  color: var(--danger);
+}

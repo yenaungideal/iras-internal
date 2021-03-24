@@ -1,0 +1,33 @@
+@import "../../assets/styles/utilities/iras.globals";
+
+:host {
+  --color: var(--primary);
+}
+
+.iras-tooltip {
+  display: unset;
+}
+
+.iras-icon--info::before {
+  color: var(--color);
+}
+
+.iras-tooltip-label {
+  display: inline-block;
+  touch-action: manipulation;
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: var(--font-weight);
+  text-decoration: underline;
+  &:hover {
+    background-color: var(--light);
+    color: var(--primary-shade);
+    text-decoration: none;
+  }
+}
+
+.iras-tooltip__icon-info {
+  content: url("/assets/icons/info.svg");
+  width: 20px;
+  height: 20px;
+}

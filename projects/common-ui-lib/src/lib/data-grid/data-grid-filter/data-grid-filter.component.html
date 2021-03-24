@@ -1,0 +1,56 @@
+<ng-container [ngSwitch]="filterType">
+  <form class="data-grid__filter-form" [formGroup]="filterForm">
+    <div class="filter-wrapper" fxLayout="row" fxLayoutAlign="start center">
+      <ng-container *ngSwitchCase="'date'">
+        <iras-date-picker
+          fxFlex
+          formControlName="userInput"
+          class="data-grid-filter__date-picker"
+          [selectedDate]="selectedDate"
+          [placeholder]="filterDetails.placeholder"
+        ></iras-date-picker>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'dropdown'">
+        <iras-dropdown
+          fxFill
+          formControlName="userInput"
+          class="data-grid-filter__dropdown"
+          [data]="dropDownData"
+          [placeholder]="filterDetails.placeholder"
+        ></iras-dropdown>
+      </ng-container>
+      <ng-container *ngSwitchCase="'text'">
+        <iras-input
+          fxFlex
+          [pattern]="inputPattern"
+          class="data-grid-filter__input"
+          [type]="inputPattern ? 'custom' : 'text'"
+          formControlName="userInput"
+        >
+        </iras-input>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'amount'">
+        <iras-amount-input
+          fxFlex
+          formControlName="userInput"
+          class="data-grid-filter__input"
+          type="gridAmountFilter"
+          [allowNegative]="allowNegative"
+        >
+        </iras-amount-input>
+      </ng-container>
+
+      <kendo-grid-filter-cell-operators
+        class="filter-operators"
+        [showOperators]="filterDetails.showOperators"
+        [value]="selectedOperator"
+        [operators]="filterDetails.operators"
+        [showButton]="filterDetails.showClearButton && queryString"
+        (valueChange)="onOperatorChange($event)"
+        (clear)="onClearButtonPress()"
+      ></kendo-grid-filter-cell-operators>
+    </div>
+  </form>
+</ng-container>

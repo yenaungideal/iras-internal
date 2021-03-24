@@ -1,0 +1,23 @@
+.single-view__menu-item--selected {
+  background: var(--base);
+  color: var(--contrast);
+}
+
+.single-view__menu-item {
+  border-bottom: 1px solid red;
+}
+.single-view__menu-items-list {
+  position: absolute;
+  z-index: 999;
+  background: white;
+  left: 0;
+  top: 100px;
+  width: 100%;
+  line-height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.router-outlet-container {
+  width: 100%;
+}

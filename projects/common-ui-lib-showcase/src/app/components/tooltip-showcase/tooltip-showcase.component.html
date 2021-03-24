@@ -1,0 +1,61 @@
+<div fxLayout="column">
+  <h3>Contextual Help</h3>
+  <div>
+    <div fxFlex="50" fxLayout="column" fxLayoutGap="40px" fxFlexOffset="10">
+      <iras-tooltip
+        aria-label="Tooltip"
+        tooltipLabelType="info"
+        tooltipLabelText="Testing"
+        [showCloseButton]="false"
+        position="after"
+        [tooltipContentText]="'Testing 1 2 3'"
+      >
+      </iras-tooltip>
+
+      <iras-tooltip
+        aria-label="Tooltip"
+        [templateLabelRef]="tooltipRef2"
+        tooltipLabelType="custom"
+        [showCloseButton]="false"
+        position="above"
+        tooltipContentTitle="Title here"
+        tooltipContentText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit."
+      >
+        <ng-template #tooltipRef2>
+          <img src="/assets/icons/info.svg" alt="Copy" />
+        </ng-template>
+      </iras-tooltip>
+
+      <iras-tooltip
+        aria-label="Tooltip"
+        position="below"
+        tooltipContentTitle="Title here"
+        tooltipContentText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit."
+      >
+      </iras-tooltip>
+
+      <iras-tooltip
+        aria-label="Tooltip"
+        tooltipLabelText="Some help text"
+        position="before"
+        tooltipContentTitle="Title here"
+        tooltipContentText="Lorem ipsum dolor."
+      >
+      </iras-tooltip>
+
+      <div fxLayout="row">
+        <iras-input
+          aria-label="Payment Amount"
+          fxFlex="30"
+          class="custom-btn"
+          label="Payment Amount"
+          placeholder="e.g. A123/C456-78"
+          type="number"
+          showRequiredSymbol="true"
+          tooltipText="It is <b>optional</b> to include a File Reference Number during the stamping process, which you used to trace
+          the document in your company."
+        ></iras-input>
+      </div>
+    </div>
+  </div>
+</div>

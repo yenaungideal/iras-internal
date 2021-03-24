@@ -1,0 +1,27 @@
+<div fxLayout="row">
+  <h3>Empty State Box</h3>
+</div>
+<div fxLayout="row">
+  <h4>Empty State Box - With Header and Description</h4>
+</div>
+<div>
+  <iras-empty-state-box [header]="headerText" [description]="descriptionText"></iras-empty-state-box>
+</div>
+
+<div fxLayout="row">
+  <h4>Empty State Box - With Header and No Description</h4>
+</div>
+<div>
+  <iras-empty-state-box [header]="headerTextOnly"></iras-empty-state-box>
+</div>
+
+<div fxLayout="row">
+  <h4>Empty State Box - Sample Search Results</h4>
+</div>
+<div>
+  <iras-empty-state-box
+    aria-label="Empty State Box"
+    [header]="headerTextSearchResult"
+    [description]="headerTextSearchDescription"
+  ></iras-empty-state-box>
+</div>

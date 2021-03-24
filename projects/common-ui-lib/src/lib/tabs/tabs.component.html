@@ -1,0 +1,13 @@
+<div class="iras-tabs" fxLayout="row">
+  <ng-container *ngIf="tabs?.length && portalOutletRefs?.length && tabs.length === portalOutletRefs.length">
+    <kendo-tabstrip #tabStrip (tabSelect)="onTabSelect($event)">
+      <ng-container *ngFor="let tabItem of tabs; let index = index">
+        <kendo-tabstrip-tab [title]="tabItem.title" [selected]="tabItem.selected">
+          <ng-template kendoTabContent>
+            <ng-template [cdkPortalOutlet]="portalOutletRefs[index]"></ng-template>
+          </ng-template>
+        </kendo-tabstrip-tab>
+      </ng-container>
+    </kendo-tabstrip>
+  </ng-container>
+</div>

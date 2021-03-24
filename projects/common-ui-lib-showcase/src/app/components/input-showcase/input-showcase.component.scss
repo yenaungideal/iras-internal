@@ -1,0 +1,45 @@
+@import "../../../../../common-ui-lib/src/assets/styles/utilities/iras.globals.scss";
+
+.card {
+  &__column2 {
+    border-left: 1px dashed var(--grey);
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
+  &__title-wrapper {
+    border-bottom: 1px solid var(--grey);
+  }
+  &__body-title {
+    font-size: $size-18;
+    padding-bottom: 5px;
+  }
+  &__body-text {
+    display: block;
+    &--bold {
+      font-weight: $font-weight-bold;
+    }
+  }
+  &__icon {
+    width: 18px;
+    cursor: pointer;
+  }
+  &__update-link {
+    text-transform: uppercase;
+  }
+  &__update-link-wrapper {
+    border-top: 1px solid var(--grey);
+  }
+}
+
+.numeric-label {
+  font-weight: 600;
+}
+
+.file-ref-no-label {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.file-ref-no-input {
+  --text-transform: uppercase;
+}

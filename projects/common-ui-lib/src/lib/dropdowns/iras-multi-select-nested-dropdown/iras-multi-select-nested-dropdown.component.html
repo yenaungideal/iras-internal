@@ -1,0 +1,61 @@
+<div class="custom-dropdown-wrapper custom-multi-select-nested__dropdown">
+  <div class="custom-dropdown-input-wrapper" fxLayout="column" #dropReference>
+    <div
+      class="custom-dropdown__input-container"
+      [class.iras-select__selector--has-error]="hasError"
+      [class.iras-select--focused]="selectOpened"
+      [class.iras-select__selector--disabled]="disabled"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div class="custom-dropdown__input-placeholder-container" (click)="showDropdown($event)" autocomplete="off">
+        <div *ngFor="let option of selectedItemLists" class="custom-multi-select-grid__checkbox-list">
+          <div class="row small-placeholder-container">
+            <span class="custom-multi-select-grid__checkbox-text">
+              {{ option.text }}
+            </span>
+            <span class="iras-icon iras-icon--close_white-svg" (click)="removeSelectedOption(option.key)"></span>
+          </div>
+        </div>
+        <div *ngIf="selectedItemLists?.length === 0" class="grid-dropdown-placeholder">
+          <span>{{ placeholder }}</span>
+        </div>
+      </div>
+      <span
+        (click)="showDropdown($event)"
+        class="iras-icon tree-dropdown__caret-icon"
+        [class.iras-icon--caret-svg]="!selectOpened"
+        [class.iras-icon--caret-inverted-svg]="selectOpened"
+      ></span>
+    </div>
+  </div>
+</div>
+<iras-dropdown-cdk-portal
+  [reference]="dropReference"
+  [dropdownOptionContanierHeight]="dropdownOptionContanierHeight"
+  #dropdownComp
+  (dropdownStatusChange)="onDropdownStatusChange($event)"
+>
+  <div class="custom-dropdown-options-container">
+    <div *ngFor="let item of data" class="row tree-dropdown">
+      <div [ngClass]="'parent-row'" class="dropdown-checkbox--primary">
+        <input
+          class="dropdown-checkbox__input"
+          type="checkbox"
+          [(ngModel)]="item.selected"
+          (change)="onOptionChanged(item, 'primaryOption')"
+        />
+        <span class="tree-dropdown__item-text">{{ item.text }}</span>
+      </div>
+      <div [ngClass]="'child-row'" class="dropdown-checkbox--primary" *ngFor="let option of item.options">
+        <input
+          class="dropdown-checkbox__input"
+          type="checkbox"
+          [(ngModel)]="option.selected"
+          (change)="onOptionChanged(item, 'secondaryOption')"
+        />
+        <span class="tree-dropdown__item-text">{{ option.text }}</span>
+      </div>
+    </div>
+  </div>
+</iras-dropdown-cdk-portal>

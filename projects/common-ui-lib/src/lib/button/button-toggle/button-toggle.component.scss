@@ -1,0 +1,40 @@
+@import "./../../../assets/styles/utilities/iras.globals";
+
+:host {
+  --height: 40px;
+  --width: 100px;
+}
+
+mat-button-toggle-group.mat-button-toggle-group {
+  border-right: 4px;
+  border: 1px solid var(--grey-tint);
+  height: var(--height);
+  .mat-button-toggle-checked {
+    background-color: var(--primary);
+    font-size: $size-16;
+    font-family: "Source Sans Pro", Times, serif;
+    font-weight: 600;
+    color: var(--light);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.35);
+  }
+
+  .mat-button-toggle-button {
+    height: var(--height);
+    min-width: var(--width);
+  }
+
+  .mat-button-toggle + .mat-button-toggle {
+    border-left: 1px solid var(--grey-tint);
+  }
+
+  .mat-button-toggle-label-content {
+    line-height: var(--height);
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .mat-button-toggle-disabled {
+    background-color: var(--grey-shade);
+    color: var(--light-shade);
+  }
+}

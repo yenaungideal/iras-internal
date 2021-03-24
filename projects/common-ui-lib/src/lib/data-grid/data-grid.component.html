@@ -1,0 +1,1344 @@
+<div class="data-grid" *ngIf="stateSnapshot" fxFlex="column" fxFlex="100" fxLayoutGap="10px">
+  <div
+    *ngIf="stateSnapshot.showPageCountMessageOnTop || stateSnapshot.exportOptions"
+    class="data-grid__row-count-info"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div fxFlex="50" fxFlexAlign="start">
+      <div *ngIf="stateSnapshot.showPageCountMessageOnTop && rowCountInfo">
+        {{ rowCountInfo.startNumber }} - {{ rowCountInfo.endNumber }} of {{ rowCountInfo.totalRows }} Record(s)
+      </div>
+    </div>
+    <ng-container *ngIf="stateSnapshot.exportOptions">
+      <div>
+        <div
+          class="data-grid__export-to-excel-button"
+          *ngIf="stateSnapshot.exportOptions.excel"
+          type="button"
+          (click)="saveAsExcel()"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >
+          <span class="iras-icon iras-icon--excel-icon"> </span>
+          {{ stateSnapshot.exportOptions.excel.buttonText }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <kendo-grid
+    #gridElement
+    [kendoGridBinding]="stateSnapshot.data"
+    [pageSize]="stateSnapshot.viewState.take"
+    [group]="stateSnapshot.viewState.group"
+    [skip]="stateSnapshot.viewState.skip"
+    [sort]="stateSnapshot.viewState.sort"
+    [filter]="stateSnapshot.viewState.filter"
+    [height]="stateSnapshot.height"
+    [rowHeight]="stateSnapshot.rowHeight"
+    [scrollable]="stateSnapshot.scrollable"
+    [virtualColumns]="stateSnapshot.virtualColumns"
+    [filterable]="stateSnapshot.filterable"
+    [sortable]="stateSnapshot.sortable"
+    [pageable]="stateSnapshot.pageable"
+    [groupable]="stateSnapshot.groupable"
+    [navigable]="stateSnapshot.navigable"
+    [autoSize]="stateSnapshot.autoSize"
+    [resizable]="stateSnapshot.resizable"
+    [reorderable]="stateSnapshot.reorderable"
+    [loading]="stateSnapshot.loading"
+    [hideHeader]="stateSnapshot.hideHeader"
+    (pageChange)="onPageChange($event)"
+    (dataStateChange)="onDataStateChange($event)"
+    (sortChange)="onSortChange($event)"
+    (excelExport)="onExcelExport($event)"
+    [trackBy]="trackByFn"
+  >
+    <ng-container *ngIf="stateSnapshot?.exportOptions?.excel?.fileName">
+      <kendo-grid-excel [fileName]="stateSnapshot.exportOptions.excel.fileName">
+        <ng-container [ngSwitch]="groupedColumnsInfo?.length ? true : false">
+          <ng-container *ngSwitchCase="false">
+            <ng-container *ngFor="let columnInfo of stateSnapshot.columnsConfig">
+              <ng-container *ngIf="columnInfo.canExportToExcel">
+                <ng-container *ngTemplateOutlet="customKendoExportColumn; context: { columnInfo: columnInfo }">
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngSwitchCase="true">
+            <ng-container *ngFor="let headerColumn of groupedColumnsInfo">
+              <ng-container *ngIf="!headerColumn['groups']">
+                <ng-container *ngIf="headerColumn['canExportToExcel']">
+                  <ng-container *ngTemplateOutlet="customKendoExportColumn; context: { columnInfo: headerColumn }">
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="headerColumn['groups']">
+                <kendo-excelexport-column-group>
+                  <ng-container *ngFor="let columnInfo of headerColumn['groups']">
+                    <ng-container *ngIf="headerColumn['canExportToExcel']">
+                      <kendo-excelexport-column
+                        [width]="columnInfo['columnWidth']"
+                        [field]="columnInfo['columnKey']"
+                        [title]="columnInfo['columnTitle']"
+                      >
+                      </kendo-excelexport-column>
+                    </ng-container>
+                  </ng-container>
+                </kendo-excelexport-column-group>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-template #customKendoExportColumn let-columnInfo="columnInfo">
+          <kendo-excelexport-column
+            [width]="columnInfo.columnWidth"
+            [field]="columnInfo.columnKey"
+            [title]="columnInfo.columnTitle"
+          >
+          </kendo-excelexport-column>
+        </ng-template>
+      </kendo-grid-excel>
+    </ng-container>
+
+    <ng-container>
+      <ng-container [ngSwitch]="groupedColumnsInfo?.length ? true : false">
+        <ng-container *ngSwitchCase="false">
+          <ng-container *ngFor="let columnInfo of stateSnapshot.columnsConfig">
+            <ng-container *ngTemplateOutlet="customKendoColumn; context: { columnInfo: columnInfo }"> </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="true">
+          <ng-container *ngFor="let headerColumn of groupedColumnsInfo">
+            <ng-container *ngIf="!headerColumn['groups']">
+              <ng-container *ngTemplateOutlet="customKendoColumn; context: { columnInfo: headerColumn }">
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="headerColumn['groups']">
+              <kendo-grid-column-group
+                [title]="headerColumn['mainHeader']"
+                [autoSize]="headerColumn['autoSize']"
+                [locked]="headerColumn['locked']"
+                [reorderable]="headerColumn['reorderable']"
+                [resizable]="headerColumn['resizable']"
+                [width]="headerColumn['width']"
+                [headerClass]="{
+                  'data-grid__column-header': true,
+                  'data-grid__column-header--column-group-header': true
+                }"
+                [class]="{ 'data-grid__column-cell': true, 'data-grid__column-cell--column-group': true }"
+              >
+                <ng-container *ngFor="let columnInfo of headerColumn['groups']">
+                  <ng-container [ngSwitch]="columnInfo.columnType">
+                    <ng-container *ngSwitchCase="'menu'">
+                      <kendo-grid-command-column
+                        [width]="columnInfo.columnWidth"
+                        [locked]="columnInfo.locked"
+                        [title]="columnInfo.columnTitle"
+                        [hidden]="columnInfo.hidden"
+                        [headerClass]="{ 'data-grid__column-header': true, 'data-grid__column-header--menu': true }"
+                        [class]="{ 'data-grid__column-cell': true, 'data-grid__column-cell--menu': true }"
+                      >
+                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                          <span class="iras-icon iras-icon--hamburger-icon" #target></span>
+                          <kendo-contextmenu [target]="target" #menu showOn="click">
+                            <ng-template kendoContextMenuTemplate>
+                              <ng-container *ngFor="let menuItem of columnInfo.menuTypeColumnConfig.menuItems">
+                                <div
+                                  class="iras-grid-context-menu"
+                                  (click)="menuItem.onClick({ dataItem: dataItem }); menu.hide()"
+                                >
+                                  {{ menuItem.text }}
+                                </div>
+                              </ng-container>
+                            </ng-template>
+                          </kendo-contextmenu>
+                        </ng-template>
+                      </kendo-grid-command-column>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'row_selector'">
+                      <kendo-grid-column
+                        [headerClass]="{
+                          'data-grid__column-header': true,
+                          'data-grid__column-header--row-selector': true
+                        }"
+                        [class]="{ 'data-grid__column-cell': true, 'data-grid__column-cell--row-selector': true }"
+                        [width]="columnInfo.columnWidth"
+                        [locked]="columnInfo.locked"
+                        [hidden]="columnInfo.hidden"
+                        [title]="columnInfo.columnTitle"
+                      >
+                        <ng-template kendoGridHeaderTemplate let-column="column">
+                          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <div *ngIf="columnInfo.rowSelectorTypeColumnConfig.showSelectAll">
+                              <iras-checkbox
+                                (stateChanged)="toggleSelectAllOptionForRowSelector({ checkboxState: $event })"
+                                [options]="rowSelectorSelectAllOptionTracker"
+                              ></iras-checkbox>
+                            </div>
+                            <div>
+                              {{ columnInfo.columnTitle }}
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+                          <iras-checkbox
+                            (stateChanged)="
+                              onRowSelectorColumnSelectionChange({ checkboxState: $event, rowItem: dataItem })
+                            "
+                            [options]="rowSelectionTracker[dataItem.rowUniqueId]"
+                          ></iras-checkbox>
+                        </ng-template>
+                      </kendo-grid-column>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'boolean'">
+                      <kendo-grid-column
+                        [headerClass]="{
+                          'data-grid__column-header': true,
+                          'data-grid__column-header--data': true
+                        }"
+                        [class]="{
+                          'data-grid__column-cell': true,
+                          'data-grid__column-cell--data': true
+                        }"
+                        [width]="columnInfo.columnWidth"
+                        [locked]="columnInfo.locked"
+                        [field]="columnInfo.columnKey"
+                        [title]="columnInfo.columnTitle"
+                        [hidden]="columnInfo.hidden"
+                        [sortable]="false"
+                        [editable]="false"
+                        [resizable]="columnInfo.resizable"
+                        [reorderable]="columnInfo.reorderable"
+                        [groupable]="false"
+                        [filterable]="false"
+                        [autoSize]="false"
+                      >
+                        <ng-template kendoGridHeaderTemplate let-column="column">
+                          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <div *ngIf="columnInfo.booleanTypeColumnConfig.showSelectAll">
+                              <iras-checkbox
+                                (stateChanged)="
+                                  toggleStateForBooleanSelectAllTracker({
+                                    columnKey: columnInfo.columnKey,
+                                    checkboxState: $event
+                                  })
+                                "
+                                [options]="booleanColumnsSelectAllTracker[columnInfo.columnKey]"
+                              ></iras-checkbox>
+                            </div>
+                            <div>
+                              {{ columnInfo.columnTitle }}
+                            </div>
+                            <div *ngIf="columnInfo.tooltip">
+                              <iras-tooltip
+                                class="header-tool-tip"
+                                (click)="onToolTipClick($event)"
+                                [tooltipContentText]="columnInfo.tooltip.content"
+                                [position]="columnInfo.tooltip.position"
+                              >
+                              </iras-tooltip>
+                            </div>
+                          </div>
+                        </ng-template>
+
+                        <ng-container [ngSwitch]="columnInfo.booleanTypeColumnConfig.displayType">
+                          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+                            <div
+                              fxLayout="column"
+                              [fxLayoutAlign]="
+                                columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'
+                              "
+                              fxLayoutGap="5px"
+                            >
+                              <ng-container *ngSwitchCase="'icon'">
+                                <span
+                                  [ngClass]="{
+                                    'data-grid__boolean-column-icon': true,
+                                    'data-grid__boolean-column-icon--check': dataItem[column.field] === true,
+                                    'data-grid__boolean-column-icon--cross': dataItem[column.field] === false
+                                  }"
+                                >
+                                  {{ dataItem[column.field] }}</span
+                                >
+                              </ng-container>
+                              <ng-container *ngSwitchCase="'checkbox'">
+                                <iras-checkbox
+                                  (stateChanged)="
+                                    onBooleanColumnSelectionChange({
+                                      columnKey: columnInfo.columnKey,
+                                      checkboxState: $event,
+                                      rowItem: dataItem
+                                    })
+                                  "
+                                  [options]="booleanColumnsValuesTracker[columnInfo.columnKey][dataItem.rowUniqueId]"
+                                >
+                                </iras-checkbox>
+                              </ng-container>
+                            </div>
+                          </ng-template>
+                        </ng-container>
+                      </kendo-grid-column>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'text'">
+                      <kendo-grid-column
+                        [headerClass]="{
+                          'data-grid__column-header': true,
+                          'data-grid__column-header--data': true,
+                          'data-grid__column-header--amount': columnInfo.cellContentFormatting === 'amount'
+                        }"
+                        [class]="{
+                          'data-grid__column-cell': true,
+                          'data-grid__column-cell--data': true,
+                          'data-grid__column-cell--amount': columnInfo.cellContentFormatting === 'amount'
+                        }"
+                        [width]="columnInfo.columnWidth"
+                        [locked]="columnInfo.locked"
+                        [field]="columnInfo.columnKey"
+                        [title]="columnInfo.columnTitle"
+                        [hidden]="columnInfo.hidden"
+                        [sortable]="columnInfo.sortable"
+                        [editable]="columnInfo.editable"
+                        [resizable]="columnInfo.resizable"
+                        [reorderable]="columnInfo.reorderable"
+                        [groupable]="columnInfo.groupable"
+                        [filterable]="columnInfo.filterable"
+                        [autoSize]="columnInfo.autoSize"
+                      >
+                        <ng-template kendoGridHeaderTemplate let-column="column">
+                          <div
+                            fxLayout="row"
+                            [fxLayoutAlign]="
+                              columnInfo.cellContentFormatting === 'amount' ? 'end' : 'start' + ' center'
+                            "
+                            fxLayoutGap="5px"
+                          >
+                            <div>
+                              {{ columnInfo.columnTitle }}
+                            </div>
+                            <div *ngIf="columnInfo.tooltip">
+                              <iras-tooltip
+                                class="header-tool-tip"
+                                (click)="onToolTipClick($event)"
+                                [tooltipContentText]="columnInfo.tooltip.content"
+                                [position]="columnInfo.tooltip.position"
+                              >
+                              </iras-tooltip>
+                            </div>
+                            <div *ngIf="column.sortable">
+                              <span
+                                aria-label="Sortable"
+                                *ngIf="sortTracker[column.field]?.dir === 'asc'"
+                                class="k-icon k-i-sort-asc-sm"
+                              ></span>
+                              <span
+                                aria-label="Sortable"
+                                *ngIf="sortTracker[column.field]?.dir === 'desc'"
+                                class="k-icon k-i-sort-desc-sm"
+                              ></span>
+                              <span
+                                aria-label="Sortable"
+                                *ngIf="!sortTracker[column.field]?.dir"
+                                class="k-icon iras-icon iras-icon--sortable-indicator-icon"
+                              ></span>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-container *ngIf="columnInfo.filterable">
+                          <ng-template kendoGridFilterCellTemplate let-column="column">
+                            <div
+                              fxLayout="row"
+                              [fxLayoutAlign]="
+                                columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'
+                              "
+                              fxLayoutGap="5px"
+                            >
+                              <iras-data-grid-filter
+                                fxFlex="100"
+                                [data]="gridFiltersConfigMap[column.field]"
+                                [textField]="column.field"
+                                [valueField]="column.field"
+                                [filterType]="columnInfo.filterType"
+                                [filterDetails]="columnInfo.filterDetails"
+                                [inputPattern]="columnInfo.textTypeColumnConfig?.inputPattern"
+                                [activeFiltersToApply]="activeFiltersToApply"
+                                (gridFilterValChange)="gridFilterValChange($event)"
+                              >
+                              </iras-data-grid-filter>
+                            </div>
+                          </ng-template>
+                        </ng-container>
+
+                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+                          <div
+                            fxLayout="column"
+                            [fxLayoutAlign]="
+                              columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'
+                            "
+                            fxLayoutGap="5px"
+                            [class.data-grid__item-type-link]="
+                              columnInfo?.textTypeColumnConfig?.textStyle === 'link' ||
+                              columnInfo?.textTypeColumnConfig?.textStyle === 'multiLink'
+                            "
+                            (click)="onViewOnlyCellClick({ dataItem: dataItem, columnInfo: columnInfo })"
+                          >
+                            <ng-container>
+                              <span fxFlex="100">
+                                <ng-container *ngIf="columnInfo.cellContentFormatting === 'date'">
+                                  {{ dataItem[column.field] | date: 'dd/MM/yyyy' }}
+                                </ng-container>
+                                <ng-container *ngIf="columnInfo.cellContentFormatting === 'amount'">
+                                  {{ getAmount(dataItem[column.field]) }}
+                                </ng-container>
+                                <ng-container *ngIf="columnInfo.cellContentFormatting === 'text'">
+                                  <ng-container [ngSwitch]="columnInfo?.textTypeColumnConfig?.textStyle">
+                                    <div *ngSwitchCase="'multiLink'">
+                                      <ng-container
+                                        *ngTemplateOutlet="
+                                          multiLinkTemplate;
+                                          context: { columnInfo: columnInfo, dataItem: dataItem }
+                                        "
+                                      ></ng-container>
+                                    </div>
+                                    <div *ngSwitchDefault>
+                                      {{ dataItem[column.field] }}
+                                    </div>
+                                  </ng-container>
+                                </ng-container>
+                              </span>
+                            </ng-container>
+                          </div>
+                        </ng-template>
+
+                        <ng-template
+                          kendoGridEditTemplate
+                          let-dataItem="dataItem"
+                          let-column="column"
+                          let-formGroup="formGroup"
+                        >
+                          <ng-container
+                            *ngIf="formGroupList[dataItem.rowUniqueId] && formGroupList[dataItem.rowUniqueId].controls"
+                          >
+                            <div
+                              fxLayout="column"
+                              [fxLayoutAlign]="
+                                columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'
+                              "
+                              fxLayoutGap="5px"
+                            >
+                              <ng-container [ngSwitch]="stateSnapshot.editOptions.columnsInfo[column.field].type">
+                                <ng-container *ngSwitchCase="'text'">
+                                  <ng-container *ngIf="columnInfo.cellContentFormatting === 'amount'">
+                                    <iras-amount-input
+                                      [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                                      [type]="getEditableInputType({ columnInfo: columnInfo })"
+                                      clearable="true"
+                                      class="data-grid-filter__input"
+                                      [pattern]="columnInfo.textTypeColumnConfig?.inputPattern"
+                                      [clearablePosition]="
+                                        columnInfo.cellContentFormatting === 'amount' ? 'start' : 'end'
+                                      "
+                                      [hasError]="
+                                        formGroupList[dataItem.rowUniqueId].controls[column.field].invalid &&
+                                        (formGroupList[dataItem.rowUniqueId].controls[column.field].dirty ||
+                                          formGroupList[dataItem.rowUniqueId].controls[column.field].touched)
+                                      "
+                                      [allowNegative]="columnInfo.allowNegative"
+                                    >
+                                    </iras-amount-input>
+                                  </ng-container>
+
+                                  <ng-container *ngIf="columnInfo.cellContentFormatting !== 'amount'">
+                                    <iras-input
+                                      [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                                      [type]="getEditableInputType({ columnInfo: columnInfo })"
+                                      clearable="true"
+                                      class="data-grid-filter__input"
+                                      [pattern]="columnInfo.textTypeColumnConfig?.inputPattern"
+                                      [clearablePosition]="
+                                        columnInfo.cellContentFormatting === 'amount' ? 'start' : 'end'
+                                      "
+                                      [hasError]="
+                                        formGroupList[dataItem.rowUniqueId].controls[column.field].invalid &&
+                                        (formGroupList[dataItem.rowUniqueId].controls[column.field].dirty ||
+                                          formGroupList[dataItem.rowUniqueId].controls[column.field].touched)
+                                      "
+                                    ></iras-input>
+                                  </ng-container>
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="'dropdown'">
+                                  <iras-dropdown
+                                    [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                                    class="data-grid-filter__dropdown"
+                                    [data]="stateSnapshot.editOptions.columnsInfo[column.field].dropdownParams.data"
+                                    [placeholder]="
+                                      stateSnapshot.editOptions.columnsInfo[column.field].dropdownParams.placeholder
+                                    "
+                                    [required]="
+                                      stateSnapshot.editOptions.columnsInfo[column.field].dropdownParams.required
+                                    "
+                                  >
+                                  </iras-dropdown>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'date'">
+                                  <iras-date-picker
+                                    [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                                    class="data-grid-filter__date-picker"
+                                    [placeholder]="
+                                      stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.placeholder
+                                    "
+                                    [maxDate]="
+                                      stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.maxDate
+                                    "
+                                    [minDate]="
+                                      stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.minDate
+                                    "
+                                    [required]="
+                                      stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.required
+                                    "
+                                    [hasError]="
+                                      formGroupList[dataItem.rowUniqueId].controls[column.field].invalid &&
+                                      (formGroupList[dataItem.rowUniqueId].controls[column.field].dirty ||
+                                        formGroupList[dataItem.rowUniqueId].controls[column.field].touched)
+                                    "
+                                  ></iras-date-picker>
+                                </ng-container>
+                              </ng-container>
+                              <ng-container
+                                *ngIf="
+                                  stateSnapshot.editOptions.columnsInfo[column.field]?.inputValidators &&
+                                  (formGroupList[dataItem.rowUniqueId]?.controls)[column.field].invalid &&
+                                  ((formGroupList[dataItem.rowUniqueId]?.controls)[column.field].dirty ||
+                                    (formGroupList[dataItem.rowUniqueId]?.controls)[column.field].touched)
+                                "
+                              >
+                                <iras-form-input-error [templateContentRef]="inputError">
+                                  <ng-template #inputError>
+                                    <div class="form-input__error">
+                                      <ng-container
+                                        *ngFor="
+                                          let validator of stateSnapshot.editOptions.columnsInfo[column.field]
+                                            ?.inputValidators
+                                        "
+                                      >
+                                        <ng-container
+                                          *ngIf="
+                                            formGroupList[dataItem.rowUniqueId].controls[column.field].errors[
+                                              validator.errorIdentifier
+                                            ]
+                                          "
+                                        >
+                                          {{ validator.errorMessage }}
+                                        </ng-container>
+                                      </ng-container>
+                                    </div>
+                                  </ng-template>
+                                </iras-form-input-error>
+                              </ng-container>
+                            </div>
+                          </ng-container>
+                        </ng-template>
+                      </kendo-grid-column>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'buttons'">
+                      <kendo-grid-command-column
+                        [headerClass]="{
+                          'data-grid__column-header': true,
+                          'data-grid__column-header--buttons': true
+                        }"
+                        [class]="{ 'data-grid__column-cell': true, 'data-grid__column-cell--buttons': true }"
+                        [headerStyle]="{ 'text-align': 'right' }"
+                        [width]="columnInfo.columnWidth"
+                        [locked]="columnInfo.locked"
+                        [hidden]="columnInfo.hidden"
+                        [resizable]="columnInfo.resizable"
+                        [reorderable]="columnInfo.reorderable"
+                      >
+                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                            <ng-container *ngFor="let button of columnInfo.buttonsTypeColumnConfig.buttons">
+                              <iras-custom-button
+                                class="data-grid__button"
+                                (buttonClicked)="onButtonClicked({ dataItem: dataItem, button: button })"
+                                [buttonText]="button.text ? button.text : button.getButtonText({ dataItem: dataItem })"
+                                [fill]="
+                                  button.fill ||
+                                  (button.getButtonFill && button.getButtonFill({ dataItem: dataItem })) ||
+                                  'outline'
+                                "
+                                [color]="
+                                  button.color ||
+                                  (button.getButtonColor && button.getButtonColor({ dataItem: dataItem })) ||
+                                  'primary'
+                                "
+                                [disabled]="
+                                  button.getButtonDisabled && button.getButtonDisabled({ dataItem: dataItem })
+                                "
+                              >
+                              </iras-custom-button>
+                            </ng-container>
+                          </div>
+                        </ng-template>
+                      </kendo-grid-command-column>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'entity-search'">
+                      <kendo-grid-column
+                        [headerClass]="{
+                          'data-grid__column-header': true,
+                          'data-grid__column-header--data': true
+                        }"
+                        [class]="{
+                          'data-grid__column-cell': true,
+                          'data-grid__column-cell--data': true
+                        }"
+                        [width]="columnInfo.columnWidth"
+                        [locked]="columnInfo.locked"
+                        [field]="columnInfo.columnKey"
+                        [title]="columnInfo.columnTitle"
+                        [hidden]="columnInfo.hidden"
+                        [editable]="columnInfo.editable"
+                        [resizable]="columnInfo.resizable"
+                        [reorderable]="columnInfo.reorderable"
+                        [autoSize]="columnInfo.autoSize"
+                        [sortable]="columnInfo.sortable"
+                        [filterable]="columnInfo.filterable"
+                      >
+                        <ng-template kendoGridHeaderTemplate let-column="column">
+                          <div fxLayout="row" [fxLayoutAlign]="'start center'" fxLayoutGap="5px">
+                            <div>
+                              {{ columnInfo.columnTitle }}
+                            </div>
+                            <div *ngIf="columnInfo.tooltip">
+                              <iras-tooltip
+                                class="header-tool-tip"
+                                (click)="onToolTipClick($event)"
+                                [tooltipContentText]="columnInfo.tooltip.content"
+                                [position]="columnInfo.tooltip.position"
+                              >
+                              </iras-tooltip>
+                            </div>
+                          </div>
+                        </ng-template>
+
+                        <ng-container *ngIf="columnInfo.filterable">
+                          <ng-template kendoGridFilterCellTemplate let-column="column">
+                            <div fxLayout="row" [fxLayoutAlign]="'center start'" fxLayoutGap="5px">
+                              <iras-data-grid-filter
+                                fxFlex="100"
+                                [data]="gridFiltersConfigMap[column.field]"
+                                [textField]="column.field"
+                                [valueField]="column.field"
+                                [filterType]="columnInfo.filterType"
+                                [filterDetails]="columnInfo.filterDetails"
+                                [activeFiltersToApply]="activeFiltersToApply"
+                                (gridFilterValChange)="gridFilterValChange($event)"
+                              >
+                              </iras-data-grid-filter>
+                            </div>
+                          </ng-template>
+                        </ng-container>
+
+                        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+                          <div fxLayout="row" [fxLayoutAlign]="'center start'" fxLayoutGap="5px">
+                            <div *ngIf="dataItem[column.field]" fxFlex="50">
+                              {{ dataItem[column.field] | uppercase | split: ',':0 }}
+                            </div>
+                            <div *ngIf="dataItem[column.field]" fxFlex="50">
+                              {{
+                                dataItem[column.field]
+                                  | split: ',':1
+                                  | idtypefinder
+                                    : stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions.idList
+                              }}
+                            </div>
+                          </div>
+                        </ng-template>
+
+                        <ng-template
+                          kendoGridEditTemplate
+                          let-dataItem="dataItem"
+                          let-column="column"
+                          let-formGroup="formGroup"
+                        >
+                          <ng-container
+                            *ngIf="formGroupList[dataItem.rowUniqueId] && formGroupList[dataItem.rowUniqueId].controls"
+                          >
+                            <div fxLayout="column" [fxLayoutAlign]="'center start'" fxLayoutGap="5px">
+                              <ng-container>
+                                <iras-entity-search
+                                  class="data-grid__entity-search"
+                                  [form]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                                  entityIdFormControlName="idInput"
+                                  entityTypeFormControlName="idType"
+                                  [entityTypeList]="
+                                    stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions.idList
+                                  "
+                                  entityIdFlex="50"
+                                  entityTypeFlex="50"
+                                  [showValidationError]="
+                                    stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions
+                                      .showValidationError
+                                  "
+                                  [isRequired]="
+                                    stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions
+                                      .showValidationError
+                                  "
+                                ></iras-entity-search>
+                              </ng-container>
+
+                              <ng-container
+                                *ngIf="
+                                  stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions
+                                    .showValidationError &&
+                                  (formGroup?.controls[column.field]?.get('idInput')?.errors ||
+                                    formGroup?.controls[column.field]?.get('idType')?.errors)
+                                "
+                              >
+                                <iras-form-input-error [templateContentRef]="inputError">
+                                  <ng-template #inputError>
+                                    <div class="form-input__error">
+                                      <ng-container
+                                        *ngIf="formGroup?.controls[column.field]?.get('idInput')?.errors?.required"
+                                      >
+                                        {{
+                                          stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions
+                                            ?.errorMessages?.idInput?.required
+                                        }}<br />
+                                      </ng-container>
+                                      <ng-container
+                                        *ngIf="formGroup?.controls[column.field]?.get('idType')?.errors?.required"
+                                      >
+                                        {{
+                                          stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions
+                                            ?.errorMessages?.idType?.required
+                                        }}
+                                        <br />
+                                      </ng-container>
+                                      <ng-container
+                                        *ngIf="
+                                          formGroup?.controls[column.field]?.get('idInput')?.errors?.entityTypeError
+                                        "
+                                      >
+                                        {{
+                                          stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions
+                                            ?.errorMessages?.idType?.entityTypeErrorMessage
+                                        }}
+                                        <br />
+                                      </ng-container>
+                                    </div>
+                                  </ng-template>
+                                </iras-form-input-error>
+                              </ng-container>
+                            </div>
+                          </ng-container>
+                        </ng-template>
+                      </kendo-grid-column>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </kendo-grid-column-group>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <ng-template #customKendoColumn let-columnInfo="columnInfo">
+      <ng-container [ngSwitch]="columnInfo.columnType">
+        <ng-container *ngSwitchCase="'menu'">
+          <kendo-grid-command-column
+            [width]="columnInfo.columnWidth"
+            [locked]="columnInfo.locked"
+            [title]="columnInfo.columnTitle"
+            [hidden]="columnInfo.hidden"
+            [headerClass]="{ 'data-grid__column-header': true, 'data-grid__column-header--menu': true }"
+            [class]="{ 'data-grid__column-cell': true, 'data-grid__column-cell--menu': true }"
+          >
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+              <span class="iras-icon iras-icon--hamburger-icon" #target></span>
+              <kendo-contextmenu [target]="target" #menu showOn="click">
+                <ng-template kendoContextMenuTemplate>
+                  <ng-container *ngFor="let menuItem of columnInfo.menuTypeColumnConfig.menuItems">
+                    <div class="iras-grid-context-menu" (click)="menuItem.onClick({ dataItem: dataItem }); menu.hide()">
+                      {{ menuItem.text }}
+                    </div>
+                  </ng-container>
+                </ng-template>
+              </kendo-contextmenu>
+            </ng-template>
+          </kendo-grid-command-column>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'row_selector'">
+          <kendo-grid-column
+            [headerClass]="{
+              'data-grid__column-header': true,
+              'data-grid__column-header--row-selector': true
+            }"
+            [class]="{ 'data-grid__column-cell': true, 'data-grid__column-cell--row-selector': true }"
+            [width]="columnInfo.columnWidth"
+            [locked]="columnInfo.locked"
+            [hidden]="columnInfo.hidden"
+            [title]="columnInfo.columnTitle"
+          >
+            <ng-template kendoGridHeaderTemplate let-column="column">
+              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                <div *ngIf="columnInfo.rowSelectorTypeColumnConfig.showSelectAll">
+                  <iras-checkbox
+                    (stateChanged)="toggleSelectAllOptionForRowSelector({ checkboxState: $event })"
+                    [options]="rowSelectorSelectAllOptionTracker"
+                  ></iras-checkbox>
+                </div>
+                <div>
+                  {{ columnInfo.columnTitle }}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+              <iras-checkbox
+                (stateChanged)="onRowSelectorColumnSelectionChange({ checkboxState: $event, rowItem: dataItem })"
+                [options]="rowSelectionTracker[dataItem.rowUniqueId]"
+              ></iras-checkbox>
+            </ng-template>
+          </kendo-grid-column>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'boolean'">
+          <kendo-grid-column
+            [headerClass]="{
+              'data-grid__column-header': true,
+              'data-grid__column-header--data': true
+            }"
+            [class]="{
+              'data-grid__column-cell': true,
+              'data-grid__column-cell--data': true
+            }"
+            [width]="columnInfo.columnWidth"
+            [locked]="columnInfo.locked"
+            [field]="columnInfo.columnKey"
+            [title]="columnInfo.columnTitle"
+            [hidden]="columnInfo.hidden"
+            [sortable]="false"
+            [editable]="false"
+            [resizable]="columnInfo.resizable"
+            [reorderable]="columnInfo.reorderable"
+            [groupable]="false"
+            [filterable]="false"
+            [autoSize]="false"
+          >
+            <ng-template kendoGridHeaderTemplate let-column="column">
+              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                <div *ngIf="columnInfo.booleanTypeColumnConfig.showSelectAll">
+                  <iras-checkbox
+                    (stateChanged)="
+                      toggleStateForBooleanSelectAllTracker({ columnKey: columnInfo.columnKey, checkboxState: $event })
+                    "
+                    [options]="booleanColumnsSelectAllTracker[columnInfo.columnKey]"
+                  ></iras-checkbox>
+                </div>
+                <div>
+                  {{ columnInfo.columnTitle }}
+                </div>
+                <div *ngIf="columnInfo.tooltip">
+                  <iras-tooltip
+                    class="header-tool-tip"
+                    (click)="onToolTipClick($event)"
+                    [tooltipContentText]="columnInfo.tooltip.content"
+                    [position]="columnInfo.tooltip.position"
+                  >
+                  </iras-tooltip>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-container [ngSwitch]="columnInfo.booleanTypeColumnConfig.displayType">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+                <div
+                  fxLayout="column"
+                  [fxLayoutAlign]="columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'"
+                  fxLayoutGap="5px"
+                >
+                  <ng-container *ngSwitchCase="'icon'">
+                    <span
+                      [ngClass]="{
+                        'data-grid__boolean-column-icon': true,
+                        'data-grid__boolean-column-icon--check': dataItem[column.field] === true,
+                        'data-grid__boolean-column-icon--cross': dataItem[column.field] === false
+                      }"
+                    >
+                      {{ dataItem[column.field] }}</span
+                    >
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'checkbox'">
+                    <iras-checkbox
+                      (stateChanged)="
+                        onBooleanColumnSelectionChange({
+                          columnKey: columnInfo.columnKey,
+                          checkboxState: $event,
+                          rowItem: dataItem
+                        })
+                      "
+                      [options]="booleanColumnsValuesTracker[columnInfo.columnKey][dataItem.rowUniqueId]"
+                    >
+                    </iras-checkbox>
+                  </ng-container>
+                </div>
+              </ng-template>
+            </ng-container>
+          </kendo-grid-column>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'text'">
+          <kendo-grid-column
+            [headerClass]="{
+              'data-grid__column-header': true,
+              'data-grid__column-header--data': true,
+              'data-grid__column-header--amount': columnInfo.cellContentFormatting === 'amount'
+            }"
+            [class]="{
+              'data-grid__column-cell': true,
+              'data-grid__column-cell--data': true,
+              'data-grid__column-cell--amount': columnInfo.cellContentFormatting === 'amount'
+            }"
+            [width]="columnInfo.columnWidth"
+            [locked]="columnInfo.locked"
+            [field]="columnInfo.columnKey"
+            [title]="columnInfo.columnTitle"
+            [hidden]="columnInfo.hidden"
+            [sortable]="columnInfo.sortable"
+            [editable]="columnInfo.editable"
+            [resizable]="columnInfo.resizable"
+            [reorderable]="columnInfo.reorderable"
+            [groupable]="columnInfo.groupable"
+            [filterable]="columnInfo.filterable"
+            [autoSize]="columnInfo.autoSize"
+          >
+            <ng-template kendoGridHeaderTemplate let-column="column">
+              <div
+                fxLayout="row"
+                [fxLayoutAlign]="columnInfo.cellContentFormatting === 'amount' ? 'end' : 'start' + ' center'"
+                fxLayoutGap="5px"
+              >
+                <div>
+                  {{ columnInfo.columnTitle }}
+                </div>
+                <div *ngIf="columnInfo.tooltip">
+                  <iras-tooltip
+                    class="header-tool-tip"
+                    (click)="onToolTipClick($event)"
+                    [tooltipContentText]="columnInfo.tooltip.content"
+                    [position]="columnInfo.tooltip.position"
+                  >
+                  </iras-tooltip>
+                </div>
+                <div *ngIf="column.sortable">
+                  <span
+                    aria-label="Sortable"
+                    *ngIf="sortTracker[column.field]?.dir === 'asc'"
+                    class="k-icon k-i-sort-asc-sm"
+                  ></span>
+                  <span
+                    aria-label="Sortable"
+                    *ngIf="sortTracker[column.field]?.dir === 'desc'"
+                    class="k-icon k-i-sort-desc-sm"
+                  ></span>
+                  <span
+                    aria-label="Sortable"
+                    *ngIf="!sortTracker[column.field]?.dir"
+                    class="k-icon iras-icon iras-icon--sortable-indicator-icon"
+                  ></span>
+                </div>
+              </div>
+            </ng-template>
+            <ng-container *ngIf="columnInfo.filterable">
+              <ng-template kendoGridFilterCellTemplate let-column="column">
+                <div
+                  fxLayout="row"
+                  [fxLayoutAlign]="columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'"
+                  fxLayoutGap="5px"
+                >
+                  <iras-data-grid-filter
+                    fxFlex="100"
+                    [data]="gridFiltersConfigMap[column.field]"
+                    [textField]="column.field"
+                    [valueField]="column.field"
+                    [filterType]="columnInfo.filterType"
+                    [filterDetails]="columnInfo.filterDetails"
+                    [inputPattern]="columnInfo.textTypeColumnConfig?.inputPattern"
+                    [activeFiltersToApply]="activeFiltersToApply"
+                    (gridFilterValChange)="gridFilterValChange($event)"
+                  >
+                  </iras-data-grid-filter>
+                </div>
+              </ng-template>
+            </ng-container>
+
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+              <div
+                fxLayout="column"
+                [fxLayoutAlign]="columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'"
+                fxLayoutGap="5px"
+                [class.data-grid__item-type-link]="
+                  columnInfo?.textTypeColumnConfig?.textStyle === 'link' ||
+                  columnInfo?.textTypeColumnConfig?.textStyle === 'multiLink'
+                "
+                (click)="onViewOnlyCellClick({ dataItem: dataItem, columnInfo: columnInfo })"
+              >
+                <ng-container>
+                  <span fxFlex="100">
+                    <ng-container *ngIf="columnInfo.cellContentFormatting === 'date'">
+                      {{ dataItem[column.field] | date: 'dd/MM/yyyy' }}
+                    </ng-container>
+                    <ng-container *ngIf="columnInfo.cellContentFormatting === 'amount'">
+                      {{ getAmount(dataItem[column.field]) }}
+                    </ng-container>
+                    <ng-container *ngIf="columnInfo.cellContentFormatting === 'text'">
+                      <ng-container [ngSwitch]="columnInfo?.textTypeColumnConfig?.textStyle">
+                        <div *ngSwitchCase="'multiLink'">
+                          <ng-container
+                            *ngTemplateOutlet="
+                              multiLinkTemplate;
+                              context: { columnInfo: columnInfo, dataItem: dataItem }
+                            "
+                          ></ng-container>
+                        </div>
+                        <div *ngSwitchDefault>
+                          {{ dataItem[column.field] }}
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </span>
+                </ng-container>
+              </div>
+            </ng-template>
+
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup">
+              <ng-container *ngIf="formGroupList[dataItem.rowUniqueId] && formGroupList[dataItem.rowUniqueId].controls">
+                <div
+                  fxLayout="column"
+                  [fxLayoutAlign]="columnInfo.cellContentFormatting === 'amount' ? 'center end' : 'center start'"
+                  fxLayoutGap="5px"
+                >
+                  <ng-container [ngSwitch]="stateSnapshot.editOptions.columnsInfo[column.field].type">
+                    <ng-container *ngSwitchCase="'text'">
+                      <ng-container *ngIf="columnInfo.cellContentFormatting === 'amount'">
+                        <iras-amount-input
+                          [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                          [type]="getEditableInputType({ columnInfo: columnInfo })"
+                          clearable="true"
+                          class="data-grid-filter__input"
+                          [pattern]="columnInfo.textTypeColumnConfig?.inputPattern"
+                          [clearablePosition]="columnInfo.cellContentFormatting === 'amount' ? 'start' : 'end'"
+                          [hasError]="
+                            formGroupList[dataItem.rowUniqueId].controls[column.field].invalid &&
+                            (formGroupList[dataItem.rowUniqueId].controls[column.field].dirty ||
+                              formGroupList[dataItem.rowUniqueId].controls[column.field].touched)
+                          "
+                          [allowNegative]="columnInfo.allowNegative"
+                        >
+                        </iras-amount-input>
+                      </ng-container>
+
+                      <ng-container *ngIf="columnInfo.cellContentFormatting !== 'amount'">
+                        <iras-input
+                          [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                          [type]="getEditableInputType({ columnInfo: columnInfo })"
+                          clearable="true"
+                          class="data-grid-filter__input"
+                          [pattern]="columnInfo.textTypeColumnConfig?.inputPattern"
+                          [clearablePosition]="columnInfo.cellContentFormatting === 'amount' ? 'start' : 'end'"
+                          [hasError]="
+                            formGroupList[dataItem.rowUniqueId].controls[column.field].invalid &&
+                            (formGroupList[dataItem.rowUniqueId].controls[column.field].dirty ||
+                              formGroupList[dataItem.rowUniqueId].controls[column.field].touched)
+                          "
+                        ></iras-input>
+                      </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'dropdown'">
+                      <iras-dropdown
+                        [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                        class="data-grid-filter__dropdown"
+                        [data]="stateSnapshot.editOptions.columnsInfo[column.field].dropdownParams.data"
+                        [placeholder]="stateSnapshot.editOptions.columnsInfo[column.field].dropdownParams.placeholder"
+                        [required]="stateSnapshot.editOptions.columnsInfo[column.field].dropdownParams.required"
+                      >
+                      </iras-dropdown>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'date'">
+                      <iras-date-picker
+                        [formControl]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                        class="data-grid-filter__date-picker"
+                        [placeholder]="stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.placeholder"
+                        [maxDate]="stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.maxDate"
+                        [minDate]="stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.minDate"
+                        [required]="stateSnapshot.editOptions.columnsInfo[column.field].datePickerParams.required"
+                        [hasError]="
+                          formGroupList[dataItem.rowUniqueId].controls[column.field].invalid &&
+                          (formGroupList[dataItem.rowUniqueId].controls[column.field].dirty ||
+                            formGroupList[dataItem.rowUniqueId].controls[column.field].touched)
+                        "
+                      ></iras-date-picker>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="
+                      stateSnapshot.editOptions.columnsInfo[column.field]?.inputValidators &&
+                      (formGroupList[dataItem.rowUniqueId]?.controls)[column.field].invalid &&
+                      ((formGroupList[dataItem.rowUniqueId]?.controls)[column.field].dirty ||
+                        (formGroupList[dataItem.rowUniqueId]?.controls)[column.field].touched)
+                    "
+                  >
+                    <iras-form-input-error [templateContentRef]="inputError">
+                      <ng-template #inputError>
+                        <div class="form-input__error">
+                          <ng-container
+                            *ngFor="
+                              let validator of stateSnapshot.editOptions.columnsInfo[column.field]?.inputValidators
+                            "
+                          >
+                            <ng-container
+                              *ngIf="
+                                formGroupList[dataItem.rowUniqueId].controls[column.field].errors[
+                                  validator.errorIdentifier
+                                ]
+                              "
+                            >
+                              {{ validator.errorMessage }}
+                            </ng-container>
+                          </ng-container>
+                        </div>
+                      </ng-template>
+                    </iras-form-input-error>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </ng-template>
+          </kendo-grid-column>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'buttons'">
+          <kendo-grid-command-column
+            [headerClass]="{
+              'data-grid__column-header': true,
+              'data-grid__column-header--buttons': true
+            }"
+            [class]="{ 'data-grid__column-cell': true, 'data-grid__column-cell--buttons': true }"
+            [headerStyle]="{ 'text-align': 'right' }"
+            [width]="columnInfo.columnWidth"
+            [locked]="columnInfo.locked"
+            [hidden]="columnInfo.hidden"
+            [resizable]="columnInfo.resizable"
+            [reorderable]="columnInfo.reorderable"
+          >
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                <ng-container *ngFor="let button of columnInfo.buttonsTypeColumnConfig.buttons">
+                  <iras-custom-button
+                    class="data-grid__button"
+                    (buttonClicked)="onButtonClicked({ dataItem: dataItem, button: button })"
+                    [buttonText]="button.text ? button.text : button.getButtonText({ dataItem: dataItem })"
+                    [fill]="
+                      button.fill || (button.getButtonFill && button.getButtonFill({ dataItem: dataItem })) || 'outline'
+                    "
+                    [color]="
+                      button.color ||
+                      (button.getButtonColor && button.getButtonColor({ dataItem: dataItem })) ||
+                      'primary'
+                    "
+                    [disabled]="button.getButtonDisabled && button.getButtonDisabled({ dataItem: dataItem })"
+                  >
+                  </iras-custom-button>
+                </ng-container>
+              </div>
+            </ng-template>
+          </kendo-grid-command-column>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'entity-search'">
+          <kendo-grid-column
+            [headerClass]="{
+              'data-grid__column-header': true,
+              'data-grid__column-header--data': true
+            }"
+            [class]="{
+              'data-grid__column-cell': true,
+              'data-grid__column-cell--data': true
+            }"
+            [width]="columnInfo.columnWidth"
+            [locked]="columnInfo.locked"
+            [field]="columnInfo.columnKey"
+            [title]="columnInfo.columnTitle"
+            [hidden]="columnInfo.hidden"
+            [editable]="columnInfo.editable"
+            [resizable]="columnInfo.resizable"
+            [reorderable]="columnInfo.reorderable"
+            [autoSize]="columnInfo.autoSize"
+            [sortable]="columnInfo.sortable"
+            [filterable]="columnInfo.filterable"
+          >
+            <ng-template kendoGridHeaderTemplate let-column="column">
+              <div fxLayout="row" [fxLayoutAlign]="'start center'" fxLayoutGap="5px">
+                <div>
+                  {{ columnInfo.columnTitle }}
+                </div>
+                <div *ngIf="columnInfo.tooltip">
+                  <iras-tooltip
+                    class="header-tool-tip"
+                    (click)="onToolTipClick($event)"
+                    [tooltipContentText]="columnInfo.tooltip.content"
+                    [position]="columnInfo.tooltip.position"
+                  >
+                  </iras-tooltip>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-container *ngIf="columnInfo.filterable">
+              <ng-template kendoGridFilterCellTemplate let-column="column">
+                <div fxLayout="row" [fxLayoutAlign]="'center start'" fxLayoutGap="5px">
+                  <iras-data-grid-filter
+                    fxFlex="100"
+                    [data]="gridFiltersConfigMap[column.field]"
+                    [textField]="column.field"
+                    [valueField]="column.field"
+                    [filterType]="columnInfo.filterType"
+                    [filterDetails]="columnInfo.filterDetails"
+                    [activeFiltersToApply]="activeFiltersToApply"
+                    (gridFilterValChange)="gridFilterValChange($event)"
+                  >
+                  </iras-data-grid-filter>
+                </div>
+              </ng-template>
+            </ng-container>
+
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-column="column">
+              <div fxLayout="row" [fxLayoutAlign]="'center start'" fxLayoutGap="5px">
+                <div *ngIf="dataItem[column.field]" fxFlex="50">
+                  {{ dataItem[column.field] | uppercase | split: ',':0 }}
+                </div>
+                <div *ngIf="dataItem[column.field]" fxFlex="50">
+                  {{
+                    dataItem[column.field]
+                      | split: ',':1
+                      | idtypefinder: stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions.idList
+                  }}
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup">
+              <ng-container *ngIf="formGroupList[dataItem.rowUniqueId] && formGroupList[dataItem.rowUniqueId].controls">
+                <div fxLayout="column" [fxLayoutAlign]="'center start'" fxLayoutGap="5px">
+                  <ng-container>
+                    <iras-entity-search
+                      class="data-grid__entity-search"
+                      [form]="formGroupList[dataItem.rowUniqueId].controls[column.field]"
+                      entityIdFormControlName="idInput"
+                      entityTypeFormControlName="idType"
+                      [entityTypeList]="
+                        stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions.idList
+                      "
+                      entityIdFlex="50"
+                      entityTypeFlex="50"
+                      [showValidationError]="
+                        stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions.showValidationError
+                      "
+                      [isRequired]="
+                        stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions.showValidationError
+                      "
+                    ></iras-entity-search>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="
+                      stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions.showValidationError &&
+                      (formGroup?.controls[column.field]?.get('idInput')?.errors ||
+                        formGroup?.controls[column.field]?.get('idType')?.errors)
+                    "
+                  >
+                    <iras-form-input-error [templateContentRef]="inputError">
+                      <ng-template #inputError>
+                        <div class="form-input__error">
+                          <ng-container *ngIf="formGroup?.controls[column.field]?.get('idInput')?.errors?.required">
+                            {{
+                              stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions?.errorMessages
+                                ?.idInput?.required
+                            }}<br />
+                          </ng-container>
+                          <ng-container *ngIf="formGroup?.controls[column.field]?.get('idType')?.errors?.required">
+                            {{
+                              stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions?.errorMessages
+                                ?.idType?.required
+                            }}
+                            <br />
+                          </ng-container>
+                          <ng-container
+                            *ngIf="formGroup?.controls[column.field]?.get('idInput')?.errors?.entityTypeError"
+                          >
+                            {{
+                              stateSnapshot.editOptions.columnsInfo[column.field].entityIdSearchOptions?.errorMessages
+                                ?.idType?.entityTypeErrorMessage
+                            }}
+                            <br />
+                          </ng-container>
+                        </div>
+                      </ng-template>
+                    </iras-form-input-error>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </ng-template>
+          </kendo-grid-column>
+        </ng-container>
+      </ng-container>
+    </ng-template>
+    <ng-template #multiLinkTemplate let-columnInfo="columnInfo" let-dataItem="dataItem">
+      <div
+        *ngFor="let link of getMultiLink(dataItem[columnInfo.columnKey]); trackBy: trackLinkFunction.bind(this, {dataItem:dataItem, columnKey: columnInfo.columnKey})"
+        (click)="
+          onMultiLinkClick({
+            dataItem: dataItem,
+            columnInfo: columnInfo,
+            clickedText: link,
+            event: $event
+          })
+        "
+      >
+        {{ link }}
+      </div>
+    </ng-template>
+    <kendo-grid-messages
+      pagerItems="Record(s)"
+      pagerItemsPerPage="records per page"
+      [noRecords]="stateSnapshot.customMessages?.noRecords"
+    ></kendo-grid-messages>
+    <ng-container *ngIf="stateSnapshot.bottomToolbarOptions">
+      <ng-template kendoGridToolbarTemplate [position]="'bottom'">
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+          <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div
+              class="data-grid__footer-toolbar-button"
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="3px"
+              *ngFor="let button of stateSnapshot.bottomToolbarOptions.buttons"
+              (click)="footerButtonOnClick(button.onClick)"
+            >
+              <span class="iras-icon" *ngIf="button.iconName" [ngClass]="'iras-icon--' + button.iconName"></span>
+              <span>
+                {{ button.text }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </kendo-grid>
+</div>

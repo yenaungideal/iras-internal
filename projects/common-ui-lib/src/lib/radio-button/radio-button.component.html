@@ -1,0 +1,30 @@
+<div
+  class="radio iras-radio-container"
+  [id]="radioGroupName"
+  [ngClass]="cssClass"
+  fxFlex="100"
+  [fxLayout]="layout === 'horizontal' ? 'row-wrap' : 'column'"
+  fxLayoutGap="16px"
+>
+  <div
+    class="iras-radio"
+    *ngFor="let option of options; let idx = index"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+    [ngClass]="'iras-radio--' + (option.buttonTheme || 'primary')"
+  >
+    <input
+      [name]="radioGroupName"
+      type="radio"
+      class="iras-radio__input"
+      [class.iras-radio__input--has-error]="hasError"
+      [checked]="option.selected"
+      [value]="option"
+      [(ngModel)]="value"
+      (ngModelChange)="onValueChange(option)"
+      [disabled]="option.disabled"
+    />
+    <div class="iras-radio__label" [innerHTML]="option.label"></div>
+  </div>
+</div>

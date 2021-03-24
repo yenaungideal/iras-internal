@@ -1,0 +1,23 @@
+<div
+  fxLayout="column"
+  class="error form-input-error"
+  [ngClass]="{ error__container: isPostSubmitError, cssClass: cssClass }"
+>
+  <div *ngIf="errorDescription" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start">
+    <span class="error__icon" fxFlex="20px"></span>
+    <div class="error__details-wrap">
+      <span class="error__title">{{ title }}</span>
+      <ng-container *ngIf="isArray(errorDescription); else singleError">
+        <ul class="error__multi-lines">
+          <li *ngFor="let error of errorDescription">
+            <span>{{ error }}</span>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #singleError>
+        <span> {{ errorDescription }} </span>
+      </ng-template>
+    </div>
+  </div>
+  <ng-template [cdkPortalOutlet]="templatePortal"></ng-template>
+</div>

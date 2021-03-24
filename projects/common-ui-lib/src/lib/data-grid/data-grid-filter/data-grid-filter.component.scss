@@ -1,0 +1,9 @@
+@import "../data-grid-styles/grid-editable-columns-styles.overrides.scss";
+
+.data-grid__filter-form {
+  width: 100%;
+}
+
+iras-date-picker.data-grid-filter__date-picker {
+  --date-picker-width: 95%;
+}

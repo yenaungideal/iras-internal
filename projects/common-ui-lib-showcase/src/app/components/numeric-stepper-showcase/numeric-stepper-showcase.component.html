@@ -1,0 +1,35 @@
+<form [formGroup]="numericStepperForm" fxFlex="100" fxLayout="row wrap">
+  <div class="form__input" fxLayout="column" fxFlex="100">
+    <iras-numeric-stepper
+      class="numeric-stepper-input"
+      formControlName="numericStepper"
+      type="text"
+      [hasError]="numericStepper.invalid && numericStepper.touched"
+      tooltipText="Numeric Stepper"
+      [disabled]="disabled"
+      showRequiredSymbol="true"
+      label="Numeric Stepper"
+    ></iras-numeric-stepper>
+
+    <iras-form-input-error *ngIf="numericStepper.invalid && numericStepper.touched" [templateContentRef]="inputError">
+      <ng-template #inputError>
+        <div class="form-input__error">
+          <div *ngIf="numericStepper.errors.required">
+            This is a required field
+          </div>
+        </div>
+      </ng-template>
+    </iras-form-input-error>
+
+    <div *ngIf="numericStepper">
+      valid: {{ numericStepper.valid }} <br />
+      dirty: {{ numericStepper.dirty }} <br />
+      touched: {{ numericStepper.touched }} <br />
+      required: {{ numericStepper.errors?.required }} <br />
+      value: {{ numericStepper.value | json }}
+    </div>
+    <div>
+      <iras-custom-button shape="round" buttonText="Disable" (buttonClicked)="disable()"> </iras-custom-button>
+    </div>
+  </div>
+</form>

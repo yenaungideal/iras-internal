@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../../common-ui-lib/src/assets/styles/main.scss";
+
+// Auto Saving Draft Spinner Modal Popup
+.auto-saving-draft-dialog-backdrop {
+  --background: rgba(255, 255, 255, 0.67);
+}
+
+// Modal Popup
+.modal-showcase-backdrop {
+  --background: rgba(0, 0, 0, 0.7);
+}
+
+// Overwrite iras-tooltip-hyperlink declaration
+.iras-tooltip-hyperlink {
+  color: black;
+  &:hover {
+    color: white;
+  }
+}

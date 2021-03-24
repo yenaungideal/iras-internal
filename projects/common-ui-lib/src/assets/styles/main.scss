@@ -1,0 +1,10 @@
+// Theming
+@import "./theming";
+@import "./base";
+
+// Overrides
+@import "./overrides";
+@import "./vendors/_kendo-ui";
+
+// Icons
+@import "./../icons/icons.scss";

@@ -1,0 +1,29 @@
+<div class="datetime-formatting-showcase" fxLayout="column">
+  <div fxLayout="row" fxLayoutGap="20px">
+    <div fxFlex="33">
+      Input
+    </div>
+    <div fxFlex="33">
+      Output - Date string
+    </div>
+    <div fxFlex="33">
+      Output - ISO
+    </div>
+  </div>
+  <div
+    fxLayout="row"
+    class="datetime-formatting-showcase__time-conversion-row"
+    fxLayoutGap="20px"
+    *ngFor="let item of isoStringConversionList"
+  >
+    <div fxFlex="33">
+      {{ item.input }}
+    </div>
+    <div fxFlex="33">
+      {{ item.dateString }}
+    </div>
+    <div fxFlex="33">
+      {{ item.iso }}
+    </div>
+  </div>
+</div>

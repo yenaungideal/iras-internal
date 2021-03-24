@@ -1,0 +1,63 @@
+.snack-bar-container {
+  background-color: var(--color-multi-tulip);
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.snack-bar-icon {
+  content: url("/assets/icons/tick.svg");
+  width: 24px;
+}
+
+.snack-bar-close {
+  content: url("/assets/icons/close.svg");
+  width: 13px;
+  height: 13px;
+  position: relative;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  &:hover {
+    content: url("/assets/icons/close-active.svg");
+    width: 16px;
+    height: 16px;
+    position: relative;
+    right: 9px;
+    top: 9px;
+  }
+}
+
+.snack-bar-close-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.snack-bar-header {
+  font-size: 18px;
+  font-weight: 650;
+  color: var(--dark);
+}
+
+.snack-bar-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--dark);
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.snack-bar-action-text {
+  text-transform: uppercase;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--primary);
+}
+
+.mat-snack-bar-container {
+  background: none;
+  box-shadow: none;
+}

@@ -1,0 +1,27 @@
+<div id="fab__dismiss" *ngIf="fabTogglerState === 'active'" (click)="onToggleFab()"></div>
+
+<div class="fab__container">
+  <div class="fab__toggler" (click)="onToggleFab()" [@fabToggler]="fabTogglerState">
+    <div class="fab__button-circle">
+      <div class="fab__button-text" *ngIf="fabTogglerState == 'inactive'">
+        <span>Go to</span>
+        <span class="fab__button-arrow-icon"></span>
+      </div>
+      <div class="fab__button-close" *ngIf="fabTogglerState == 'active'">
+        <span class="fab__button-close-icon"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="fabTogglerState == 'active'" [@openClose]="fabTogglerState">
+    <div class="card__title">
+      <span>{{ data.header }}</span>
+    </div>
+    <div class="card__content" *ngFor="let link of data?.links">
+      <span class="card__link-title">{{ link.title }}</span>
+      <div class="card__link-content-wrapper" *ngFor="let item of link?.items; index as i">
+        <span class="card__link-content" (click)="onLinkClicked(item, link.title)">{{ i + 1 }}. {{ item }}</span>
+      </div>
+    </div>
+  </div>
+</div>

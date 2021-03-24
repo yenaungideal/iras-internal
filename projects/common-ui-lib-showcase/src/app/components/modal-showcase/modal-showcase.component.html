@@ -1,0 +1,91 @@
+<div fxLayout="column">
+  <h3>Modal Popup</h3>
+
+  <div fxLayout="row">
+    <iras-custom-button
+      aria-label="Two Modals"
+      buttonText="Two Modals"
+      fill="solid"
+      shape="round"
+      color="primary"
+      (buttonClicked)="showModalWith('secondModal')"
+    ></iras-custom-button>
+    <iras-custom-button
+      aria-label="Grid"
+      buttonText="Grid"
+      fill="solid"
+      shape="round"
+      color="primary"
+      (buttonClicked)="showModalWith('grid')"
+    ></iras-custom-button>
+    <iras-custom-button
+      aria-label="Lots of html"
+      buttonText="Lots of html"
+      fill="solid"
+      shape="round"
+      color="primary"
+      (buttonClicked)="showModalWith('lotsOfHtml')"
+    ></iras-custom-button>
+  </div>
+
+  <ng-template #modalContentRef>
+    <div class="modal-content" fxLayout="column">
+      <div>
+        <iras-custom-button
+          aria-label="Close first modal"
+          buttonText="Close first modal"
+          fill="solid"
+          shape="round"
+          color="primary"
+          (buttonClicked)="closeFirstModal()"
+        ></iras-custom-button>
+        <iras-custom-button
+          aria-label="Call hide on modalService"
+          buttonText="Call hide on modalService"
+          fill="solid"
+          shape="round"
+          color="primary"
+          (buttonClicked)="callHide()"
+        ></iras-custom-button>
+      </div>
+      <div [ngSwitch]="typeOfContent">
+        <div *ngSwitchCase="'secondModal'">
+          <iras-custom-button
+            aria-label="Open Second modal"
+            buttonText="Open Second modal"
+            fill="solid"
+            shape="round"
+            color="primary"
+            (buttonClicked)="openSecondModal()"
+          ></iras-custom-button>
+        </div>
+        <div *ngSwitchCase="'grid'">
+          <app-data-grid-showcase class="grid-sample-container"> </app-data-grid-showcase>
+        </div>
+        <div *ngSwitchCase="'lotsOfHtml'" [innerHTML]="modalLargeHTML"></div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #secondModalRef>
+    <div class="modal-content">
+      I am the second modal with less amount of content.
+      <iras-custom-button
+        aria-label="Close second modal"
+        buttonText="Close second modal"
+        fill="solid"
+        shape="round"
+        color="primary"
+        (buttonClicked)="closeSecondModal()"
+      ></iras-custom-button>
+
+      <iras-custom-button
+        aria-label="Call hide on modalService"
+        buttonText="Call hide on modalService"
+        fill="solid"
+        shape="round"
+        color="primary"
+        (buttonClicked)="callHide()"
+      ></iras-custom-button>
+    </div>
+  </ng-template>
+</div>

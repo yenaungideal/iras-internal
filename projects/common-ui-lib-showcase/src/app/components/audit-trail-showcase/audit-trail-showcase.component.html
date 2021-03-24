@@ -1,0 +1,68 @@
+<form [formGroup]="auditTrailForm" fxFlex>
+  <div fxLayout="column">
+    <div fxLayout="row">
+      <h3>Editable Audit Trail</h3>
+    </div>
+    <div fxLayout="row" fxFlex="100">
+      <iras-audit-trail
+        [form]="auditTrailForm"
+        aria-label="AUDIT TRAIL"
+        auditTrailSourceFormControlName="formSource"
+        auditTrailReasonFormControlName="formReason"
+        [sourceDropdownData]="auditSource"
+        [reasonDropdownData]="auditReason"
+        [displayOnly]="false"
+        [source]=""
+        [reason]=""
+        [officerId]=""
+        [timestamp]=""
+        [required]="true"
+        [sourceHasError]="auditTrailForm.controls.formSource.errors?.required"
+        [reasonHasError]="auditTrailForm.controls.formReason.errors?.required"
+        [reasonErrorMsg]="requiredMsg"
+        [sourceErrorMsg]="requiredMsg"
+        fxFlex
+      >
+      </iras-audit-trail>
+    </div>
+    <div fxLayout="row" fxFlexOffset="20px">
+      <iras-custom-button
+        aria-label="CLEAR"
+        fxFlex="20"
+        buttonText="Clear"
+        fill="solid"
+        shape="round"
+        color="primary"
+        (buttonClicked)="clearForm()"
+      ></iras-custom-button>
+    </div>
+    <div fxLayout="row" fxFlexOffset="20px">
+      <iras-custom-button
+        aria-label="TRIGGER REQUIRED ERROR"
+        fxFlex="20"
+        buttonText="trigger Required Error"
+        fill="solid"
+        shape="round"
+        color="primary"
+        (buttonClicked)="triggerRequiredError()"
+      ></iras-custom-button>
+    </div>
+    <div fxLayout="row">
+      <h3>Display Only Audit Trail</h3>
+    </div>
+    <div fxLayout="row">
+      <iras-audit-trail
+        aria-label="AUDIT TRAIL"
+        [sourceDropdownData]="auditSource"
+        [reasonDropdownData]="auditReason"
+        [displayOnly]="true"
+        [source]="displaySource"
+        [reason]="displayReason"
+        [officerId]="officer"
+        [timestamp]="dateTime"
+        fxFlex
+      >
+      </iras-audit-trail>
+    </div>
+  </div>
+</form>

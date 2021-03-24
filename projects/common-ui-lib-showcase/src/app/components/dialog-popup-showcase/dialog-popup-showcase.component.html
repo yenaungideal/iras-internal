@@ -1,0 +1,93 @@
+<h2>Dialog Popups</h2>
+<div fxLayout="row wrap" fxLayoutGap="10px">
+  <iras-custom-button
+    aria-label="Open Dialog Popup 1"
+    class="home__iras-button"
+    buttonText="Open Dialog Popup 1"
+    (buttonClicked)="dialog1Opened = true"
+    fill="solid"
+    shape="round"
+    color="primary"
+  ></iras-custom-button>
+  <iras-custom-button
+    aria-label="Open Dialog Popup 2"
+    class="home__iras-button"
+    buttonText="Open Dialog Popup 2"
+    (buttonClicked)="dialog2Opened = true"
+    fill="solid"
+    shape="round"
+    color="primary"
+  ></iras-custom-button>
+  <iras-custom-button
+    aria-label="Open Dialog Popup 3"
+    class="home__iras-button"
+    buttonText="Open Dialog Popup 3"
+    (buttonClicked)="dialog3Opened = true"
+    fill="solid"
+    shape="round"
+    color="primary"
+  ></iras-custom-button>
+  <iras-custom-button
+    aria-label="Open Dialog Popup 4"
+    class="home__iras-button"
+    buttonText="Open Dialog Popup 4"
+    (buttonClicked)="dialog4Opened = true"
+    fill="solid"
+    shape="round"
+    color="primary"
+  ></iras-custom-button>
+  <iras-dialog-popup
+    aria-label="Dialog Popup"
+    class="custom-dialog-popup"
+    [title]="'Not Eligible for Remission'"
+    [description1]="'Invalid Transferee details. Hence no remission is granted.'"
+    [description2]="
+      'You may continue the transaction as per normal transfer with payable duty where it deems appropriate.'
+    "
+    [cancelActionText]="'Back'"
+    *ngIf="dialog1Opened"
+    (dialogClose)="dialog1Opened = false"
+    (dialogContinue)="onDialogContinue($event)"
+  >
+  </iras-dialog-popup>
+  <iras-dialog-popup
+    aria-label="Dialog Popup"
+    width="600px"
+    height="320px"
+    [title]="'Conflict of Intent of Purchase/ Transfer'"
+    [description1]="
+      'The transferee profile is deviated from the initial intent of Purchase/ Transfer. Hence no remission is granted.'
+    "
+    [description2]="
+      'You may continue the transaction as per normal transfer with payable duty where it deems appropriate.'
+    "
+    [cancelActionText]="'Close'"
+    [isOkAction]="false"
+    *ngIf="dialog2Opened"
+    (dialogClose)="dialog2Opened = false"
+  >
+  </iras-dialog-popup>
+  <iras-dialog-popup
+    aria-label="Dialog Popup"
+    [title]="'Remove Property/ Land'"
+    [description1]="'Are you sure you want to remove this entry? It cannot be undone.'"
+    [cancelActionText]="'No'"
+    [okActionText]="'Yes'"
+    [okActionStyle]="'btn btn-primary-invert'"
+    *ngIf="dialog3Opened"
+    (dialogClose)="dialog3Opened = false"
+    (dialogContinue)="onDialogContinue($event)"
+  >
+  </iras-dialog-popup>
+  <iras-dialog-popup
+    aria-label="Dialog Popup"
+    [title]="'No Record Found'"
+    [description1]="'Please refine your search result.'"
+    [isOkAction]="false"
+    [cancelActionText]="'Close'"
+    *ngIf="dialog4Opened"
+    (dialogClose)="dialog4Opened = false"
+    (dialogContinue)="onDialogContinue($event)"
+  >
+  </iras-dialog-popup>
+</div>

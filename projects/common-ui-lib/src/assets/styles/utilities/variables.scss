@@ -1,0 +1,28 @@
+// Sizes Specification
+$size-5: 5px !default;
+$size-10: 10px !default;
+$size-14: 14px !default;
+$size-16: 16px !default;
+$size-18: 18px !default;
+$size-20: 20px !default;
+$size-24: 24px !default;
+$size-30: 30px !default;
+
+// Font Weights Specification
+$font-weight-light: 300 !default;
+$font-weight-regular: 400 !default;
+$font-weight-bold: 600 !default;
+$font-weight-bolder: 700 !default;
+
+// App Extra Colors
+$color-wisp-pink: #FDEEF3;
+$color-teal: #32bdbc !default;
+$color-white: #fff !default;
+$color-black: #000 !default;
+$color-light-gray: #515151 !default;
+// Theme Specific
+$app-background-color: var(--light);
+$hover-border-color: rgba(33, 37, 41, 0.15);
+$focus-border-color: #333;
+$focus-shadow-color: 0 0 0 2px rgba(0, 0, 0, 0.06);
+$focus-primary-inverse-border-color: var(--primary-tint);

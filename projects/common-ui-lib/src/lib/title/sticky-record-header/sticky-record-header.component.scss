@@ -1,0 +1,22 @@
+@import "./../../../assets/styles/utilities/iras.globals";
+
+:host {
+  --padding: 20px 0;
+  --width: auto;
+  --text-align: center;
+}
+
+.record-header-wrapper {
+  width: var(--width);
+  max-height: 80px;
+  background-color: var(--secondary);
+  padding: var(--padding);
+  text-align: var(--text-align);
+
+  &__label {
+    font-family: "Source Sans Pro", Times, serif;
+    font-size: 18px;
+    color: var(--light);
+    font-weight: $font-weight-bold;
+  }
+}

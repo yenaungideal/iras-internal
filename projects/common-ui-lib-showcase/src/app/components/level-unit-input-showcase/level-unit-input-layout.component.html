@@ -1,0 +1,70 @@
+<div fxFlex="100" fxLayout="100" fxLayout="column">
+  <div fxLayout="column">
+    <div class="one-line-input-test">
+      <form [formGroup]="singleInputForm" fxLayout="column" (ngSubmit)="submit()">
+        <div class="form__input" fxLayout="column" [ngStyle]="{ 'margin-top': '20px' }">
+          <iras-level-unit-input
+            aria-label="Level Unit"
+            formControlName="levelUnit"
+            [hasError]="levelUnit.invalid && levelUnit.touched"
+            label="Level-Unit"
+            [disabled]="disabled"
+            [fieldName]="levelUnit"
+          ></iras-level-unit-input>
+
+          <iras-form-input-error
+            aria-label="Form Input Error"
+            *ngIf="levelUnit.invalid && levelUnit.touched"
+            [templateContentRef]="inputError1"
+          >
+            <ng-template #inputError1>
+              <div class="form-input__error">
+                <div *ngIf="levelUnit.errors.required">
+                  This is a required field
+                </div>
+                <div *ngIf="levelUnit.errors.invalidLevelUnit">
+                  {{ levelUnit.errors.invalidLevelUnit.message }}
+                </div>
+              </div>
+            </ng-template>
+          </iras-form-input-error>
+        </div>
+        {{ levelUnit.errors | json }}
+        invalid: {{ levelUnit.invalid }} dirty: {{ levelUnit.dirty }} && touched: {{ levelUnit.touched }} && required
+        {{ levelUnit?.errors?.required }}
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="20px" [style.margin-top]="'20px'">
+          <iras-custom-button
+            aria-label="Submit"
+            [disabled]="singleInputForm.invalid"
+            buttonText="Submit"
+            fill="solid"
+            shape="round"
+            color="primary"
+            (buttonClicked)="submit()"
+          ></iras-custom-button>
+          <iras-custom-button
+            aria-label="Patch Value"
+            buttonText="Patch value"
+            (buttonClicked)="patchValue()"
+          ></iras-custom-button>
+          <iras-custom-button
+            aria-label="Toggle error"
+            buttonText="Toggle error"
+            (buttonClicked)="toggle()"
+          ></iras-custom-button>
+          <iras-custom-button
+            aria-label="Disable"
+            buttonText="Disable"
+            (buttonClicked)="disable()"
+          ></iras-custom-button>
+          <iras-custom-button
+            aria-label="Reset Form"
+            buttonText="Reset Form"
+            (buttonClicked)="resetForm()"
+          ></iras-custom-button>
+        </div>
+        <div fxLayout="column" [ngStyle]="{ 'margin-top': '20px' }">Form Valid?: {{ singleInputForm.valid }}</div>
+      </form>
+    </div>
+  </div>
+</div>

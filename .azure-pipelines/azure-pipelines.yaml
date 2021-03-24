@@ -1,0 +1,20 @@
+trigger:
+  branches:
+    include:
+    - master
+    - releases/*
+    
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: iras-irin3-az-pipelines-template
+      ref: releases/v3.0 
+
+stages:
+- template: templates/build-commonlib-npm.yaml@templates
+  parameters:
+    npm:
+      libraryName: 'common-ui-lib'
+    sonarqubeSettings:
+      javascriptLcovReportPath: 'coverage/lcov.info' #Full path of your coverage file

@@ -1,0 +1,97 @@
+@import "../../assets/styles/utilities/iras.globals.scss";
+
+:host {
+  --font-weight: 400;
+}
+
+@mixin button-checkbox-variant($color, $background, $border) {
+  color: transparent;
+  background-color: var(--light);
+  border-color: var(--grey-tint);
+
+  &:disabled {
+    border-color: var(--grey-shade);
+    background: var(--grey-tint);
+  }
+
+  &:checked {
+    border-color: $border;
+    color: $color;
+    background-color: $background;
+  }
+
+  &:checked:disabled {
+    border-color: var(--grey-tint);
+    color: $color;
+    background-color: var(--grey-shade);
+  }
+
+  &:checked:focus {
+    border-color: $border;
+    box-shadow: none;
+  }
+
+  &:not(.iras-checkbox__input--has-error):focus {
+    border: 1px solid var(--grey-tint);
+    box-shadow: none;
+  }
+  &:not(:checked):not(.iras-checkbox__input--has-error):hover {
+    border: 2px solid var(--primary);
+    color: $background;
+  }
+}
+
+.iras-checkbox {
+  &__input {
+    border-radius: 0.25rem;
+    margin: 0;
+    padding: 0;
+    min-width: 20px;
+    min-height: 20px;
+    line-height: initial;
+    border-width: 1px;
+    border-style: solid;
+    outline: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    appearance: none;
+
+    &::before {
+      content: "\e118";
+      font-size: 16px;
+      font-family: WebComponentsIcons, monospace;
+      transform: scale(0) translate(-50%, -50%);
+      overflow: hidden;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:checked::before {
+      border-radius: 0.25rem;
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
+
+  &--primary &__input {
+    @include button-checkbox-variant(var(--light), var(--primary), var(--primary));
+  }
+
+  &--danger &__input {
+    @include button-checkbox-variant(var(--light), var(--danger), var(--danger));
+  }
+}
+
+.iras-checkbox__input.iras-checkbox__input--has-error {
+  border: 2px solid var(--danger);
+}
+
+.iras-checkbox__label {
+  font-weight: var(--font-weight);
+}

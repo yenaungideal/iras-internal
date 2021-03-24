@@ -1,0 +1,54 @@
+.snack-bar-container {
+  background-color: var(--color-multi-tulip-shade);
+  padding: 20px;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  width: 350px;
+}
+
+.snack-bar-icon {
+  content: url("/assets/icons/approved.svg");
+  width: 35px;
+}
+
+.snack-bar-close {
+  content: url("/assets/icons/close.svg");
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  &:hover {
+    content: url("/assets/icons/close-active.svg");
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 9px;
+    top: 9px;
+  }
+}
+
+.snack-bar-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.snack-bar-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--dark);
+  word-break: break-word;
+  white-space: normal;
+  width: 280px;
+}
+
+.snack-bar-action-text {
+  text-transform: uppercase;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--primary);
+}

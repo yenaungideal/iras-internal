@@ -1,0 +1,27 @@
+<div
+  class="checkbox iras-checkbox-container"
+  [ngClass]="cssClass"
+  fxFlex="100"
+  [fxLayout]="layout === 'horizontal' ? 'row-wrap' : 'column'"
+  fxLayoutGap="16px"
+>
+  <div
+    class="iras-checkbox"
+    *ngFor="let option of options; let idx = index"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+    [ngClass]="'iras-checkbox--' + (option.buttonTheme || 'primary')"
+  >
+    <input
+      type="checkbox"
+      [checked]="option.selected"
+      class="iras-checkbox__input"
+      [class.iras-checkbox__input--has-error]="hasError"
+      [(ngModel)]="option.selected"
+      [disabled]="option.disabled"
+      (change)="selectionChange()"
+    />
+    <div *ngIf="option.label" class="iras-checkbox__label" [innerHTML]="option.label"></div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
+}
+
+@mixin user-select($select) {
+  user-select: $select;
+}
+
+@mixin tab-focus() {
+  outline: none;
+  outline-offset: -2px;
+}
+
+@mixin box-shadow($shadow...) {
+  box-shadow: $shadow;
+}
+
+@mixin opacity($opacity) {
+  $opacity-ie: ($opacity * 100); // IE8 filter
+
+  filter: alpha(opacity=$opacity-ie);
+  opacity: $opacity;
+}
+
+@mixin font-size($size, $base: 16) {
+  font-size: #{$size}px;
+  font-size: #{$size/$base}rem;
+}
+
+@mixin text-inherit() {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-decoration: inherit;
+  text-indent: inherit;
+  text-overflow: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  white-space: inherit;
+  color: inherit;
+}
+
+// Add property horizontal
+// @param {string} $start
+// @param {string} $end
+// ----------------------------------------------------------
+@mixin property-horizontal($prop, $start, $end: $start) {
+  @if $start == 0 and $end == 0 {
+    #{$prop}-left: $start;
+    #{$prop}-right: $end;
+  } @else {
+    #{$prop}-left: $start;
+    #{$prop}-right: $end;
+
+    @at-root {
+      @supports ((margin-inline-start: 0) or (-webkit-margin-start: 0)) {
+        & {
+          #{$prop}-inline-start: $start;
+          #{$prop}-inline-end: $end;
+        }
+      }
+    }
+  }
+}
+
+@mixin property($prop, $top, $end: $top, $bottom: $top, $start: $end) {
+  @include property-horizontal($prop, $start, $end);
+
+  #{$prop}-top: $top;
+  #{$prop}-bottom: $bottom;
+}
+
+// Add padding horizontal
+// @param {string} $start
+// @param {string} $end
+// ----------------------------------------------------------
+@mixin padding-horizontal($start, $end: $start) {
+  @include property-horizontal(padding, $start, $end);
+}
+
+// Add padding for all directions
+// @param {string} $top
+// @param {string} $end
+// @param {string} $bottom
+// @param {string} $start
+// ----------------------------------------------------------
+@mixin padding($top, $end: $top, $bottom: $top, $start: $end) {
+  @include property(padding, $top, $end, $bottom, $start);
+}
+
+// Add margin horizontal
+// @param {string} $start
+// @param {string} $end
+// ----------------------------------------------------------
+@mixin margin-horizontal($start, $end: $start) {
+  @include property-horizontal(margin, $start, $end);
+}
+
+// Add margin for all directions
+// @param {string} $top
+// @param {string} $end
+// @param {string} $bottom
+// @param {string} $start
+// ----------------------------------------------------------
+@mixin margin($top, $end: $top, $bottom: $top, $start: $end) {
+  @include property(margin, $top, $end, $bottom, $start);
+}
+
+@mixin multi-dir() {
+  @content;
+}
+
+@mixin rtl() {
+  $root: #{&};
+
+  @at-root #{add-root-selector($root, "[dir=rtl]")} {
+    @content;
+  }
+}
+
+@mixin ltr() {
+  @content;
+}

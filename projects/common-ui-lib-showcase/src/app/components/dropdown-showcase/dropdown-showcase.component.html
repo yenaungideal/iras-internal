@@ -1,0 +1,72 @@
+<form [formGroup]="dropdownForm">
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <h2>Default Dropdown Showcase</h2>
+    </div>
+    <div fxFlex="40">
+      <div class="dropdown__form-input" fxFlex="100" fxLayout="column">
+        <div class="dropdown__form-input-label">
+          {{ dropdownLabel }}<iras-required-symbol></iras-required-symbol
+          ><iras-tooltip
+            aria-label="Tooltip"
+            [toolTipContent]="'<b>Note: </b> You must select an option<i>today is the last date</i>'"
+          ></iras-tooltip>
+        </div>
+        <iras-dropdown
+          aria-label="Nature of Transaction"
+          [data]="dropDownData"
+          [hasError]="transaction.invalid && (transaction.dirty || transaction.touched)"
+          [placeholder]="dropdownPlaceholder"
+          [disabled]="disabled"
+          (selectionChange)="onDropdownSelect($event)"
+          formControlName="transaction"
+        ></iras-dropdown>
+        <iras-form-input-error
+          aria-label="Form Input Error"
+          *ngIf="transaction.invalid && (transaction.dirty || transaction.touched)"
+          [templateContentRef]="inputError"
+        >
+          <ng-template #inputError>
+            <div class="form-input__error">
+              This is a required field.
+            </div>
+          </ng-template>
+        </iras-form-input-error>
+        <div [style.margin-top]="'20px'">
+          invalid : {{ transaction.invalid }} dirty: {{ transaction.dirty }} touched:
+          {{ transaction.touched }} required: {{ transaction?.errors?.required }} value:
+          {{ transaction.value | json }}
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="100" fxLayout="row" fxLayoutGap="20px" [style.margin-top]="'20px'">
+      <iras-custom-button
+        aria-label="Patch Value"
+        buttonText="Patch value"
+        (buttonClicked)="patchValue()"
+      ></iras-custom-button>
+      <iras-custom-button
+        aria-label="Toggle error"
+        buttonText="Toggle error"
+        (buttonClicked)="toggle()"
+      ></iras-custom-button>
+      <iras-custom-button aria-label="Disable" buttonText="Disable" (buttonClicked)="disable()"></iras-custom-button>
+      <iras-custom-button
+        aria-label="Reset Dropdown"
+        buttonText="Reset Dropdown"
+        (buttonClicked)="reset()"
+      ></iras-custom-button>
+      <iras-custom-button
+        aria-label="Reset Form"
+        buttonText="Reset Form"
+        (buttonClicked)="resetForm()"
+      ></iras-custom-button>
+      <iras-custom-button
+        aria-label="Change list"
+        buttonText="Change list"
+        (buttonClicked)="changeList()"
+      ></iras-custom-button>
+    </div>
+  </div>
+</form>

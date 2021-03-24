@@ -1,0 +1,62 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.non-modal-container.container-minimize {
+  width: 650px;
+}
+
+.non-modal-container.container-maximize {
+  width: 300px;
+}
+
+.non-modal-container .non-modal-title {
+  padding: 15px 20px 15px 20px;
+  background: rgba(238, 248, 254, 1);
+}
+
+.non-modal-container .non-modal__title-label {
+  font-weight: 650;
+  font-style: normal;
+  font-size: 16px;
+  color: var(--primary);
+}
+
+.non-modal-container .non-modal-content {
+  padding: 20px;
+}
+
+.non-modal-container .non-modal-icon {
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+}
+
+.non-modal-icon.icon-minimize {
+  content: url("/assets/icons/minimise_blue.svg");
+}
+
+.non-modal-icon.icon-minimize:hover {
+  content: url("/assets/icons/minimise_dark_blue.svg");
+}
+
+.non-modal-icon.icon-maximize {
+  content: url("/assets/icons/maximise_blue.svg");
+}
+
+.non-modal-icon.icon-maximize:hover {
+  content: url("/assets/icons/maximise_dark_blue.svg");
+}
+
+.non-modal-icon.icon-close {
+  content: url("/assets/icons/close.svg");
+}
+.non-modal-icon.icon-close:hover {
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+}

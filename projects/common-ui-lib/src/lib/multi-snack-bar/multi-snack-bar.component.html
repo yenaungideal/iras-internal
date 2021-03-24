@@ -1,0 +1,23 @@
+<div
+  fxLayout="column"
+  class="snack-bar-container"
+  [ngClass]="item?.type"
+  fxLayoutGap="20px"
+  *ngFor="let item of snackBarList; index as i"
+>
+  <div fxFlex="100%">
+    <div class="snack-bar-close-container">
+      <span class="snack-bar-close" (click)="closeSnackBar(i)"></span>
+    </div>
+    <div *ngIf="item.title" fxFLex="100" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+      <span class="snack-bar-icon" [ngClass]="item?.type + '-icon'"></span>
+      <span class="snack-bar-header">{{ item?.title }}</span>
+    </div>
+    <div fxFLex="100">
+      <div class="snack-bar-description" [innerHTML]="item.descriptionSanitizedHTML"></div>
+    </div>
+    <div *ngIf="item.actionText" fxFLex="100">
+      <span class="snack-bar-action-text" (click)="actionClick($event)">{{ item?.actionText }}</span>
+    </div>
+  </div>
+</div>

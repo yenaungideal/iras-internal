@@ -1,0 +1,28 @@
+<span class="modal__close-icon iras-icon iras-icon--close-svg" (click)="buttonClicked()"></span>
+<div class="modal__container">
+  <span class="modal__header">Modal Header</span>
+  <span class="modal__content"
+    >Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat velit atque quod ad qui officiis quo consectetur,
+    dolor doloremque sequi rem provident, explicabo suscipit rerum corporis dignissimos, veniam esse aliquid?</span
+  >
+
+  <div class="modal__buttons" fxLayout="row wrap" fxLayoutGap="10px">
+    <iras-custom-button
+      aria-label="Button Label"
+      (buttonClicked)="buttonClicked()"
+      buttonText="Button Label"
+      fill="negative"
+      shape="round"
+      color="grey"
+    ></iras-custom-button>
+
+    <iras-custom-button
+      aria-label="Button Label"
+      (buttonClicked)="buttonClicked()"
+      buttonText="Button Label"
+      fill="solid"
+      shape="round"
+      color="primary"
+    ></iras-custom-button>
+  </div>
+</div>

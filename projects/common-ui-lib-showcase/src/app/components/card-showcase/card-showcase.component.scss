@@ -1,0 +1,54 @@
+.card-item-1__title {
+  font-weight: 1000;
+}
+
+iras-card-container.card-item-1 {
+  --padding: 20px;
+}
+
+iras-card-container.card-item-2 {
+  --padding: 20px;
+  --border-left: 8px solid var(--primary);
+}
+
+iras-card-container.card-item-2--invalid {
+  --border-left: 8px solid var(--grey);
+}
+
+.card-item-2__title {
+  font-weight: 1000;
+}
+
+iras-card-container.card2 {
+  --card-width: 200px;
+}
+
+iras-card-container.custom-card1 {
+  --card-height: 100px;
+  --padding: 20px;
+}
+
+iras-card-container.custom-card2 {
+  --padding: 0;
+}
+
+.custom-card2-group-1 {
+  width: 300px;
+  height: 300px;
+  border-right: 1px solid var(--grey-tint);
+}
+
+iras-card-container.custom-card3 {
+  --card-height: 100px;
+  --padding: 20px;
+  --background: var(--color-multi-tulip);
+}
+
+.custom-card4__section{
+  height: 300px;
+  border-bottom: 1px solid var(--grey-tint);
+}
+
+.custom-card4{
+  --padding: 0px;
+}
